@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+		"-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="com.itbank.admin.AdminDAO">
+	
+	<!-- 로그인 -->
+	<select id="selectMember" parameterType="admin" resultType="admin">
+		select * from admin where ad_id =#{ad_id} and ad_pw = #{ad_pw}
+	</select>
+	
+	<!-- 비번 변경 -->
+	<select id="selectPassword" resultType="string" parameterType="string">
+		select ad_pw from admin where ad_pw=#{ad_pw}
+	</select>
+	
+	
+	<!-- 아이디 찾기 -->
+	<select id="selectId" parameterType="admin" resultType="string">
+		select ad_id from admin where 
+			ad_name = #{ad_name} and ad_pnum = #{ad_pnum} and ad_email = #{ad_email}
+	</select>
+	
+	<!-- 아이디 중복 검사 -->
+	<select id="selectOne" parameterType="String" resultType="int">
+		 select count(*) from admin WHERE ad_id = #{ad_id}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="insertMember" parameterType="admin">
+	insert into admin
+		(ad_id, ad_pw, ad_name, ad_pnum, ad_email, ad_account, ad_bank)
+	values
+		(
+			#{ad_id}, #{ad_pw}, #{ad_name}, #{ad_pnum},#{ad_email}, #{ad_account},
+			#{ad_bank}
+		)
+	</insert>
+	
+	<!-- 비밀번호 찾기 할 때 일치하는 계정 찾기 -->
+	<select id="selectPw" parameterType="admin" resultType="admin">
+		select * from admin where ad_id = #{ad_id} and ad_email = #{ad_email}
+	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="updateOne" parameterType="admin">
+		update admin set 
+			ad_name = #{ad_name},
+			ad_pnum = #{ad_pnum},
+			ad_email = #{ad_email}
+		 where ad_idx=#{ad_idx}
+	</update>
+
+	<!-- 비밀번호 재설정(변경) -->
+	<update id="updatePW" parameterType="admin">
+		update admin set ad_pw = #{ad_pw} where ad_id = #{ad_id}
+	</update>
+	
+	<!-- 회원 정보 변경 -->
+	<update id="updateMember" parameterType="admin">
+		update admin set 
+			ad_name = #{ad_name},
+			ad_pnum = #{ad_pnum},
+			ad_email = #{ad_email},
+			ad_account = #{ad_account},
+			ad_bank = #{ad_bank}
+		where ad_idx = #{ad_idx}
+	</update>
+</mapper>

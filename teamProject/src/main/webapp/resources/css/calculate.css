@@ -1,0 +1,28 @@
+/* 정산페이지 */
+.infoTable{
+	border: 2px solid gray;
+	border-collapse: collapse;
+	width: 500px;
+
+}
+th, td{
+	border: 2px solid gray;
+	padding: 5px;
+	text-align: center;
+}
+
+.calTable{
+	border: 2px solid gray;
+	border-collapse: collapse;
+	width: auto;
+}
+
+.prePaymentTable{
+	border: 2px solid gray;
+	border-collapse: collapse;
+	width: 500px;
+}
+
+th{
+	background-color: #f3f3f4;
+}

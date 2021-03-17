@@ -1,0 +1,62 @@
+@charset "utf-8";
+.popup {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 5;
+	transform: translate(-120%, 0%);
+	width: 800px;
+	height: 600px;
+	text-align: right;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	background: khaki;
+	border-radius: 5px;
+	box-sizing: border-box;
+	opacity: 0;
+	transition: all 0.5s; 
+}
+#close {
+	width: 800px;
+	border-bottom: 1px solid black;
+}
+#close > a {
+	color: gray;
+	text-decoration: none;
+	
+}
+.popup:target {
+	opacity: 1;
+}
+
+.popup:target+.dim {
+	opacity: 1;
+	z-index: 2;
+}
+.dim {
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.6);
+	opacity: 0;
+	transition: all 0.5s;
+}
+
+.popup > form > div {
+	width: 800px;
+	text-align: center;
+}
+.popup > #userid, #userpw, #newUserpw, #newUserpw2, #pwBtn {
+	margin-top: 30px;
+}
+.popup input {
+	width: 400px;
+	height: 30px;
+	background-color: lightcyan;
+}
+
+#newPw {
+	text-align: center;
+}

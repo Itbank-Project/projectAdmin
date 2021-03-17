@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		<bean id="dataSource" 
+		  class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		  destroy-method="close">
+		  
+		  <property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
+		  <property name="jdbcUrl" value="jdbc:oracle:thin:@182.212.181.172:1521:xe" />
+		  <property name="user" value="c##itbankTeam2" />
+		  <property name="password" value="ghkdlxld" />
+		  <property name="maxPoolSize" value="100" />
+		  <property name="maxIdleTime" value="600" />
+		  <property name="idleConnectionTestPeriod" value="300" />
+	</bean>
+	
+	<!-- mybatis의 설정파일을 xml형식으로 불러오며, DB에 접근하기 위한 dataSource는 위에서 만든 객체를 참조한다 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:config/mybatis-config.xml" />
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:config/sqlmap-member.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 
+		위에서 만든 설정을 담고 있는 객체  sqlSessionFactory를 생성자 매개변수로 넣어서 만든 sqlSessionTemplate
+		기존의 jdbcTemplate을 대체한다	
+	-->
+	<bean id="sqlSessionTemplate"
+		  class="org.mybatis.spring.SqlSessionTemplate"
+		  destroy-method="clearCache">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+	
+	<context:component-scan base-package="com.itbank.service" />
+	
+	<!-- 인터페이스를 찾아서 DAO로 처리한다. 메서드의 이름이 mapper파일의 id가 된다. -->
+	<mybatis-spring:scan base-package="com.itbank.admin"/>
+	
+</beans>
