@@ -57,6 +57,7 @@
 			</div>
 			<!-- end main-content -->
 			<br> <br>
+			<div class="main-content">
 			<div class="main-reservation">
 				<h3>
 					예약 목록
@@ -95,6 +96,7 @@
 						</tr>
 					</c:forEach>
 				</table>
+			</div>
 			</div>
 		</div>
 		<!-- end main-container -->
