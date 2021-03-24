@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+#hotel {
+	width: 60px;
+	height: 30px;
+	color: white;
+	background-color: brown;
+	border-radius: 10px;
+	border: 0;
+	outline: 0;
+}
+
+table, th, td {
+	border: 1px solid #e7eaec;
+	border-spacing: 0px 0px;
+}
+
+th, td {
+	height: 35px;
+	text-align: center;
+}
+
+th {
+	background-color: #F2F2F2;
+}
+
+#save {
+	background-color: #e74c3c;
+	border: none;
+    color: white;
+    font-weight: bold;
+    font-size:15px;
+	padding: 16px 32px;
+	text-decoration: none;
+	margin: 4px 2px;
+	cursor: pointer;
+	width: 659px;
+}
+
+#save:hover {
+	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0
+		rgba(0, 0, 0, 0.19);
+}
+
+#saveRoom {
+	background-color: #fab1a0;
+	border: none;
+    color: #2d3436;
+    font-weight: bold;
+    font-size:15px;
+	padding: 16px 32px;
+	text-decoration: none;
+	margin: 4px 2px;
+	cursor: pointer;
+	width: 659px;
+}
+
+#saveRoom:hover {
+	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0
+		rgba(0, 0, 0, 0.19);
+}
+
+label {
+	text-align: center;
+	margin: 5px;
+}
+
+#img-bundle {
+	display: flex;
+}
+
+#img-bundle > div {
+	margin: 10px;
+	text-align: center;
+	font-size: 12px;
+}
+
+.main-container {
+	display: block;
+	width: 100%;
+}
+
+.main-content {
+	width: 659px;
+	margin: 0 auto;
+	justify-content: center;
+	align-items: center;
+	
+}

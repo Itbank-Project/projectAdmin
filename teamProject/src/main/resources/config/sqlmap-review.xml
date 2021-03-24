@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+		"-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="com.itbank.review.ReviewDAO">
+	
+	<!-- 리뷰목록 -->
+	<select id="selectReviewList" resultType="review" parameterType="string">
+		select review.*
+		from review
+		    left outer join reservation on reservation.re_idx = review.review_re_idx
+		    left outer join room on room.ro_idx = reservation.re_ro_idx
+		    left outer join hotel on hotel.ho_name = room.ro_ho_name
+		    left outer join admin on admin.ad_id = hotel.ho_ad_id
+    	where admin.ad_id = #{ad_id}
+	</select>
+
+	<!-- 리뷰전체 갯수 -->
+	<select id="selectCountAll" resultType="int" parameterType="string">
+		select count(*) 
+		from review
+		    left outer join reservation on reservation.re_idx = review.review_re_idx
+		    left outer join room on room.ro_idx = reservation.re_ro_idx
+		    left outer join hotel on hotel.ho_name = room.ro_ho_name
+		    left outer join admin on admin.ad_id = hotel.ho_ad_id
+    	where admin.ad_id = #{ad_id}
+	</select>
+	
+	<!-- 리뷰 만족 갯수 -->
+	<select id="selectGoodCount" resultType="int" parameterType="string">
+		select count(*) 
+		from review
+		    left outer join reservation on reservation.re_idx = review.review_re_idx
+		    left outer join room on room.ro_idx = reservation.re_ro_idx
+		    left outer join hotel on hotel.ho_name = room.ro_ho_name
+		    left outer join admin on admin.ad_id = hotel.ho_ad_id
+    	where admin.ad_id = #{ad_id} and review.review_goodorbad = '만족'
+	</select>
+</mapper>

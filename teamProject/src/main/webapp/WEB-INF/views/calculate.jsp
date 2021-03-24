@@ -81,9 +81,9 @@
 						</tr>
 						<tr>
 							<td>주별</td>
-							<td>123-1234-1234-12</td>
-							<td>BANK</td>
-							<td>홍길동</td>
+							<td>${dto.ad_account }</td>
+							<td>${dto.ad_bank }</td>
+							<td>${dto.ad_name }</td>
 						</tr>
 					</table>
 				</div>
@@ -126,8 +126,6 @@
 							<th>총입금액</th>
 							<th>예약</th>
 							<th>취소</th>
-							<th>업주부담 쿠폰금액</th>
-							<th>금액조정</th>
 							<th>정산금액</th>
 							<th>입금일자</th>
 							<th>메모</th>
@@ -142,29 +140,15 @@
 							<td>108,000원</td>
 							<td>1</td>
 							<td>0</td>
-							<td>0원</td>
-							<td>0원</td>
 							<td>108,000원</td>
-							<td>2021-01-07 00:00:00</td>
+							<td>2021-01-07</td>
 							<td>2020. 12. 28~20 21. 1. 3 체크인, 주정산</td>
 							<td>-</td>
 						</tr>
 					</table>
 				</div>
 
-				<div>
-					<h4>■ 하드블럭 선결제 내역</h4>
-					<table class="prePaymentTable">
-						<tr>
-							<th>정산금액</th>
-							<th>입금일자</th>
-							<th>메모</th>
-						</tr>
-						<tr>
-							<td colspan="3">하드블럭 선입금 정산 내역이 없습니다</td>
-						</tr>
-					</table>
-				</div>
+				
 			</div>
 			<!-- end main-content -->
 		</div>

@@ -21,6 +21,15 @@
 		  <property name="idleConnectionTestPeriod" value="300" />
 	</bean>
 	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10485760"/>
+		<property name="maxInMemorySize" value="10485760"/>
+		<property name="defaultEncoding" value="utf-8"/>	
+	</bean>
+
+	
 	<!-- mybatis의 설정파일을 xml형식으로 불러오며, DB에 접근하기 위한 dataSource는 위에서 만든 객체를 참조한다 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -28,6 +37,11 @@
 		<property name="mapperLocations">
 			<list>
 				<value>classpath:config/sqlmap-member.xml</value>
+				<value>classpath:config/sqlmap-hotel.xml</value>
+				<value>classpath:config/sqlmap-room.xml</value>
+				<value>classpath:config/sqlmap-review.xml</value>
+				<value>classpath:config/sqlmap-reservation.xml</value>
+				<value>classpath:config/sqlmap-reply.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -46,5 +60,9 @@
 	
 	<!-- 인터페이스를 찾아서 DAO로 처리한다. 메서드의 이름이 mapper파일의 id가 된다. -->
 	<mybatis-spring:scan base-package="com.itbank.admin"/>
-	
+	<mybatis-spring:scan base-package="com.itbank.hotel"/>
+	<mybatis-spring:scan base-package="com.itbank.room"/>
+	<mybatis-spring:scan base-package="com.itbank.review"/>
+	<mybatis-spring:scan base-package="com.itbank.reply"/>
+	<mybatis-spring:scan base-package="com.itbank.reservation"/>
 </beans>

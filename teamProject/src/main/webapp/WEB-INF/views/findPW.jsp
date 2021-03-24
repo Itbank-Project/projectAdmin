@@ -81,7 +81,7 @@
 		            <div><input class="input" type="text" name="ad_id" required></div>
 		            
 		            <div>이메일</div>
-		            <div><input class="input" type="email" name="ad_mail" required></div>
+		            <div><input class="input" type="email" name="ad_email" required></div>
 		
 		            <div><input class="submit" type="submit" value="인증번호 받기"></div>
 		        </div>

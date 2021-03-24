@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- 
+<%@ include file="header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +45,7 @@
             <div><input class="input" type="text" name="ad_pnum" value="${login.ad_pnum }"></div>
             
             <div>이메일</div>
-            <div><input class="input" type="text" name="ad_mail" value="${login.ad_mail }"></div>
+            <div><input class="input" type="text" name="ad_email" value="${login.ad_email }"></div>
 
             <div>계좌번호</div>
             <div><input class="input" type="text" name="ad_account" value="${login.ad_account }"></div>
@@ -59,7 +59,7 @@
     </div>
 
 <script type="text/javascript">
-	const cpath = '${pageContext.request.contextPath }';
+	
 	const modifyForm = document.getElementById('modifyForm');
 	
 	const modifySubmit = function(event){

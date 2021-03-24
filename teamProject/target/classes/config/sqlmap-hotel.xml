@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+		"-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="com.itbank.hotel.HotelDAO">
+	
+	
+	<!-- 호텔 정보 입력 -->
+	<insert id="insertHotel" parameterType="hotel">
+	insert into hotel
+		(ho_name, ho_pnum, ho_address, ho_check_in, ho_check_out, ho_description, ho_uploadfile,
+		 ho_ad_id, ho_parking, ho_wifi, ho_pc, ho_breakfast, ho_smoke, ho_pool)
+	values
+		(
+			#{ho_name}, #{ho_pnum}, #{ho_address}, #{ho_check_in}, #{ho_check_out}, #{ho_description}, #{ho_uploadfile},
+			#{ho_ad_id}, #{ho_parking}, #{ho_wifi}, #{ho_pc}, #{ho_breakfast}, #{ho_smoke}, #{ho_pool}
+		)
+	</insert>
+	
+	<!-- 호텔 정보  -->
+	<select id="selectHotel" resultType="hotel" parameterType="String" >
+	      select hotel.* from hotel where ho_ad_id=#{ad_id}
+	</select>
+	
+	<!--  호텔정보 수정 -->
+	<update id="modifiHotel" parameterType="hotel">
+		update hotel set 
+			ho_name = #{ho_name},
+			ho_pnum = #{ho_pnum},
+			ho_address = #{ho_address},
+			ho_check_in = #{ho_check_in},
+			ho_check_out = #{ho_check_out},
+			ho_description = #{ho_description},
+			ho_uploadfile = #{ho_uploadfile},
+			ho_parking = #{ho_parking},
+			ho_wifi = #{ho_wifi},
+			ho_pc = #{ho_pc},
+			ho_breakfast = #{ho_breakfast},
+			ho_smoke = #{ho_smoke},
+			ho_pool = #{ho_pool}
+		 where ho_ad_id = #{ho_ad_id}
+	</update>
+</mapper>

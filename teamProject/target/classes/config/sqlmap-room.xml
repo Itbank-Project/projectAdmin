@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+		"-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="com.itbank.room.RoomDAO">
+	
+	<!-- 룸 정보 입력 -->
+	<insert id="insertRoom" parameterType="room">
+	insert into room
+		(ro_limitperson, ro_price, ro_count, ro_badtype, ro_description, ro_uploadfile, ro_ho_name, ro_roomtype)
+	values
+		(
+			#{ro_limitperson}, #{ro_price}, #{ro_count}, #{ro_badtype}, #{ro_description}, #{ro_uploadfile}, #{ro_ho_name}, #{ro_roomtype}
+		)
+	</insert>
+
+</mapper>

@@ -1,0 +1,71 @@
+@charset "UTF-8";
+
+body {
+	font: 16px "나눔고딕", "Nanum Gothic", "sans-serif";
+	color: #333;
+}
+
+#hotel {
+	width: 60px;
+	height: 30px;
+	color: white;
+	background-color: brown;
+	border-radius: 10px;
+	border: 0;
+	outline: 0;
+}
+
+table, th, td {
+	border: 1px solid #e7eaec;
+	border-spacing: 0px 0px;
+}
+
+th, td {
+	height: 35px;
+	text-align: center;
+}
+
+th {
+	background-color: #F2F2F2;
+}
+
+label {
+	text-align: center;
+	margin: 5px;
+}
+
+#img-bundle {
+	display: flex;
+}
+
+#img-bundle>div {
+	margin: 10px;
+	text-align: center;
+	font-size: 12px;
+}
+
+.ho_check {
+	width: 99%;
+}
+
+input[type="submit"]{
+	background-color: #e74c3c;
+	border: none;
+    color: white;
+    font-weight: bold;
+    font-size:15px;
+	padding: 16px 32px;
+	text-decoration: none;
+	margin: 4px 2px;
+	cursor: pointer;
+	width: 659px;
+}
+
+input[type="submit"]:hover {
+	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0
+		rgba(0, 0, 0, 0.19);
+}
+
+.inputHotelInfo {
+	align-items: center;
+}

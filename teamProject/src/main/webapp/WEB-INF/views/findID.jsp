@@ -72,7 +72,7 @@
 		            <div><input class="input" type="text" name="ad_pnum" required></div>
 		            
 		            <div>이메일</div>
-		            <div><input class="input" type="text" name="ad_mail" required></div>
+		            <div><input class="input" type="text" name="ad_email" required></div>
 		
 		            <div><input id="findId_btn" type="button" value="아이디 찾기"></div>
 		        </div>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+		"-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="com.itbank.reply.ReplyDAO">
+
+	<insert id="insertReply" parameterType="reply">
+		insert into reply (reply_opinion, reply_ho_name, reply_review_idx)
+			values (#{reply_opinion}, #{reply_ho_name}, #{reply_review_idx})
+	</insert>
+	
+</mapper>
+
+

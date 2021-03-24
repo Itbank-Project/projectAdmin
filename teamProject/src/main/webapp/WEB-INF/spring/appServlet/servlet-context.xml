@@ -15,6 +15,7 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/css/**" location="/resources/css/" />
+	<resources mapping="/uploadFile/**" location="file:D:/upload/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -31,11 +32,12 @@
 			<exclude-mapping path="/logout"/>
 			<exclude-mapping path="/findID" />
 			<exclude-mapping path="/findPW" />
-         	<exclude-mapping path="/**/*.css"/>
-            <exclude-mapping path="/**/*.js"/>
-          	<exclude-mapping path="/**/*.jpg"/>
-          	<exclude-mapping path="/changePW"/>
-          	<exclude-mapping path="/join" />
+         		<exclude-mapping path="/**/*.css"/>
+           		<exclude-mapping path="/**/*.js"/>
+          		<exclude-mapping path="/**/*.jpg"/>
+			<exclude-mapping path="/**/*.png"/>
+          		<exclude-mapping path="/changePW"/>
+          		<exclude-mapping path="/join" />
 			<exclude-mapping path="/join/**" />
 			<exclude-mapping path="/mailto" />
 			<exclude-mapping path="/mailto/**" />
