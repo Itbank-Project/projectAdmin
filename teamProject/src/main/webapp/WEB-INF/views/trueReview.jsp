@@ -7,6 +7,56 @@
 	<c:set var="allPer" value="${100/countAll }"></c:set>
 	<c:set var="goodPer" value="${allPer * goodCount }"></c:set>
 </c:if>
+
+<style>
+	.reply_modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.reply_modal_overlay {
+		background-color: rgba(0, 0, 0, 0.6);
+		width: 100%;
+		height: 100%;
+		position: absolute;
+	}
+	
+	.reply_modal_content {
+		background-color: white;
+		text-align: center;
+		position: relative;
+		min-width: 300px;
+		width: 50%;
+		max-width: 400px;
+		z-index: 1;
+		border-radius: 40px;
+	}
+	.hidden {
+		display: none;
+	}
+	#replyOK{
+		background-color: #fab1a0;
+		border: none;
+	    color: #2d3436;
+	    font-weight: bold;
+	    font-size:15px;
+		text-decoration: none;
+		cursor: pointer;
+		width: 100px;
+		height: 40px;
+	}
+	#replyOK:hover {
+		box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0
+			rgba(0, 0, 0, 0.19);
+	}
+</style>
+
 <main>
 	<div class="main-inner">
 		<div class="main-container">
@@ -67,7 +117,7 @@
 						<c:forEach var="review" items="${list }">
 						<input type="hidden" value="${review.review_idx }">
 							<tr>
-								<td style="width: 150px; "><fmt:formatDate value="${review.review_credate }" pattern="yyyy년 MM월 dd일"/></td>
+								<td style="width: 180px; "><fmt:formatDate value="${review.review_credate }" pattern="yyyy년 MM월 dd일"/></td>
 								<td id="id${review.review_idx }">${review.review_cu_id }</td>
 								<td>${review.review_goodORbad }</td>
 								<td style="width: 180px;">
@@ -76,7 +126,7 @@
 									</c:forEach>
 								</td>
 								<td id="opinion${review.review_idx }">${review.review_opinion }</td>
-								<td><button class="replyBtn">답글 달기</button></td>
+								<td><button id="replyOK" class="replyBtn">답글 달기</button></td>
 							</tr>
 						</c:forEach>
 					</table>
