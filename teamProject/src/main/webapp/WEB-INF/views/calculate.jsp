@@ -68,33 +68,6 @@
 						</tr>
 					</table>
 				</div>
-				<br>
-				<div id="daySelect">
-					<span id="yearSelect"> 
-						<select>
-							<option>2021년</option>
-						</select>
-					</span> 
-					<span id="monthSelect"> 
-					<select>
-							<option>1월</option>
-							<option>2월</option>
-							<option>3월</option>
-							<option>4월</option>
-							<option>5월</option>
-							<option>6월</option>
-							<option>7월</option>
-							<option>8월</option>
-							<option>9월</option>
-							<option>10월</option>
-							<option>11월</option>
-							<option>12월</option>
-					</select>
-					</span> 
-					<span>
-						<button id="searchBtn">검색</button>
-					</span>
-				</div>
 				
 				<div>
 					<div style="width: 1000px; display: flex; justify-content: space-between;">
@@ -149,6 +122,7 @@
 							<td>2020. 12. 28~20 21. 1. 3 체크인, 주정산</td>
 						</tr>
 					</table>
+				</div>
 
 				
 			</div>
