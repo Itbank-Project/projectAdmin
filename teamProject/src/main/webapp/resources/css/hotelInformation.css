@@ -75,6 +75,13 @@ label {
 	font-size: 12px;
 }
 
+main { 
+	width: 100%; 
+	display: flex; 
+	background-color: #f3f3f4; 
+	height: 100vh; 
+}
+
 .main-container {
 	display: block;
 	width: 100%;
@@ -86,4 +93,15 @@ label {
 	justify-content: center;
 	align-items: center;
 	
+}
+
+.main-content-head { 
+	background-color: white; 
+	padding: 0px 0px 1px 20px; 
+	border-top: 4px solid #dadada; 
+	margin-bottom: 5px;
+}
+
+.info-btn {
+	margin-top: 10px;
 }
