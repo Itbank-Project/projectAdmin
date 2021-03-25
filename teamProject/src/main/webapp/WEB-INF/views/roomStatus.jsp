@@ -31,6 +31,7 @@
 		        </span>
 		      <span id="checkbtn">  
 		          <button id="room">객실수정</button>
+			  <button id="okay">확인</button>
 		      </span>
 		      </div>
 		      
