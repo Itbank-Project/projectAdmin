@@ -2,8 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="header.jsp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<style>
+	table, th, td {
+		border: 1px solid #e7eaec;
+		border-spacing: 0px 0px;
+	}
+	th {
+		background-color: #F2F2F2;
+	}
+</style>
+
 <main>
 	<div class="main-inner">
 		<div class="main-container">
@@ -12,26 +22,18 @@
 			</div>
 			<div class="main-content">
 				<div>
-					<h3>정산/입금 확인법</h3>
+					<h3>■ 정산/입금 확인법</h3>
 					<ul>
 						<li><p>• 주별입금 : 월요일부터 일요일까지 체크아웃건</p></li>
-						<li><p>• 월별입금 : 1일부터 말일까지 체크아웃건</p></li>
-						<li><p>• 입금 방식에 따라 날짜 및 구분방식 선택 후 조회하시면 해당 입금내역을 확인/다운로드
-								하실 수 있습니다.</p></li>
+						<li><p>• 입금 방식에 따라 날짜 및 구분방식 선택 후 조회하시면 해당 입금내역을 확인/다운로드 하실 수 있습니다.</p></li>
 					</ul>
 					<form method="POST">
 						<span><input type="date" name="startDate"></span>
 						<span>to</span>
 						<span><input type="date" name="endDate"></span>
-						<span><select name="" id="">
+						<span><select name="" id="" style="height: 24px;">
 								<option value="결제일">결제일</option>
 						</select></span>
-						<br><br>
-						<input type="checkbox" value="예약 미확인건">예약미확인건
-						<input type="checkbox" value="취소건">취소건
-						<input type="text" placeholder="투숙자명">
-						<input type="text" placeholder="전화번호">
-						<input type="submit" value="조회">
 					</form>
 					<br><br>
 					<table class="table-content">
@@ -39,8 +41,7 @@
 							<th colspan="4">숙박</th>
 						</tr>
 						<tr>
-							<td>입금가<div id="deposit" style="height:25px; padding-top: 5px;"></div></td>
-							<td>판매가<div id="sell" style="height:25px; padding-top: 5px;"></div></td>
+							<td>판매가<div id="sell" style="height:25px;"></div></td>
 							<td>예약<div id="reservation" style="height:25px;">
 								<c:if test="${not empty reservationCount }">
 									${reservationCount }건
@@ -59,20 +60,17 @@
 			<br> <br>
 			<div class="main-content">
 			<div class="main-reservation">
-				<h3>
-					예약 목록
-					<button class="resultDownload">조회결과 다운로드</button>
-				</h3>
+				<h3>■ 예약 목록</h3>
 				<hr>
 				<br>
 				<table class="table-reservation">
 					<tr>
-						<th>↓ 결제일시</th>
+						<th>결제일시</th>
 						<th>투숙자명</th>
 						<th>체크인</th>
 						<th>박수</th>
 						<th>객실명</th>
-						<th>판매가(최종매출가)</th>
+						<th>판매가</th>
 						<th>취소일시</th>
 						<th>예약확인상태</th>
 						<th>예약확인</th>
