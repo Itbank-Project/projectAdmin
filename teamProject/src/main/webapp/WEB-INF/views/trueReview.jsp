@@ -55,6 +55,14 @@
 		box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0
 			rgba(0, 0, 0, 0.19);
 	}
+	.GP {
+ 		width: <fmt:parseNumber value="${goodPer }" integerOnly="true"></fmt:parseNumber>%; 
+		text-align: right;
+		padding-top: 10px; 
+		padding-bottom: 10px;
+		color: white;
+		background-color: #fd79a8;
+	}
 </style>
 
 <main>
@@ -84,20 +92,12 @@
 					
 					<div class="div1">
 						<h4>만족도</h4>
-						<table>
-							<tr>
-								<th>만족도 </th>
-							</tr>
-							<tr>
-								<td>
-									<fmt:parseNumber value="${goodPer }" integerOnly="true"></fmt:parseNumber>
-									%
-								</td>
-							</tr>
-						</table>
+						<div class="GoodP" style="width: 393px; background-color: #ddd;">
+							<div class="GP"><fmt:parseNumber value="${goodPer }" integerOnly="true"></fmt:parseNumber> %</div>
+						</div>
 					</div>
-					
 				</div>
+				
 				<div class="div4">
 					<p>* 자바호텔의 트루리뷰는 익명으로 작성되고 있습니다. 따라서, 리뷰내용을 바탕으로 작성자를 추측하여 직접
 						연락하실 수 없습니다.</p>
@@ -105,6 +105,7 @@
 					<p>* 추가 문의사항은 자바 컨시어지팀(02-1800-5120)으로 문의주시기 바랍니다.</p>
 				</div>
 				<div class="div5">
+					<h4>리뷰 목록</h4>
 					<table border="1">
 						<tr>
 							<th style="width: 100px;">작성일</th>
