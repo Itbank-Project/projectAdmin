@@ -92,10 +92,12 @@
 				</tr>
 			</table>
 			<!-- 호텔 정보가 있을 경우에 객실정보 입력 가능 -->
-			<c:if test="${not empty dto }">
-				<a href="${cpath }/insertRoom/${dto.ho_name}"><button id="saveRoom">객실정보입력</button></a>
-			</c:if>
-			<a href="${cpath }/hotelInformationModification"><button id="save">수정</button></a>
+			<div class="info-btn">
+				<c:if test="${not empty dto }">
+					<a href="${cpath }/insertRoom/${dto.ho_name}"><button id="saveRoom">객실정보입력</button></a>
+				</c:if>
+				<a href="${cpath }/hotelInformationModification"><button id="save">수정</button></a>
+			</div>
 		</div>
 	</div>
 </div>
