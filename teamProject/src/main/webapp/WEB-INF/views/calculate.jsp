@@ -17,7 +17,6 @@
 	}
 	#daySelect {
 		width: 400px;
-	
 	    margin-top: 20px;
 	    margin-bottom: 20px;
 	}
@@ -27,39 +26,21 @@
 	}
 	#yearSelect > select{
 	    width: 150px;
+	    height: 30px;
 	}
 	#monthSelect{
-	    width: 50px;
 	    margin-right: 10px;
 	}
+	#monthSelect > select {
+		width: 50px;
+		height: 30px;
+	}
 	#searchBtn {
-	  -webkit-appearance: none;
-	  -moz-appearance: none;
 	  appearance: none;
-	  
 	  background: #0d6efd;
 	  color: #ffffff;
-	  
-	  margin: 0;
-	  padding: 0.5rem 1rem;
-	  
-	  font-family: 'Noto Sans KR', sans-serif;
-	  font-size: 1rem;
-	  font-weight: 400;
-	  text-align: center;
-	  text-decoration: none;
-	  
-	  border: none;
-	  border-radius: 4px;
-	  
-	  display: inline-block;
-	  width: auto;
-	  
-	  box-shadow: inset 0 1px 0 rgba(255,255,2555,.3), inset 0 0 2px rgba(255,255,255,.3), 0 1px 2px rgba(0,0,0,.29);
-	  
-	  cursor: pointer;
-	  
-	  transition: 0.5s;
+	  height: 30px;
+	  border-radius: 10px;
 	}
 </style>
 
@@ -114,39 +95,60 @@
 						<button id="searchBtn">검색</button>
 					</span>
 				</div>
+				
 				<div>
-					<h4>■ 정산 내역</h4>
-					<table class="calTable">
+					<div style="width: 1000px; display: flex; justify-content: space-between;">
+						<div><h4>■ 정산 내역</h4></div>
+						<div style="margin-top: 20px;">
+							<span id="yearSelect"> 
+							<select>
+								<option>2021년</option>
+								<option>2022년</option>
+								<option>2023년</option>
+							</select>
+							</span> 
+							<span id="monthSelect"> 
+							<select>
+									<option>1월</option>
+									<option>2월</option>
+									<option>3월</option>
+									<option>4월</option>
+									<option>5월</option>
+									<option>6월</option>
+									<option>7월</option>
+									<option>8월</option>
+									<option>9월</option>
+									<option>10월</option>
+									<option>11월</option>
+									<option>12월</option>
+							</select>
+							</span> 
+							<span>
+								<button id="searchBtn">검색</button>
+							</span>
+						</div>
+					</div>
+					
+					<table class="calTable" style="width: 1000px">
 						<tr>
 							<th>정산방식</th>
-							<th>정산기준</th>
 							<th>정산기간</th>
 							<th>입금가</th>
-							<th>선입금</th>
 							<th>총입금액</th>
-							<th>예약</th>
-							<th>취소</th>
 							<th>정산금액</th>
 							<th>입금일자</th>
 							<th>메모</th>
-							<th>카드전표</th>
 						</tr>
 						<tr>
 							<td>주별</td>
-							<td>checkin</td>
 							<td style="color: #0d6efd;"><b>2020.12.26~2021.01.03</b></td>
 							<td>106,000원</td>
-							<td>0원</td>
 							<td>108,000원</td>
-							<td>1</td>
-							<td>0</td>
 							<td>108,000원</td>
 							<td>2021-01-07</td>
 							<td>2020. 12. 28~20 21. 1. 3 체크인, 주정산</td>
-							<td>-</td>
 						</tr>
 					</table>
-				</div>
 
 				
 			</div>
