@@ -4,12 +4,14 @@
 
 <link rel="stylesheet" href="${cpath }/resources/css/hotelInformation.css">
 
-<body>
+<main>
 <div class="main-inner">
 	<div class="main-container">
-		<div class="main-content">
+		<div class="main-content-head">
 			<h3><span style="color:#fd79a8 ">${dto.ho_name }</span> Hotel</h3>
 			<input type="hidden" id="userid" name="ho_ad_id" value="${login.ad_id }">
+		</div>
+		<div class="main-content">
 			<table style="width: 659px;">
 				<tr>
 					<th>호텔 이름</th>
@@ -97,5 +99,6 @@
 		</div>
 	</div>
 </div>
+</main>
 </body>
 </html>
