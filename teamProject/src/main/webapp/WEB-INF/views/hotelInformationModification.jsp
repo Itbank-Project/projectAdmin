@@ -4,14 +4,16 @@
 
 <link rel="stylesheet" href="${cpath }/resources/css/hotelInformationModification.css">
 
-<body>
+<main>
 <div class="main-inner">
 	<div class="main-container">
 		<div class="main-content">
 		<form id="hotelModifiForm" method="POST" enctype="multipart/form-data">
-			<h3><span style="color:#fd79a8 ">${dto.ho_name }</span> Hotel</h3>
+			<div class="form-head">
+				<h3><span style="color:#fd79a8 ">${dto.ho_name }</span> Hotel</h3>
 				<input type="hidden" id="userid" name="ho_ad_id" value="${login.ad_id }">
-			<table>
+			</div>
+			<table style="width: 100%;">
 				<tr>
 					<th>호텔 이름</th>
 					<td><input style="border: none;" type="text" name="ho_name" class="ho_check" value="${dto.ho_name }" readonly ></td>
@@ -91,13 +93,14 @@
 					<td><input type="file" name="ho_uploadfile" ></td>
 				</tr>
 			</table>
+			<div class="submit-btn">
 			<input type="submit"  value="수정 완료">
+			</div>
 		</form>
 	</div>
 	</div>
 </div>
 
+</main>
 </body>
-
-
 </html>
