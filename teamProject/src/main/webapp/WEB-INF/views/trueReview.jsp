@@ -75,7 +75,7 @@
 				<div class="main-content-inner">
 					
 					<div class="div2">
-						<h4>만족/불만족 건수(전체 기간 누적)</h4>
+						<h4>■ 만족/불만족 건수(전체 기간 누적)</h4>
 						<table border="1">
 							<tr>
 								<th>만족</th>
@@ -91,7 +91,7 @@
 					</div>
 					
 					<div class="div1">
-						<h4>만족도</h4>
+						<h4>■ 만족도</h4>
 						<div class="GoodP" style="width: 393px; background-color: #ddd;">
 							<div class="GP"><fmt:parseNumber value="${goodPer }" integerOnly="true"></fmt:parseNumber> %</div>
 						</div>
@@ -99,13 +99,14 @@
 				</div>
 				
 				<div class="div4">
+					<h4>■ 설명</h4>
 					<p>* 자바호텔의 트루리뷰는 익명으로 작성되고 있습니다. 따라서, 리뷰내용을 바탕으로 작성자를 추측하여 직접
 						연락하실 수 없습니다.</p>
 					<p>* 스테이의 세부 항목 평점(청결, 위치, 서비스, 시설)과 만족도는 주기적으로 업데이트 됩니다.</p>
 					<p>* 추가 문의사항은 자바 컨시어지팀(02-1800-5120)으로 문의주시기 바랍니다.</p>
 				</div>
 				<div class="div5">
-					<h4>리뷰 목록</h4>
+					<h4>■ 리뷰 목록</h4>
 					<table border="1">
 						<tr>
 							<th style="width: 100px;">작성일</th>
