@@ -124,12 +124,12 @@ public class MainController {
 	@GetMapping("roomStatus")
 	public ModelAndView roomStatus() {
 		ModelAndView mav = new ModelAndView("roomStatus");
-		List<CalendarDTO> dto = cs.getList();
-		List<RoomDTO> dto2 = rs.getList();
-		mav.addObject("dto2", dto2);
-		mav.addObject("dto", dto);
+		List<CalendarDTO> calendar = cs.getList();
+		List<RoomDTO> room = rs.getList();
+		mav.addObject("calendar", calendar);
+		mav.addObject("room", room);
 		
-		System.err.println(dto.get(0).getCalendar_price());
+		System.err.println(calendar.get(0).getCalendar_price());
 		
 		return mav;
 	}
