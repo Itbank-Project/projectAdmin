@@ -46,14 +46,14 @@
 		<form method="POST" enctype="multipart/form-data">
 		    <table style="border: 1px solid black; width:450px;">
 		        <tr>
+		        	<th>룸 정보</th>
+		        	<td><input style="border: none;" type="text" name="ro_pk" readonly></td>
+		        </tr>
+		        
+		        <tr>
 		            <th>객실타입</th>
 		            <td>
-		                <select name="ro_roomtype">
-		                    <option selected>객실 타입을 선택하세요</option>
-		                    <option value="스탠다드">스탠다드</option>
-		                    <option value="디럭스">디럭스</option>
-		                    <option value="패밀리">패밀리</option>
-		                </select>
+		                <input type="text" name="ro_roomtype">
 		            </td>
 		        </tr>
 		        <tr>
@@ -80,12 +80,12 @@
 		        </tr>
 		        <tr>
 		            <th>가격</th>
-		            <td><input type="number" name="ro_price" placeholder="가격을 입력하세요"></td>
+		            <td><input type="number" name="ro_default_price" placeholder="가격을 입력하세요"></td>
 		        </tr>
 		        <tr>
 		            <th>갯수</th>
 		            <td>
-		                <select name="ro_count">
+		                <select name="ro_default_count">
 		                    <option selected>수량을 선택하세요</option>
 		                    <option value="1">1</option>
 		                    <option value="2">2</option>
@@ -106,5 +106,27 @@
 		    <input id="save" type="submit" value="입력완료" style="width: 319;">
 		</form>	
 	</div>
+	
+	<script>
+	const roomtype = document.querySelector('input[name="ro_roomtype"]');
+	const ro_pk = document.querySelector('input[name="ro_pk"]');
+	const ho_name = '${ho_name}';
+	
+	roomtype.onchange = printType;
+	
+	
+	function printType()  {
+		 const name = roomtype.value;
+		 console.log(ho_name);
+		 console.log(name);
+		 ro_pk.value = ho_name +'-'+name;
+		}
+	
+	
+	
+	
+	</script>
+	
+	
 </body>
 </html>
