@@ -1,5 +1,7 @@
 package com.itbank.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,11 @@ public class RoomService {
 
 	public int insertRoom(RoomDTO dto) {
 		return dao.insertRoom(dto);
+	}
+
+
+	public List<RoomDTO> getList() {
+		return dao.getList();
 	}
 
 }
