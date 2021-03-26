@@ -1,7 +1,5 @@
 package com.itbank.calendar;
 
-import java.util.Date;
-
 public class CalendarDTO {
 
 //	TABLE		   CALENDAR
@@ -13,7 +11,7 @@ public class CalendarDTO {
 	
 	private String calendar_pk, calendar_ro_pk;
 	private int calendar_count, calendar_price;
-	private Date calendar_date;
+	private String calendar_date;
 	
 	private String yy;
 	private String mm;
@@ -43,10 +41,10 @@ public class CalendarDTO {
 	public void setCalendar_price(int calendar_price) {
 		this.calendar_price = calendar_price;
 	}
-	public Date getCalendar_date() {
+	public String getCalendar_date() {
 		return calendar_date;
 	}
-	public void setCalendar_date(Date calendar_date) {
+	public void setCalendar_date(String calendar_date) {
 		this.calendar_date = calendar_date;
 	}
 	public String getYy() {
