@@ -60,7 +60,7 @@
 		text-align: right;
 		padding-top: 10px; 
 		padding-bottom: 10px;
-		color: white;
+		color: black;
 		background-color: #fd79a8;
 	}
 	.GP2 {
