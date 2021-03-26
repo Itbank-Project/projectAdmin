@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class ReviewDTO {
 	
+//	TABLE			 REVIEW
 //	REVIEW_IDX       NOT NULL NUMBER        
 //	REVIEW_CREDATE   NOT NULL DATE          
 //	REVIEW_SCORE     NOT NULL NUMBER        
