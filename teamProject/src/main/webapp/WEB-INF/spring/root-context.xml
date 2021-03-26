@@ -42,6 +42,7 @@
 				<value>classpath:config/sqlmap-review.xml</value>
 				<value>classpath:config/sqlmap-reservation.xml</value>
 				<value>classpath:config/sqlmap-reply.xml</value>
+				<value>classpath:config/sqlmap-calendar.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -65,4 +66,5 @@
 	<mybatis-spring:scan base-package="com.itbank.review"/>
 	<mybatis-spring:scan base-package="com.itbank.reply"/>
 	<mybatis-spring:scan base-package="com.itbank.reservation"/>
+	<mybatis-spring:scan base-package="com.itbank.calendar"/>
 </beans>
