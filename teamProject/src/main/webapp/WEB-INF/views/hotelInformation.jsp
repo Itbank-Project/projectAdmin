@@ -56,7 +56,7 @@
 							<div>
 								<img src="${cpath }/resources/img/1.png" width="70px"
 									height="70px"> <br>주차가능<br>
-								<input type="checkbox" name="ho_parking"  ${not empty dto.ho_parking ? 'checked' : ''}>
+								<input type="checkbox" name="ho_parking"  ${not empty dto.ho_parking ? 'checked' : ''} onclick="return false">
 							</div>
 							<div>
 								<img src="${cpath }/resources/img/37.png" width="70px"
@@ -102,5 +102,20 @@
 	</div>
 </div>
 </main>
+
+<script>
+	const checkBox = document.querySelectorAll('input[type="checkbox"]');
+	
+	checkBox.forEach(check => {
+		check.onclick = (event) => {
+			return false;
+		}
+	})
+	
+	
+	
+</script>
+
+
 </body>
 </html>
