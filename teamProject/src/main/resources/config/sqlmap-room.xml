@@ -8,10 +8,10 @@
 	<!-- 룸 정보 입력 -->
 	<insert id="insertRoom" parameterType="room">
 	insert into room
-		(ro_limitperson, ro_pk, ro_badtype, ro_description, ro_uploadfile, ro_ho_name, ro_roomtype)
+		(ro_limitperson, ro_pk, ro_badtype, ro_description, ro_uploadfile, ro_ho_name, ro_roomtype, ro_default_price,ro_default_count)
 	values
 		(
-			#{ro_limitperson}, #{ro_pk}, #{ro_badtype}, #{ro_description}, #{ro_uploadfile}, #{ro_ho_name}, #{ro_roomtype}
+			#{ro_limitperson}, #{ro_pk}, #{ro_badtype}, #{ro_description}, #{ro_uploadfile}, #{ro_ho_name}, #{ro_roomtype}, #{ro_default_price},#{ro_default_count}
 		)
 	</insert>
 	
