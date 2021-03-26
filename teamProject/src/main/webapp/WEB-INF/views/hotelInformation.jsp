@@ -56,7 +56,7 @@
 							<div>
 								<img src="${cpath }/resources/img/1.png" width="70px"
 									height="70px"> <br>주차가능<br>
-								<input type="checkbox" name="ho_parking"  ${not empty dto.ho_parking ? 'checked' : ''} onclick="return false">
+								<input type="checkbox" name="ho_parking"  ${not empty dto.ho_parking ? 'checked' : ''}>
 							</div>
 							<div>
 								<img src="${cpath }/resources/img/37.png" width="70px"
