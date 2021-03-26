@@ -31,9 +31,6 @@
 						<span><input type="date" name="startDate"></span>
 						<span>to</span>
 						<span><input type="date" name="endDate"></span>
-						<span><select name="" id="" style="height: 24px;">
-								<option value="결제일">결제일</option>
-						</select></span>
 						<input type="submit" value="조회" >
 					</form>
 					<br><br>
@@ -42,13 +39,13 @@
 							<th colspan="4">숙박</th>
 						</tr>
 						<tr>
-							<td>판매가<div id="sell" style="height:25px;"></div></td>
-							<td>예약<div id="reservation" style="height:25px;">
+							<td>판매가<div id="sell" style="height:25px; margin-top: 10px;"></div></td>
+							<td>예약<div id="reservation" style="height:25px; margin-top: 10px;">
 								<c:if test="${not empty reservationCount }">
 									${reservationCount }건
 								</c:if>
 							</div></td>
-							<td>취소<div id="cancle" style="height:25px;">
+							<td>취소<div id="cancle" style="height:25px; margin-top: 10px;">
 								<c:if test="${not empty cancleCount }">
 									${cancleCount }건
 								</c:if>
