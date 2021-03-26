@@ -23,11 +23,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itbank.admin.AdminDTO;
+import com.itbank.calendar.CalendarDTO;
 import com.itbank.hotel.HotelDTO;
 import com.itbank.reservation.ReservationDTO;
 import com.itbank.review.ReviewDTO;
 import com.itbank.room.RoomDTO;
 import com.itbank.service.AdminService;
+import com.itbank.service.CalendarService;
 import com.itbank.service.FileService;
 import com.itbank.service.HotelService;
 import com.itbank.service.ReservationService;
@@ -43,6 +45,7 @@ public class MainController {
 	@Autowired private RoomService rs;
 	@Autowired private ReviewService reviewService;
 	@Autowired private ReservationService reservationService;
+	@Autowired private CalendarService cs;
 	
 	// 인덱스, 판매기록
 	@GetMapping("/")
@@ -119,7 +122,17 @@ public class MainController {
 	
 	// 객실현황
 	@GetMapping("roomStatus")
-	public void roomStatus() {}
+	public ModelAndView roomStatus() {
+		ModelAndView mav = new ModelAndView("roomStatus");
+		List<CalendarDTO> dto = cs.getList();
+		List<RoomDTO> dto2 = rs.getList();
+		mav.addObject("dto2", dto2);
+		mav.addObject("dto", dto);
+		
+		System.err.println(dto.get(0).getCalendar_price());
+		
+		return mav;
+	}
 	
 	// 리뷰
 	@GetMapping("trueReview")
@@ -316,25 +329,21 @@ public class MainController {
 	public ModelAndView insertRoom(@PathVariable String ho_name, MultipartHttpServletRequest request) throws IllegalStateException, IOException {
 		ModelAndView mav = new ModelAndView("index");
 		MultipartFile file = request.getFile("ro_uploadfile");
+		String ro_pk = request.getParameter("ro_pk");
 		String ro_limitperson = request.getParameter("ro_limitperson");
 		String ro_badtype = request.getParameter("ro_badtype");
 		String ro_description = request.getParameter("ro_description");
-		String ro_price = request.getParameter("ro_price");
-		String ro_count = request.getParameter("ro_count");
 		String ro_ho_name = ho_name;
 		String ro_roomtype = request.getParameter("ro_roomtype");
 		
 		RoomDTO dto = new RoomDTO();
 		
-		int ro_count2 = Integer.parseInt(ro_count);
 		int ro_limitperson2 = Integer.parseInt(ro_limitperson);
-		int ro_price2 = Integer.parseInt(ro_price);
+		dto.setRo_pk(ro_pk);
 		dto.setRo_badtype(ro_badtype);
-		dto.setRo_count(ro_count2);
 		dto.setRo_description(ro_description);
 		dto.setRo_ho_name(ro_ho_name);
 		dto.setRo_limitperson(ro_limitperson2);
-		dto.setRo_price(ro_price2);
 		dto.setRo_roomtype(ro_roomtype);
 		dto.setRo_uploadfile(file.getOriginalFilename());
 		
@@ -348,4 +357,6 @@ public class MainController {
 		
 		return mav;
 	}
+	
+
 }
