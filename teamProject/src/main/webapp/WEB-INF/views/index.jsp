@@ -34,6 +34,7 @@
 						<span><select name="" id="" style="height: 24px;">
 								<option value="결제일">결제일</option>
 						</select></span>
+						<input type="submit" value="조회" >
 					</form>
 					<br><br>
 					<table class="table-content">
