@@ -2,7 +2,62 @@
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
 <link rel="stylesheet" href="${cpath }/resources/css/calendar.css">
-
+<style>
+	.roomStatus_modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.roomStatus_modal_overlay {
+		background-color: rgba(0, 0, 0, 0.6);
+		width: 100%;
+		height: 100%;
+		position: absolute;
+	}
+	
+	.roomStatus_modal_content {
+		background-color: white;
+		text-align: center;
+		position: relative;
+		min-width: 300px;
+		width: 50%;
+		max-width: 400px;
+		z-index: 1;
+		border-radius: 40px;
+	}
+	.hidden {
+		display: none;
+	}
+	#replyOK{
+		background-color: #fab1a0;
+		border: none;
+	    color: #2d3436;
+	    font-weight: bold;
+	    font-size:15px;
+		text-decoration: none;
+		cursor: pointer;
+		width: 100px;
+		height: 40px;
+	}
+	#replyOK:hover {
+		box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0
+			rgba(0, 0, 0, 0.19);
+	}
+	.GP {
+ 		width: <fmt:parseNumber value="${goodPer }" integerOnly="true"></fmt:parseNumber>%; 
+		text-align: right;
+		padding-top: 10px; 
+		padding-bottom: 10px;
+		color: white;
+		background-color: #fd79a8;
+	}
+</style>
 <main>
 <div class="main-inner">
 	<div class="main-container">
@@ -42,6 +97,19 @@
     	</div>
     </div>
 </div>
+
+<div class="roomStatus_modal hidden">
+	<div class="roomStatus_modal_overlay"></div>	<!-- 모달 이외 나머지부분 어둡게 -->
+
+	<div class="roomStatus_modal_content">	<!-- 표시할 내용 -->
+		<div><input type="text" name="calendar_pk"></div>
+		<div><input type="text" name="calendar_count"></div>
+		<div><input type="text" name="calendar_price"></div>
+		<div><input type="text" name="calendar_date"></div>
+		<div><input type="text" name="calendar_ro_pk"></div>
+	</div>	
+</div>
+
 </main>
         
         
@@ -86,19 +154,30 @@
 		//달력 출력
 		for(i=1; i <= lastDate.getDate(); i++){
 			cell = row.insertCell();
-	    	var test = "";
+			
+	    	var div = "<div id=day" + i +" "+ "'>";
+   			var price = 0;
+	    	var count = 0;
+	    	div += i + "</div>";
+
 	    	
-	    	<c:forEach var='item' items='${dto }'>
+	    	<c:forEach var='item' items='${calendar }'>
 	    		if(i == '${item.dd}'){
-	    			test += "${item.calendar_price}";
-	    		}
+	    			price += parseInt("${item.calendar_price}");
+	    			count += parseInt("${item.calendar_count}");
+	    	}
 	    	</c:forEach>
 	    	
-	    	test += i;
-	    	cell.innerHTML = test;
+	   		cell.innerHTML = div + "<div id=price" + i +" " + "onclick='test()' >"
+	 			+ price + "</div>" + "<div id=price" + i + ">" + count + "</div>"  ;
+	
+	 			
+	 			
 	    	cnt = cnt + 1;
 	    	if (cnt% 7 == 0)    //1주 = 7일
 			row = calendar.insertRow();
+	    	
+	    	
 	  	}
 
 		for (let i = 1; i < 7 - lastDate.getDay() ; i++) {
@@ -109,9 +188,19 @@
 	      		row = calendar.insertRow();
 	  		}
 		}
+	function test(){
+		const roomStatus_modal = document.querySelector('.roomStatus_modal');
+		const roomStatus_modal_overlay = document.querySelector('.roomStatus_modal_overlay');
+		console.log(roomStatus_modal);
+		roomStatus_modal.classList.remove('hidden');
 
-		function test(){
-			alert('test');
+		console.log(roomStatus_modal_overlay);
+		roomStatus_modal_overlay.onclick = function(){
+		roomStatus_modal.classList.add('hidden');
+	
 		}
+	
+	}
+		
 </script>
         
