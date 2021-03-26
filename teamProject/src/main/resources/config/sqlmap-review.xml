@@ -10,7 +10,7 @@
 		select review.*
 		from review
 		    left outer join reservation on reservation.re_idx = review.review_re_idx
-		    left outer join room on room.ro_idx = reservation.re_ro_idx
+		    left outer join room on room.ro_pk = reservation.re_ro_pk
 		    left outer join hotel on hotel.ho_name = room.ro_ho_name
 		    left outer join admin on admin.ad_id = hotel.ho_ad_id
     	where admin.ad_id = #{ad_id}
@@ -21,7 +21,7 @@
 		select count(*) 
 		from review
 		    left outer join reservation on reservation.re_idx = review.review_re_idx
-		    left outer join room on room.ro_idx = reservation.re_ro_idx
+		    left outer join room on room.ro_pk = reservation.re_ro_pk
 		    left outer join hotel on hotel.ho_name = room.ro_ho_name
 		    left outer join admin on admin.ad_id = hotel.ho_ad_id
     	where admin.ad_id = #{ad_id}
@@ -32,7 +32,7 @@
 		select count(*) 
 		from review
 		    left outer join reservation on reservation.re_idx = review.review_re_idx
-		    left outer join room on room.ro_idx = reservation.re_ro_idx
+		    left outer join room on room.ro_pk = reservation.re_ro_pk
 		    left outer join hotel on hotel.ho_name = room.ro_ho_name
 		    left outer join admin on admin.ad_id = hotel.ho_ad_id
     	where admin.ad_id = #{ad_id} and review.review_goodorbad = '만족'
