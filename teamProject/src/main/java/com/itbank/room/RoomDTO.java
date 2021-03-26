@@ -80,5 +80,5 @@ public class RoomDTO {
 	public void setRo_update_date(Date ro_update_date) {
 		this.ro_update_date = ro_update_date;
 	}
-	
+
 }
