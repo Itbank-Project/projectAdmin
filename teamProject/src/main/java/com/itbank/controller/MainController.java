@@ -122,17 +122,51 @@ public class MainController {
 	
 	// 객실현황
 	@GetMapping("roomStatus")
-	public ModelAndView roomStatus() {
-		ModelAndView mav = new ModelAndView("roomStatus");
-		List<CalendarDTO> calendar = cs.getList();
-		List<RoomDTO> room = rs.getList();
-		mav.addObject("calendar", calendar);
-		mav.addObject("room", room);
+	public ModelAndView roomStatus(HttpSession session) {
+		AdminDTO dto = (AdminDTO) session.getAttribute("login");
+		String ad_id = dto.getAd_id();
 		
-		System.err.println(calendar.get(0).getCalendar_price());
+		HotelDTO hotelDTO = hs.selectHotel(ad_id);
+		String ho_name = hotelDTO.getHo_name();
+		
+		ModelAndView mav = new ModelAndView("roomStatus");
+		
+//		List<CalendarDTO> calendar = cs.getList();
+		List<RoomDTO> roomList = rs.getList(ho_name);
+		
+		int roomCount = roomList.size();
+		
+//		mav.addObject("calendar", calendar);
+		mav.addObject("roomList", roomList);
+		mav.addObject("roomCount", roomCount);
 		
 		return mav;
 	}
+	
+	@PostMapping("roomStatus")
+	public ModelAndView roomStatus(CalendarDTO dto) {
+		ModelAndView mav = new ModelAndView("roomStatus");
+		
+		System.out.println(dto.getCalendar_count());
+		System.out.println(dto.getCalendar_ro_pk());
+		System.out.println(dto.getCalendar_pk());
+		System.out.println(dto.getCalendar_price());
+		System.out.println(dto.getCalendar_date());
+		
+		String ro_pk = dto.getCalendar_ro_pk();
+		
+		dto.setCalendar_pk(dto.getCalendar_date() + "(" + ro_pk + ")");
+		System.out.println(dto.getCalendar_pk());
+		int row = cs.insertCal(dto);
+		if(row == 1 ) {
+			CalendarDTO calDTO = cs.getList(ro_pk);
+			mav.addObject("calDTO", calDTO);
+		}
+		return mav;
+	}
+	
+	
+	
 	
 	// 리뷰
 	@GetMapping("trueReview")
