@@ -6,11 +6,21 @@
 <mapper namespace="com.itbank.calendar.CalendarDAO">
 	
 	
-	<select id="getList" resultType="calendar"> 
-		select 
-calendar_pk, calendar_ro_pk,calendar_count, calendar_price,calendar_date
-		,to_char(calendar_date,'yyyy') yy,to_char(calendar_date,'mm') mm,to_char(calendar_date,'dd') dd 
-		from calendar where to_char(calendar_date,'yyyyMM') = '202103' order by calendar_date asc
+	<select id="getList" resultType="calendar" parameterType="string"> 
+		<!-- select 
+		calendar_pk, calendar_ro_pk,calendar_count, calendar_price,calendar_date
+			,to_char(calendar_date,'yyyy') yy,to_char(calendar_date,'mm') mm,to_char(calendar_date,'dd') dd 
+		from calendar where to_char(calendar_date,'yyyyMM') = '202103' order by calendar_date asc -->
+		
+		select * from calendar where calendar_ro_pk = #{calendar_ro_pk}
+		
 	</select>
+	
+	<insert id="insertCalendar" parameterType="calendar">
+		INSERT INTO calendar (calendar_pk,calendar_ro_pk,calendar_price,calendar_count,calendar_date)
+		VALUES (#{calendar_pk},#{calendar_ro_pk},#{calendar_price},#{calendar_count},#{calendar_date})
+
+
+	</insert>
 	
 </mapper>
