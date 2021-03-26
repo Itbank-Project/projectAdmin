@@ -17,6 +17,7 @@
 		<typeAlias type="com.itbank.review.ReviewDTO" alias="review"/>
 		<typeAlias type="com.itbank.reply.ReplyDTO" alias="reply"/>
 		<typeAlias type="com.itbank.reservation.ReservationDTO" alias="reservation"/>
+		<typeAlias type="com.itbank.calendar.CalendarDTO" alias="calendar"/>
 	</typeAliases>
 	
 </configuration>

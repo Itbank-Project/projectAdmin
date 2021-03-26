@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+		"-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="com.itbank.calendar.CalendarDAO">
+	
+	
+	<select id="getList" resultType="calendar"> 
+		select 
+calendar_pk, calendar_ro_pk,calendar_count, calendar_price,calendar_date
+		,to_char(calendar_date,'yyyy') yy,to_char(calendar_date,'mm') mm,to_char(calendar_date,'dd') dd 
+		from calendar where to_char(calendar_date,'yyyyMM') = '202103' order by calendar_date asc
+	</select>
+	
+</mapper>
