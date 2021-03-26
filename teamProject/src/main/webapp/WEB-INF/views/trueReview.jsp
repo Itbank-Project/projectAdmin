@@ -55,7 +55,15 @@
 		box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0
 			rgba(0, 0, 0, 0.19);
 	}
-	.GP {
+	.GP1 {
+ 		width: 0; 
+		text-align: right;
+		padding-top: 10px; 
+		padding-bottom: 10px;
+		color: white;
+		background-color: #fd79a8;
+	}
+	.GP2 {
  		width: <fmt:parseNumber value="${goodPer }" integerOnly="true"></fmt:parseNumber>%; 
 		text-align: right;
 		padding-top: 10px; 
@@ -92,9 +100,16 @@
 					
 					<div class="div1">
 						<h4>■ 만족도</h4>
-						<div class="GoodP" style="width: 393px; background-color: #ddd;">
-							<div class="GP"><fmt:parseNumber value="${goodPer }" integerOnly="true"></fmt:parseNumber> %</div>
-						</div>
+						<c:if test="${empty goodPer}">
+							<div class="GoodP" style="width: 393px; background-color: #ddd;">
+								<div class="GP1"><fmt:parseNumber value="${goodPer }" integerOnly="true"></fmt:parseNumber> 0%</div>
+							</div>
+						</c:if>
+						<c:if test="${not empty goodPer}">
+							<div class="GoodP" style="width: 393px; background-color: #ddd;">
+								<div class="GP2"><fmt:parseNumber value="${goodPer }" integerOnly="true"></fmt:parseNumber> %</div>
+							</div>
+						</c:if>
 					</div>
 				</div>
 				
