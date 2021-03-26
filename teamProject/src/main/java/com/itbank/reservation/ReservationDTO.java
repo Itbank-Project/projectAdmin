@@ -3,25 +3,25 @@ package com.itbank.reservation;
 import java.util.Date;
 
 public class ReservationDTO {
+
+//	TABLE		 RESERVATION
 //	RE_IDX           NOT NULL NUMBER       
 //	RE_PAYDATE       NOT NULL DATE         
 //	RE_INDATE        NOT NULL DATE         
 //	RE_OUTDATE       NOT NULL DATE         
 //	RE_DAYCOUNT      NOT NULL NUMBER       
 //	RE_PAYMENT       NOT NULL NUMBER       
-//	RE_RO_IDX        NOT NULL NUMBER       
 //	RE_CU_ID         NOT NULL VARCHAR2(50) 
 //	RE_CHANGENAME             VARCHAR2(50) 
 //	RE_CHANGEPNUM             VARCHAR2(50) 
 //	RE_CANCELYESORNO NOT NULL VARCHAR2(20) 
-//	RE_CANCELDATE             DATE 
+//	RE_CANCELDATE             DATE         
+//	RE_CALENDAR_FK   NOT NULL VARCHAR2(50) 
+//	RE_RO_PK         NOT NULL VARCHAR2(20) 
 	
-	private int re_idx, re_dayCount,re_payment,re_ro_idx;
-	private Date re_payDate, re_inDate, outDate, re_cancelDate;
-	private String re_cu_id, re_changeName, re_changePnum,re_cancelYesOrNo;
-	
-	// 예약목록 불러오기위해 필요한 컬럼
-	private String cu_name, ro_roomType;
+	private int re_idx, re_daycount, re_payment;
+	private Date re_paydate, re_indate, re_outdate, re_calceldate;
+	private String re_cu_id, re_changeName, re_changePnum, re_cancelYesOrNo, re_calendar_fk, re_ro_pk;
 	
 	public int getRe_idx() {
 		return re_idx;
@@ -29,11 +29,11 @@ public class ReservationDTO {
 	public void setRe_idx(int re_idx) {
 		this.re_idx = re_idx;
 	}
-	public int getRe_dayCount() {
-		return re_dayCount;
+	public int getRe_daycount() {
+		return re_daycount;
 	}
-	public void setRe_dayCount(int re_dayCount) {
-		this.re_dayCount = re_dayCount;
+	public void setRe_daycount(int re_daycount) {
+		this.re_daycount = re_daycount;
 	}
 	public int getRe_payment() {
 		return re_payment;
@@ -41,35 +41,29 @@ public class ReservationDTO {
 	public void setRe_payment(int re_payment) {
 		this.re_payment = re_payment;
 	}
-	public int getRe_ro_idx() {
-		return re_ro_idx;
+	public Date getRe_paydate() {
+		return re_paydate;
 	}
-	public void setRe_ro_idx(int re_ro_idx) {
-		this.re_ro_idx = re_ro_idx;
+	public void setRe_paydate(Date re_paydate) {
+		this.re_paydate = re_paydate;
 	}
-	public Date getRe_payDate() {
-		return re_payDate;
+	public Date getRe_indate() {
+		return re_indate;
 	}
-	public void setRe_payDate(Date re_payDate) {
-		this.re_payDate = re_payDate;
+	public void setRe_indate(Date re_indate) {
+		this.re_indate = re_indate;
 	}
-	public Date getRe_inDate() {
-		return re_inDate;
+	public Date getRe_outdate() {
+		return re_outdate;
 	}
-	public void setRe_inDate(Date re_inDate) {
-		this.re_inDate = re_inDate;
+	public void setRe_outdate(Date re_outdate) {
+		this.re_outdate = re_outdate;
 	}
-	public Date getOutDate() {
-		return outDate;
+	public Date getRe_calceldate() {
+		return re_calceldate;
 	}
-	public void setOutDate(Date outDate) {
-		this.outDate = outDate;
-	}
-	public Date getRe_cancelDate() {
-		return re_cancelDate;
-	}
-	public void setRe_cancelDate(Date re_cancelDate) {
-		this.re_cancelDate = re_cancelDate;
+	public void setRe_calceldate(Date re_calceldate) {
+		this.re_calceldate = re_calceldate;
 	}
 	public String getRe_cu_id() {
 		return re_cu_id;
@@ -95,16 +89,16 @@ public class ReservationDTO {
 	public void setRe_cancelYesOrNo(String re_cancelYesOrNo) {
 		this.re_cancelYesOrNo = re_cancelYesOrNo;
 	}
-	public String getCu_name() {
-		return cu_name;
+	public String getRe_calendar_fk() {
+		return re_calendar_fk;
 	}
-	public void setCu_name(String cu_name) {
-		this.cu_name = cu_name;
+	public void setRe_calendar_fk(String re_calendar_fk) {
+		this.re_calendar_fk = re_calendar_fk;
 	}
-	public String getRo_roomType() {
-		return ro_roomType;
+	public String getRe_ro_pk() {
+		return re_ro_pk;
 	}
-	public void setRo_roomType(String ro_roomType) {
-		this.ro_roomType = ro_roomType;
+	public void setRe_ro_pk(String re_ro_pk) {
+		this.re_ro_pk = re_ro_pk;
 	}
 }
