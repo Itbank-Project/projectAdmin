@@ -1,5 +1,8 @@
 package com.itbank.service;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +14,11 @@ public class CalendarService {
 
 	@Autowired private CalendarDAO dao;
 	
-	public CalendarDTO getList(String ro_pk) {
-		return dao.getList(ro_pk);
+//	public CalendarDTO getList(String ro_pk) {
+//		return dao.getList(ro_pk);
+//	}
+	public List<CalendarDTO> getList(HashMap<String, Object> map) {
+		return dao.getList(map);
 	}
 
 	public int insertCal(CalendarDTO dto) {
