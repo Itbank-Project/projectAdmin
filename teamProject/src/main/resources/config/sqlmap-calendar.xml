@@ -6,13 +6,24 @@
 <mapper namespace="com.itbank.calendar.CalendarDAO">
 	
 	
-	<select id="getList" resultType="calendar" parameterType="string"> 
-		<!-- select 
-		calendar_pk, calendar_ro_pk,calendar_count, calendar_price,calendar_date
-			,to_char(calendar_date,'yyyy') yy,to_char(calendar_date,'mm') mm,to_char(calendar_date,'dd') dd 
-		from calendar where to_char(calendar_date,'yyyyMM') = '202103' order by calendar_date asc -->
+	<select id="getList" resultType="calendar" parameterType="hashmap"> 
+		select calendar_pk, calendar_ro_pk,calendar_count, calendar_price,calendar_date
+    	    ,to_char(calendar_date,'yyyy') yy,to_char(calendar_date,'mm') mm,to_char(calendar_date,'dd') dd 
+    	from calendar
+    		join room on room.ro_pk = calendar.calendar_ro_pk
+         	join hotel on room.ro_ho_name = hotel.ho_name
+    	where to_char(calendar_date,'yyyy-MM') = #{nowDate} and hotel.ho_name = #{ho_name} order by calendar_date asc 
 		
-		select * from calendar where calendar_ro_pk = #{calendar_ro_pk}
+		<!-- select * from calendar where calendar_ro_pk = #{calendar_ro_pk} -->
+		
+		<!-- select calendar_pk, calendar_ro_pk,calendar_count,calendar_date, case when calendar_price is null then room.ro_default_price
+           when calendar_price is not null then calendar_price end as 가격
+        ,to_char(calendar_date,'yyyy') yy,to_char(calendar_date,'mm') mm,to_char(calendar_date,'dd') dd 
+    from calendar
+    join room on room.ro_pk = calendar.calendar_ro_pk
+         join hotel on room.ro_ho_name = hotel.ho_name
+    where to_char(calendar_date,'yyyy-MM') = #{nowDate} and hotel.ho_name = #{ho_name} order by calendar_date asc -->
+		
 		
 	</select>
 	
