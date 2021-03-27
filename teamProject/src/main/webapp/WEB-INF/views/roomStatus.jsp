@@ -120,6 +120,7 @@
 </div>
 
 </main>
+
         
         
 <script type="text/javascript">
@@ -184,20 +185,50 @@
 			// 날짜 출력
 	    	cell.innerHTML = div;
 	    	
-	    	<c:forEach var='room' items='${roomList}'>
-	    		ro_pk = "${room.ro_pk}";
-	    		roomType += "${room.ro_roomtype}";
-	    		price = parseInt("${room.ro_default_price}");
-	    		count = parseInt("${room.ro_default_count}");
-	    		
- 	    		cell.innerHTML += "<div style='font-size: 12px;'><span id=roomType" + i +" " + ">"
-	            + roomType + "</span>"
-	            + "<span id=count" + i + ">[" +count + "]</span>"
-	            + "<span id=price" + i + "> : " + price + "</span>"
-	            + "</div>"
-	            
-	        </c:forEach>
+			
+			
+	    	<c:if test="${not empty dto }">
+		    	<c:forEach var="list" items="${dto }">
+		    		if(i == '${list.dd}'){
+		    			cell.innerHTML += "${list.calendar_ro_pk}[" + "${list.calendar_count}] : "+"${list.calendar_price}원" ;
+		    		}
+		    	</c:forEach>
+		    </c:if>
+		    
+		    	<c:forEach var='room' items='${roomList}'>
+		    		ro_pk = "${room.ro_pk}";
+		    		roomType = "${room.ro_roomtype}";
+		    		price = parseInt("${room.ro_default_price}");
+		    		count = parseInt("${room.ro_default_count}");
+		    		
+	 	    		cell.innerHTML += "<div style='font-size: 12px;'><span id=roomType" + i +" " + ">"
+		            + roomType + "</span>"
+		            + "<span id=count" + i + ">[" +count + "]</span>"
+		            + "<span id=price" + i + "> : " + price + "</span>"
+		            + "</div>"
+		        </c:forEach>
+		    	
+	         
           
+	            // 캘린더.. 
+/*  	    	<c:forEach var='item' items='${dto }'>
+	    		if(i == '${item.dd}'){
+	    			cell.innerHTML += "${item.calendar_price}";
+	    		}
+	    	</c:forEach>
+ */	    	
+	            
+	            
+	            
+	            
+	            
+	            
+	            
+	            
+	            
+	            
+	            
+	            
 	    	cnt = cnt + 1;
 	    	if (cnt% 7 == 0)    //1주 = 7일
 			row = calendar.insertRow();
@@ -212,10 +243,6 @@
 	  		}
 		}
 	
-	
-	
-
-
 	
 	// 모달창열기
 		const calendar_day = document.querySelectorAll('.calendar_day');	
@@ -258,12 +285,10 @@
 		})	 
   		
   		
-		
-		/* const calendarForm = document.querySelectorAll('.calendarForm');
+		// ajax
+		const calendarForm = document.querySelectorAll('.calendarForm');
 		const updateBtn = document.querySelectorAll('.calendarBtn');
 	  	
-		console.log(calendarForm);
-		
 		calendarForm.forEach(form => {
 			form.onsubmit = function(event){
 				event.preventDefault();
@@ -272,6 +297,7 @@
 				
 				for(const [key,value] of formData.entries()){
 					ob[key] = value;
+					console.log(ob);
 				}
 				
 				const url = '${cpath}/calendar';
@@ -287,10 +313,11 @@
 				.then(text => {
 					if(text == 1 ){
 						alert('g');
+						location.href = '${cpath}/roomStatus'
 					}
 				})
 			}
-		}) */
+		})
 	
 </script>
         
