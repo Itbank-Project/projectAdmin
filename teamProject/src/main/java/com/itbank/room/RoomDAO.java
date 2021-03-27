@@ -7,6 +7,7 @@ public interface RoomDAO {
 
 	int insertRoom(RoomDTO dto);
 
-	List<RoomDTO> getList();
+	List<RoomDTO> getList(String ho_name);
 
 }
+
