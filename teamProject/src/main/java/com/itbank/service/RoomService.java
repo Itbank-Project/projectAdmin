@@ -19,8 +19,8 @@ public class RoomService {
 	}
 
 
-	public List<RoomDTO> getList() {
-		return dao.getList();
+	public List<RoomDTO> getList(String ho_name) {
+		return dao.getList(ho_name);
 	}
 
 }
