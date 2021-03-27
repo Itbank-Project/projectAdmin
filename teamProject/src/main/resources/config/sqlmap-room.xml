@@ -15,9 +15,10 @@
 		)
 	</insert>
 	
-	<select id="getList" resultType="room">
+	<select id="getList" resultType="room" parameterType="string">
 	
-		select * from room where to_char(ro_update_date,'yyyyMM') = '202103'
+		select * from room where ro_ho_name = #{ho_name}
+		<!-- select * from room where to_char(ro_update_date,'yyyyMM') = '202103' -->
 		
 	</select>
 
