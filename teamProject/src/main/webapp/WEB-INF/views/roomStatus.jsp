@@ -105,13 +105,13 @@
 	<div class="roomStatus_modal_overlay"></div>	<!-- 모달 이외 나머지부분 어둡게 -->
 
 	<div class="roomStatus_modal_content">	<!-- 표시할 내용 -->
-		<c:forEach items="${roomList }" var="room"> <!-- 룸 타입 종류만큼 input 창 출력 -->
+		<c:forEach begin="1" end="${roomCount }"> <!-- 룸 타입 종류만큼 input 창 출력 -->
 		<form class="calendarForm" method="POST">
-			<span style="margin-bottom: 5px;"><input type="text" name="calendar_ro_pk" value="${room.ro_pk }"></span>
-			<span><input style="width: 30px;" type="number" name="calendar_count" value="${room.ro_default_count }"></span>
-			<span><input style="width: 60px;" type="number" name="calendar_price" value="${room.ro_default_price }"></span>
+			<span style="margin-bottom: 5px;"><input type="text" name="calendar_ro_pk"></span>
+			<span><input style="width: 30px;" type="number" name="calendar_count"></span>
+			<span><input style="width: 60px;" type="number" name="calendar_price"></span>
 			<span><input type="text" name="calendar_date"></span>
-			<span><input style="width: 300px;" type="hidden" name="calendar_pk" value="${room.ro_pk }"></span>
+			<span><input style="width: 300px;" type="hidden" name="calendar_pk"></span>
 			<span><input class="calendarBtn" type="submit" value="수정"></span>
 			<p></p>
 		</form>
@@ -124,197 +124,31 @@
         
         
 <script type="text/javascript">
-	/* buildCalendar();
 	
- 	var today = new Date();		//오늘 날짜
-	
-	function prevClaendar(){	//이전 달력
-		console.log('?');
-		today = new Date(today.getFullYear(), today.getMonth()-1,today.getDate());
-		buildCalendar();
-	}
-	//다음 달력을 오늘을 저장하고 달력에 뿌려줌
-	function nextCalendar(){
-		today = new Date(today.getFullYear(), today.getMonth()+1,today.getDate());
-		buildCalendar();
-	}
-	
-	function buildCalendar(){
-		var today = new Date();
- 	 	var nMonth = new Date(today.getFullYear(),today.getMonth(),1);// 이번달의 첫번째날
-  		var lastDate =new Date(today.getFullYear(),today.getMonth()+1,0);//이번달의 마지막날
-  		var tblCalendar =document.getElementById("calendar");    //테이블 달력을 만드는 테이블
-  		var tblCalendarYM =document.getElementById("calendarYM"); ///XXXX년도XX월 출력
-  		
-  		// 월이 한자리수면 앞에 0 붙이기
-  		var month = today.getMonth()+1;
-  		if(month  < 10){
-  			month = '0' + month;
-  		}
-  		
-  		tblCalendarYM.innerHTML = today.getFullYear()+"년"+ month+"월";
- 
-		//기존에 테이블에 잇던 달력 내용 삭제
-		while(tblCalendar.rows.length>1){
-		    tblCalendar.deleteRow(tblCalendar.rows.length -1);
-	 	}
-	  
-		var row = null;
-		row = tblCalendar.insertRow();
-		var cnt =0;
-	  
-		// 1일이 시작되는 칸을 맞추어줌
-		for ( i=0; i < nMonth.getDay(); i++) {
-		    cell = row.insertCell();
-		    cnt = cnt + 1;
-		}
- 
-		//달력 출력
-		for(i=1; i <= lastDate.getDate(); i++){
-			
-			cell = row.insertCell();
-			
-	  		var div = "<div class='calendar_day'><div id=day" + i +" "+ ">";
-	    	div += i + "</div>";
-
-	    	var price = 0;
-	    	var count = 0;
-	    	var roomType = '';
-			var ro_pk = '';
-			
-			// 날짜 출력
-	    	cell.innerHTML = div;
-			
-	    	<c:if test="${not empty dto }">
-		    	<c:forEach var="list" items="${dto }">
-		    		if(i == '${list.dd}'){
-		    			cell.innerHTML += "${list.calendar_ro_pk}[" + "${list.calendar_count}] : "+"${list.calendar_price}원" ;
-		    		}
-		    	</c:forEach>
-		    </c:if>
-		    
-		    	<c:forEach var='room' items='${roomList}'>
-		    		ro_pk = "${room.ro_pk}";
-		    		roomType = "${room.ro_roomtype}";
-		    		price = parseInt("${room.ro_default_price}");
-		    		count = parseInt("${room.ro_default_count}");
-		    		
-	 	    		cell.innerHTML += "<div style='font-size: 12px;'><span id=roomType" + i +" " + ">"
-		            + roomType + "</span>"
-		            + "<span id=count" + i + ">[" +count + "]</span>"
-		            + "<span id=price" + i + "> : " + price + "</span>"
-		            + "</div>"
-		        </c:forEach>
-	
-	    	cnt = cnt + 1;
-	    	if (cnt% 7 == 0)    //1주 = 7일
-			row = calendar.insertRow();
-	  	}
-
-		for (let i = 1; i < 7 - lastDate.getDay() ; i++) {
-	    	cell = row.insertCell();
-	    	cell.innerHTML = i;
-	    	cnt = cnt + 0;
-	    	if (cnt%7 == 0)    //1주 = 7일
-	      		row = calendar.insertRow();
-	  		}
-		}
-	
-	
-	// 모달창열기
-		const calendar_day = document.querySelectorAll('.calendar_day');	
-		calendar_day.forEach(cal_day => {
-			cal_day.onclick = () => {
-				var year = document.getElementById('calendarYM').innerText.substring(0,4);
-				var month = document.getElementById('calendarYM').innerText.substr(5,2);
-				var date = cal_day.innerText;
-
-				// 일자가 한자리수면 앞에 0 붙이기
-				if(date < 10){
-					date = '0' + date;
-				}
-				
-				
-				const calendar_pk = document.querySelectorAll('input[name="calendar_pk"]');
-		  		const calendar_count = document.querySelector('input[name="calendar_count"]');
-		  		const calendar_price = document.querySelector('input[name="calendar_price"]');
-		  		const calendar_date = document.querySelectorAll('input[name="calendar_date"]');
-		  		const calendar_ro_pk = document.querySelectorAll('input[name="calendar_ro_pk"]');
-		 		
-				const roomStatus_modal = document.querySelector('.roomStatus_modal');
-				const roomStatus_modal_overlay = document.querySelector('.roomStatus_modal_overlay');
-				roomStatus_modal.classList.remove('hidden');
-
-				calendar_date.forEach(cal_date => {
-					cal_date.value = year +'-' + month +'-'+ date ;
-				})
-				
-				
-				calendar_ro_pk.forEach(cal_ro_pk => {
-					cal_ro_pk.value = cal_ro_pk.value;
-				})
-				
-				
-				roomStatus_modal_overlay.onclick = function(){
-					roomStatus_modal.classList.add('hidden'); 
-				}
-			}
-		})	 
-  		
-  		
-		// ajax
-		const calendarForm = document.querySelectorAll('.calendarForm');
-		const updateBtn = document.querySelectorAll('.calendarBtn');
-	  	
-		calendarForm.forEach(form => {
-			form.onsubmit = function(event){
-				event.preventDefault();
-				const formData = new FormData(form);
-				const ob = {};
-				
-				for(const [key,value] of formData.entries()){
-					ob[key] = value;
-					console.log(ob);
-				}
-				
-				const url = '${cpath}/calendar';
-				const opt = {
-						method : 'POST',
-						body : JSON.stringify(ob),
-						headers : {
-							'Content-Type' : 'application/json;charset=utf8'
-						}
-				};
-				fetch(url,opt)
-				.then(resp => resp.text())
-				.then(text => {
-					if(text == 1 ){
-						alert('g');
-						location.href = '${cpath}/roomStatus'
-					}
-				})
-			}
-		})
-	 */
-	 
 		var today = new Date();//오늘 날짜
 	 
 		function prevClaendar(){//이전 달력
 		  today = new Date(today.getFullYear(), today.getMonth()-1,today.getDate());
 		  buildCalendar();
+		  
+		  // 이전 달력으로 가는 버튼 눌렀을때 ,모달창 띄우기
+		  modalOpen();
 		}
 		//다음 달력을 오늘을 저장하고 달력에 뿌려줌
 		function nextCalendar(){
 		  today = new Date(today.getFullYear(), today.getMonth()+1,today.getDate());
 		  buildCalendar();
+		  
+		// 다음 달력으로 가는 버튼 눌렀을때 ,모달창 띄우기
+		  modalOpen();
 		 
 		}
+		
 		function buildCalendar(){
 		  var nMonth = new Date(today.getFullYear(),today.getMonth(),1);// 이번달의 첫번째날
 		  var lastDate =new Date(today.getFullYear(),today.getMonth()+1,0);//이번달의 마지막날
 		  var tblCalendar =document.getElementById("calendar");    //테이블 달력을 만드는 테이블
 		  var tblCalendarYM =document.getElementById("calendarYM"); ///XXXX년도XX월 출력
-		 // tblCalendarYM.innerHTML = today.getFullYear()+"년"+(today.getMonth()+1)+"월";
 		 
 		// 월이 한자리수면 앞에 0 붙이기
 	  		var month = today.getMonth()+1;
@@ -384,45 +218,52 @@
 		}
 
 		buildCalendar();
-		
+
 		// 모달창열기
-		const calendar_day = document.querySelectorAll('.calendar_day');
-		console.log(document.querySelectorAll('.calendar_day'));
-		calendar_day.forEach(cal_day => {
-			cal_day.onclick = () => {
-				var year = document.getElementById('calendarYM').innerText.substring(0,4);
-				var month = document.getElementById('calendarYM').innerText.substr(5,2);
-				var date = cal_day.innerText;
-
-				// 일자가 한자리수면 앞에 0 붙이기
-				if(date < 10){
-					date = '0' + date;
+		function modalOpen(){
+			const calendar_day = document.querySelectorAll('.calendar_day');
+			
+			calendar_day.forEach(cal_day => {
+				cal_day.onclick = (event) => {
+					console.log(event.target);
+					var year = document.getElementById('calendarYM').innerText.substring(0,4);
+					var month = document.getElementById('calendarYM').innerText.substr(5,2);
+					var date = cal_day.innerText;
+					
+					// 일자가 한자리수면 앞에 0 붙이기
+					if(date < 10){
+						date = '0' + date;
+					}
+					
+					const calendar_pk = document.querySelectorAll('input[name="calendar_pk"]');
+			  		const calendar_count = document.querySelector('input[name="calendar_count"]');
+			  		const calendar_price = document.querySelector('input[name="calendar_price"]');
+			  		const calendar_date = document.querySelectorAll('input[name="calendar_date"]');
+			  		const calendar_ro_pk = document.querySelectorAll('input[name="calendar_ro_pk"]');
+			 		
+			  		
+			  		
+					const roomStatus_modal = document.querySelector('.roomStatus_modal');
+					const roomStatus_modal_overlay = document.querySelector('.roomStatus_modal_overlay');
+					roomStatus_modal.classList.remove('hidden');
+	
+					calendar_date.forEach(cal_date => {
+						cal_date.value = year +'-' + month +'-'+ date ;
+					})
+					
+					calendar_ro_pk.forEach(cal_ro_pk => {
+						
+						cal_ro_pk.value = '아직안함';
+					})
+					
+					roomStatus_modal_overlay.onclick = function(){
+						roomStatus_modal.classList.add('hidden'); 
+					}
 				}
-				
-				const calendar_pk = document.querySelectorAll('input[name="calendar_pk"]');
-		  		const calendar_count = document.querySelector('input[name="calendar_count"]');
-		  		const calendar_price = document.querySelector('input[name="calendar_price"]');
-		  		const calendar_date = document.querySelectorAll('input[name="calendar_date"]');
-		  		const calendar_ro_pk = document.querySelectorAll('input[name="calendar_ro_pk"]');
-		 		
-				const roomStatus_modal = document.querySelector('.roomStatus_modal');
-				const roomStatus_modal_overlay = document.querySelector('.roomStatus_modal_overlay');
-				roomStatus_modal.classList.remove('hidden');
-
-				calendar_date.forEach(cal_date => {
-					cal_date.value = year +'-' + month +'-'+ date ;
-				})
-				
-				calendar_ro_pk.forEach(cal_ro_pk => {
-					cal_ro_pk.value = cal_ro_pk.value;
-				})
-				
-				roomStatus_modal_overlay.onclick = function(){
-					roomStatus_modal.classList.add('hidden'); 
-				}
-			}
-		})
-		
+			})
+		}
+		// 모달창 실행
+		modalOpen();
 		
 		// ajax
 		const calendarForm = document.querySelectorAll('.calendarForm');
