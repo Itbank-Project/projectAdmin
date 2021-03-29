@@ -145,13 +145,13 @@ public class MainController {
 //		map.put("nowDate", nowDate);
 //		
 //		List<CalendarDTO> calendar = cs.getList(map);
-//		List<RoomDTO> roomList = rs.getList(ho_name);
+		List<RoomDTO> roomList = rs.getList(ho_name);
 //		
-//		int roomCount = roomList.size();
+		int roomCount = roomList.size();
 //		
 		mav.addObject("calendarList", calendarList);
 //		mav.addObject("roomList", roomList);
-//		mav.addObject("roomCount", roomCount);
+		mav.addObject("roomCount", roomCount);
 		
 				
 				
@@ -387,14 +387,10 @@ public class MainController {
 		String ro_description = request.getParameter("ro_description");
 		String ro_ho_name = ho_name;
 		String ro_roomtype = request.getParameter("ro_roomtype");
-		String ro_default_price = request.getParameter("ro_default_price");
-		String ro_default_count = request.getParameter("ro_default_count");
 		
 		RoomDTO dto = new RoomDTO();
 		
 		int ro_limitperson2 = Integer.parseInt(ro_limitperson);
-		int ro_default_price2 = Integer.parseInt(ro_default_price);
-		int ro_default_count2 = Integer.parseInt(ro_default_count);
 		
 		dto.setRo_pk(ro_pk);
 		dto.setRo_badtype(ro_badtype);
@@ -403,8 +399,6 @@ public class MainController {
 		dto.setRo_limitperson(ro_limitperson2);
 		dto.setRo_roomtype(ro_roomtype);
 		dto.setRo_uploadfile(file.getOriginalFilename());
-		dto.setRo_default_price(ro_default_price2);
-		dto.setRo_default_count(ro_default_count2);
 		
 		boolean flag = fs.uploadFile(file);							// 서비스에게 전달하고 결과를 저장
 		if(flag == false) {											// 업로드 실패라면
