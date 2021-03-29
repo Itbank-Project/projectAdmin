@@ -79,16 +79,16 @@
 	        </form>
     </div>
     
-     <div class="modal_findId hidden">
-        <div class="modal_overlay_findId"></div>   <!-- 나머지 배경 어둡게 만드는 영역  -->
-        <div class="modal_content_findId">         <!-- 표시하고 싶은 내용  -->
+     <!-- <div class="modal_findId hidden">
+        <div class="modal_overlay_findId"></div>   나머지 배경 어둡게 만드는 영역 
+        <div class="modal_content_findId">         표시하고 싶은 내용 
             <h2>아이디 찾기</h2>
             <div id="modal_result">
 				입력한 정보와 일치하는 아이디 나오게 하기
             </div>
             <button id="close">확인</button>
         </div>
-    </div> 
+    </div>  -->
     
     <script type="text/javascript">
     const cpath = '${pageContext.request.contextPath }';
@@ -116,7 +116,7 @@
 			ob[key] = value;
 		}
 		
-		const url = cpath + '/findID';
+		const url = cpath +'/findID';
 		const opt = {
 				method : 'POST',
 				body : JSON.stringify(ob),
@@ -131,11 +131,13 @@
 				alert(text);
 			}
 			else{
-				modal_findId.classList.remove('hidden');	
+				alert('아이디 찾기 : ' + text);
+				location.href = cpath +'/login';
+				/*modal_findId.classList.remo ve('hidden');	
 				modal_result.style.color = 'blue';
 				modal_result.style.fontWeight = 'bold';
 				modal_result.style.fontSize = '16pt';
-				modal_result.innerText = text; 
+				modal_result.innerText = text;*/ 
 			}
 		});	
     }
