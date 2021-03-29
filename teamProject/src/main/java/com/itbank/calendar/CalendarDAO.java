@@ -12,4 +12,7 @@ public interface CalendarDAO {
 	// 캘린더추가
 	int insertCalendar(CalendarDTO dto);
 
+	// 캘린더 값 다 뽀ㅃ아내기!!
+	List<CalendarDTO> selectCalList(String ho_name);
+
 }
