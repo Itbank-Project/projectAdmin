@@ -25,4 +25,9 @@ public class CalendarService {
 		return dao.insertCalendar(dto);
 	}
 
+	// 캘린더 값
+	public List<CalendarDTO> getCalendar(String ho_name) {
+		return dao.selectCalList(ho_name);
+	}
+
 }
