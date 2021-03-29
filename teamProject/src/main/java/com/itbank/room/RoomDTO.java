@@ -12,13 +12,9 @@ public class RoomDTO {
 //	RO_UPLOADFILE  NOT NULL VARCHAR2(500) 
 //	RO_HO_NAME     NOT NULL VARCHAR2(50)  
 //	RO_ROOMTYPE    NOT NULL VARCHAR2(50) 
-//	RO_DEFAULT_COUNT NOT NULL NUMBER  
-//	RO_DEFAULT_PRICE NOT NULL NUMBER        
-//	RO_UPDATE_DATE            DATE       
-	
-	private int ro_limitperson, ro_default_price,ro_default_count;
+
+	private int ro_limitperson;
 	private String ro_pk, ro_badtype, ro_description, ro_uploadfile, ro_ho_name, ro_roomtype;
-	private Date ro_update_date;
 	
 	public int getRo_limitperson() {
 		return ro_limitperson;
@@ -61,24 +57,6 @@ public class RoomDTO {
 	}
 	public void setRo_roomtype(String ro_roomtype) {
 		this.ro_roomtype = ro_roomtype;
-	}
-	public int getRo_default_price() {
-		return ro_default_price;
-	}
-	public void setRo_default_price(int ro_default_price) {
-		this.ro_default_price = ro_default_price;
-	}
-	public int getRo_default_count() {
-		return ro_default_count;
-	}
-	public void setRo_default_count(int ro_default_count) {
-		this.ro_default_count = ro_default_count;
-	}
-	public Date getRo_update_date() {
-		return ro_update_date;
-	}
-	public void setRo_update_date(Date ro_update_date) {
-		this.ro_update_date = ro_update_date;
 	}
 
 }
