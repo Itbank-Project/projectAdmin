@@ -8,17 +8,16 @@
 	<!-- 룸 정보 입력 -->
 	<insert id="insertRoom" parameterType="room">
 	insert into room
-		(ro_limitperson, ro_pk, ro_badtype, ro_description, ro_uploadfile, ro_ho_name, ro_roomtype, ro_default_price,ro_default_count)
+		(ro_limitperson, ro_pk, ro_badtype, ro_description, ro_uploadfile, ro_ho_name, ro_roomtype)
 	values
 		(
-			#{ro_limitperson}, #{ro_pk}, #{ro_badtype}, #{ro_description}, #{ro_uploadfile}, #{ro_ho_name}, #{ro_roomtype}, #{ro_default_price},#{ro_default_count}
+			#{ro_limitperson}, #{ro_pk}, #{ro_badtype}, #{ro_description}, #{ro_uploadfile}, #{ro_ho_name}, #{ro_roomtype}
 		)
 	</insert>
 	
 	<select id="getList" resultType="room" parameterType="string">
 	
 		select * from room where ro_ho_name = #{ho_name}
-		<!-- select * from room where to_char(ro_update_date,'yyyyMM') = '202103' -->
 		
 	</select>
 
