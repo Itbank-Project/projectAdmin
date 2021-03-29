@@ -322,7 +322,9 @@
 	  			month = '0' + month;
 	  		}
 	  		
-	  		tblCalendarYM.innerHTML = today.getFullYear()+"년"+ month+"월";
+	  	// 년도
+	  		var year = today.getFullYear();
+	  		tblCalendarYM.innerHTML = year+"년"+ month+"월";
 		  
 		  
 		  //기존에 테이블에 잇던 달력 내용 삭제
@@ -342,7 +344,6 @@
 		  for(i=1; i<= lastDate.getDate(); i++){
 		    cell =row.insertCell();
 		    
-		    
 		    var div = "<div class='calendar_day'><div id=day" + i +" "+ ">";
 			div += i + "</div>";
 
@@ -352,16 +353,20 @@
 			
 			cell.innerHTML = div;
 			
-			<c:forEach var='room' items='${roomList}'>
-				roomType = "${room.ro_roomtype}";
-				price = parseInt("${room.ro_default_price}");
-				count = parseInt("${room.ro_default_count}");
+			<c:forEach var='list' items='${calendarList}'>
 				
-		 		cell.innerHTML += "<div style='font-size: 12px;'><span id=roomType" + i +" " + ">"
-		        + roomType + "</span>"
-		        + "<span id=count" + i + ">[" +count + "]</span>"
-		        + "<span id=price" + i + "> : " + price + "</span>"
-		        + "</div>"
+			// 년월일이 calendar 날짜와 같으면 
+				if(i == '${list.dd}' && month == '${list.mm}' && year == '${list.yy}'){
+					roomType = "${list.calendar_ro_pk}";
+					price = parseInt("${list.calendar_price}");
+					count = parseInt("${list.calendar_count}");
+					
+			 		cell.innerHTML += "<div style='font-size: 12px;'><span id=roomType" + i +" " + ">"
+			        + roomType + "</span>"
+			        + "<span id=count" + i + ">[" +count + "]</span>"
+			        + "<span id=price" + i + "> : " + price + "</span>"
+			        + "</div>"
+				}
 	    	</c:forEach> 
 	    	
 		    cnt = cnt + 1;
@@ -431,24 +436,24 @@
 				
 				for(const [key,value] of formData.entries()){
 					ob[key] = value;
-					console.log(ob);
 				}
 				
-				const url = '${cpath}/calendar';
-				console.log(url);
+				const url = '${cpath}/roomStatus';
 				const opt = {
 						method : 'POST',
 						body : JSON.stringify(ob),
+						contentType: 'application/json',
 						headers : {
-							'Content-Type' : 'application/json;charset=utf8'
+							'Content-Type' : 'application/json'
+							
 						}
 				};
-				console.log(opt);
+				
 				fetch(url,opt)
 				.then(resp => resp.text())
 				.then(text => {
 					if(text == 1 ){
-						alert('g');
+						alert('캘린더테이블에 insert됨');
 						location.href = '${cpath}/roomStatus'
 					}
 				})
