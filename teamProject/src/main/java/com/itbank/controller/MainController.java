@@ -308,7 +308,7 @@ public class MainController {
 	
 	// 호텔정보 수정
 	@PostMapping("hotelInformationModification")
-	public ModelAndView hotelModifi(MultipartHttpServletRequest request) throws  IllegalStateException,IOException {
+	public ModelAndView hotelModifi(MultipartHttpServletRequest request) throws  IllegalStateException,IOException, JSchException, SftpException {
 		ModelAndView mav = new ModelAndView("index");
 		MultipartFile file = request.getFile("ho_uploadfile");
 		String ho_name = request.getParameter("ho_name");
@@ -326,6 +326,13 @@ public class MainController {
 		String ho_pool = request.getParameter("ho_pool");
 
 		HotelDTO dto = new HotelDTO();
+		
+		System.out.println("========================");
+		System.out.println(file.getOriginalFilename());
+		System.out.println(file.getName());
+		System.out.println(file.getContentType());
+		System.out.println(file.getSize());
+		System.out.println("=========================");
 		
 		dto.setHo_ad_id(ho_ad_id);
 		dto.setHo_address(ho_address);
@@ -350,14 +357,44 @@ public class MainController {
 		if(dto.getHo_pool() == null) {dto.setHo_pool("");	}
 
 		
+		Session sess = null;
+		Channel channel = null;
+		JSch jsch = new JSch();
 		
-		boolean flag = fs.uploadFile(file);						// 서비스에게 전달하고 결과를 저장
-		if(flag == false) {											// 업로드 실패라면
-			mav.setViewName("msg");									// viewName을 msg로 변경하고
-			mav.addObject("msg", "업로드 실패 !!");						// 업로드 실패 메시지를 전달
-			System.out.println("업로드 실패");
-		}
+		sess = jsch.getSession(serverUser, serverIp, serverPort);	// 기본 접속 설정
+		sess.setPassword(serverPass);								// 패스워드
+		sess.setConfig("StrictHostKeyChecking", "no");				// SSH는 키 교환 접속 가능(id/pw x )
 		
+		sess.connect();		// 22번 포트는 SSH, SCP, SFTP 등의 여러 기능이 있으므로
+		System.out.println("sftp > Connected !!");
+		
+		channel = sess.openChannel("sftp");		// SFTP를 사용하는 채널로 변경
+		channel.connect();
+		
+		chSftp = (ChannelSftp)channel;
+		
+		File tmp = new File(file.getOriginalFilename());		// 리눅스에 전송할 파일을 임시로 생성
+		file.transferTo(tmp);			// 업로드 파일을 File객체로 변환
+		
+		FileInputStream fis = new FileInputStream(tmp);		// tmp를 읽어서 리눅스에 보낼 스트림
+		chSftp.cd("/var/www/html"); 						// /var/www/html : apache의 기본 경로
+		chSftp.put(fis, file.getOriginalFilename());		// 스트림과 이름을 전송하는 업로드
+		
+		System.out.println("sftp > transfer complete !!");
+		
+		fis.close();	// 스티림 닫기
+		chSftp.exit();	// SFTP 접속 종료
+		tmp.delete();	// 임시파일 삭제
+		
+		System.out.println("sftp> exit !!");
+		String fileName = "" ;
+		fileName += "http://";		// 프로토콜, 대상 서버의 apache 서비스로 접근
+		fileName += serverIp;		// 서버의 IP 혹은 DNA Name
+		fileName += ":9000/";		// 대상 서버의 apache port, 기본값을 80
+		fileName += file.getOriginalFilename(); // 업로드된 파일의 이름
+		
+		mav.addObject("uploadFilePath", fileName);
+		System.out.println("fileName : " + fileName);
 		int row = hs.modifiHotel(dto);
 		System.out.println("row : " + row);
 		return mav;
