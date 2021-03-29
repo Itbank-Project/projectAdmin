@@ -1,5 +1,7 @@
 package com.itbank.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,6 +38,12 @@ import com.itbank.service.HotelService;
 import com.itbank.service.ReservationService;
 import com.itbank.service.ReviewService;
 import com.itbank.service.RoomService;
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
+import com.jcraft.jsch.SftpException;
 
 @Controller
 public class MainController {
@@ -47,6 +55,13 @@ public class MainController {
 	@Autowired private ReviewService reviewService;
 	@Autowired private ReservationService reservationService;
 	@Autowired private CalendarService cs;
+	
+	private final String serverIp = "182.212.181.172";	// 업로드 서버의 IP 혹은 DNS Name
+	private final int serverPort = 22;					// SSH Protocol	Port
+	private final String serverUser = "root";			// Linux User
+	private final String serverPass = "Dudwns12!@";				// password
+	private ChannelSftp chSftp = null;	
+	
 	
 	// 인덱스, 판매기록
 	@GetMapping("/")
@@ -234,7 +249,7 @@ public class MainController {
 	
 	// 호텔정보 입력
 	@PostMapping("enterHotelinformation/{ad_id}")
-	public ModelAndView enterHotelinformation(@PathVariable String ad_id, MultipartHttpServletRequest request) throws IllegalStateException, IOException {
+	public ModelAndView enterHotelinformation(@PathVariable String ad_id, MultipartHttpServletRequest request) throws IllegalStateException, IOException, JSchException, SftpException {
 		ModelAndView mav = new ModelAndView("index");
 		MultipartFile file = request.getFile("ho_uploadfile");
 		String ho_name = request.getParameter("ho_name");
@@ -276,12 +291,44 @@ public class MainController {
 		if(dto.getHo_pool() == null) {dto.setHo_pool("");	}
 		
 		
-		boolean flag = fs.uploadFile(file);						// 서비스에게 전달하고 결과를 저장
-		if(flag == false) {											// 업로드 실패라면
-			mav.setViewName("msg");									// viewName을 msg로 변경하고
-			mav.addObject("msg", "업로드 실패 !!");						// 업로드 실패 메시지를 전달
-			System.out.println("업로드 실패");
-		}
+		Session sess = null;
+		Channel channel = null;
+		JSch jsch = new JSch();
+		
+		sess = jsch.getSession(serverUser, serverIp, serverPort);	// 기본 접속 설정
+		sess.setPassword(serverPass);								// 패스워드
+		sess.setConfig("StrictHostKeyChecking", "no");				// SSH는 키 교환 접속 가능(id/pw x )
+		
+		sess.connect();		// 22번 포트는 SSH, SCP, SFTP 등의 여러 기능이 있으므로
+		System.out.println("sftp > Connected !!");
+		
+		channel = sess.openChannel("sftp");		// SFTP를 사용하는 채널로 변경
+		channel.connect();
+		
+		chSftp = (ChannelSftp)channel;
+		
+		File tmp = new File(file.getOriginalFilename());		// 리눅스에 전송할 파일을 임시로 생성
+		file.transferTo(tmp);			// 업로드 파일을 File객체로 변환
+		
+		FileInputStream fis = new FileInputStream(tmp);		// tmp를 읽어서 리눅스에 보낼 스트림
+		chSftp.cd("/var/www/html"); 						// /var/www/html : apache의 기본 경로
+		chSftp.put(fis, file.getOriginalFilename());		// 스트림과 이름을 전송하는 업로드
+		
+		System.out.println("sftp > transfer complete !!");
+		
+		fis.close();	// 스티림 닫기
+		chSftp.exit();	// SFTP 접속 종료
+		tmp.delete();	// 임시파일 삭제
+		
+		System.out.println("sftp> exit !!");
+		String fileName = "" ;
+		fileName += "http://";		// 프로토콜, 대상 서버의 apache 서비스로 접근
+		fileName += serverIp;		// 서버의 IP 혹은 DNA Name
+		fileName += ":9000/";		// 대상 서버의 apache port, 기본값을 80
+		fileName += file.getOriginalFilename(); // 업로드된 파일의 이름
+		
+		mav.addObject("uploadFilePath", fileName);
+		System.out.println("fileName : " + fileName);
 		
 		int row = hs.insertHotel(dto);
 		System.out.println("row : " + row);
@@ -311,62 +358,99 @@ public class MainController {
 	}
 	
 	// 호텔정보 수정
-	@PostMapping("hotelInformationModification")
-	public ModelAndView hotelModifi(MultipartHttpServletRequest request) throws  IllegalStateException,IOException {
-		ModelAndView mav = new ModelAndView("index");
-		MultipartFile file = request.getFile("ho_uploadfile");
-		String ho_name = request.getParameter("ho_name");
-		String ho_pnum = request.getParameter("ho_pnum");
-		String ho_address = request.getParameter("ho_address");
-		String ho_check_in = request.getParameter("ho_check_in");
-		String ho_check_out = request.getParameter("ho_check_out");
-		String ho_description = request.getParameter("ho_description");
-		String ho_ad_id = request.getParameter("ho_ad_id");
-		String ho_parking = request.getParameter("ho_parking");
-		String ho_wifi = request.getParameter("ho_wifi");
-		String ho_pc = request.getParameter("ho_pc");
-		String ho_breakfast = request.getParameter("ho_breakfast");
-		String ho_smoke = request.getParameter("ho_smoke");
-		String ho_pool = request.getParameter("ho_pool");
+		@PostMapping("hotelInformationModification")
+		public ModelAndView hotelModifi(MultipartHttpServletRequest request) throws  IllegalStateException,IOException, JSchException, SftpException {
+			ModelAndView mav = new ModelAndView("index");
+			MultipartFile file = request.getFile("ho_uploadfile");
+			String ho_name = request.getParameter("ho_name");
+			String ho_pnum = request.getParameter("ho_pnum");
+			String ho_address = request.getParameter("ho_address");
+			String ho_check_in = request.getParameter("ho_check_in");
+			String ho_check_out = request.getParameter("ho_check_out");
+			String ho_description = request.getParameter("ho_description");
+			String ho_ad_id = request.getParameter("ho_ad_id");
+			String ho_parking = request.getParameter("ho_parking");
+			String ho_wifi = request.getParameter("ho_wifi");
+			String ho_pc = request.getParameter("ho_pc");
+			String ho_breakfast = request.getParameter("ho_breakfast");
+			String ho_smoke = request.getParameter("ho_smoke");
+			String ho_pool = request.getParameter("ho_pool");
 
-		HotelDTO dto = new HotelDTO();
-		
-		dto.setHo_ad_id(ho_ad_id);
-		dto.setHo_address(ho_address);
-		dto.setHo_breakfast(ho_breakfast);
-		dto.setHo_check_in(ho_check_in);
-		dto.setHo_check_out(ho_check_out);
-		dto.setHo_description(ho_description);
-		dto.setHo_name(ho_name);
-		dto.setHo_parking(ho_parking);
-		dto.setHo_pc(ho_pc);
-		dto.setHo_pnum(ho_pnum);
-		dto.setHo_pool(ho_pool);
-		dto.setHo_smoke(ho_smoke);
-		dto.setHo_uploadfile(file.getOriginalFilename());
-		dto.setHo_wifi(ho_wifi);
-		
-		if(dto.getHo_parking() == null) {dto.setHo_parking("");	}
-		if(dto.getHo_wifi() == null) {dto.setHo_wifi("");	}
-		if(dto.getHo_pc() == null) {dto.setHo_pc("");	}
-		if(dto.getHo_breakfast() == null) {dto.setHo_breakfast("");	}
-		if(dto.getHo_smoke() == null) {dto.setHo_smoke("");	}
-		if(dto.getHo_pool() == null) {dto.setHo_pool("");	}
+			HotelDTO dto = new HotelDTO();
+			
+			System.out.println("========================");
+			System.out.println(file.getOriginalFilename());
+			System.out.println(file.getName());
+			System.out.println(file.getContentType());
+			System.out.println(file.getSize());
+			System.out.println("=========================");
+			
+			dto.setHo_ad_id(ho_ad_id);
+			dto.setHo_address(ho_address);
+			dto.setHo_breakfast(ho_breakfast);
+			dto.setHo_check_in(ho_check_in);
+			dto.setHo_check_out(ho_check_out);
+			dto.setHo_description(ho_description);
+			dto.setHo_name(ho_name);
+			dto.setHo_parking(ho_parking);
+			dto.setHo_pc(ho_pc);
+			dto.setHo_pnum(ho_pnum);
+			dto.setHo_pool(ho_pool);
+			dto.setHo_smoke(ho_smoke);
+			dto.setHo_uploadfile(file.getOriginalFilename());
+			dto.setHo_wifi(ho_wifi);
+			
+			if(dto.getHo_parking() == null) {dto.setHo_parking("");	}
+			if(dto.getHo_wifi() == null) {dto.setHo_wifi("");	}
+			if(dto.getHo_pc() == null) {dto.setHo_pc("");	}
+			if(dto.getHo_breakfast() == null) {dto.setHo_breakfast("");	}
+			if(dto.getHo_smoke() == null) {dto.setHo_smoke("");	}
+			if(dto.getHo_pool() == null) {dto.setHo_pool("");	}
 
-		
-		
-		boolean flag = fs.uploadFile(file);						// 서비스에게 전달하고 결과를 저장
-		if(flag == false) {											// 업로드 실패라면
-			mav.setViewName("msg");									// viewName을 msg로 변경하고
-			mav.addObject("msg", "업로드 실패 !!");						// 업로드 실패 메시지를 전달
-			System.out.println("업로드 실패");
-		}
-		
-		int row = hs.modifiHotel(dto);
-		System.out.println("row : " + row);
-		return mav;
-		
-	}	
+			
+			Session sess = null;
+			Channel channel = null;
+			JSch jsch = new JSch();
+			
+			sess = jsch.getSession(serverUser, serverIp, serverPort);	// 기본 접속 설정
+			sess.setPassword(serverPass);								// 패스워드
+			sess.setConfig("StrictHostKeyChecking", "no");				// SSH는 키 교환 접속 가능(id/pw x )
+			
+			sess.connect();		// 22번 포트는 SSH, SCP, SFTP 등의 여러 기능이 있으므로
+			System.out.println("sftp > Connected !!");
+			
+			channel = sess.openChannel("sftp");		// SFTP를 사용하는 채널로 변경
+			channel.connect();
+			
+			chSftp = (ChannelSftp)channel;
+			
+			File tmp = new File(file.getOriginalFilename());		// 리눅스에 전송할 파일을 임시로 생성
+			file.transferTo(tmp);			// 업로드 파일을 File객체로 변환
+			
+			FileInputStream fis = new FileInputStream(tmp);		// tmp를 읽어서 리눅스에 보낼 스트림
+			chSftp.cd("/var/www/html"); 						// /var/www/html : apache의 기본 경로
+			chSftp.put(fis, file.getOriginalFilename());		// 스트림과 이름을 전송하는 업로드
+			
+			System.out.println("sftp > transfer complete !!");
+			
+			fis.close();	// 스티림 닫기
+			chSftp.exit();	// SFTP 접속 종료
+			tmp.delete();	// 임시파일 삭제
+			
+			System.out.println("sftp> exit !!");
+			String fileName = "" ;
+			fileName += "http://";		// 프로토콜, 대상 서버의 apache 서비스로 접근
+			fileName += serverIp;		// 서버의 IP 혹은 DNA Name
+			fileName += ":9000/";		// 대상 서버의 apache port, 기본값을 80
+			fileName += file.getOriginalFilename(); // 업로드된 파일의 이름
+			
+			mav.addObject("uploadFilePath", fileName);
+			System.out.println("fileName : " + fileName);
+			int row = hs.modifiHotel(dto);
+			System.out.println("row : " + row);
+			return mav;
+			
+		}	
 
 	//  정보 입력
 	@GetMapping("insertRoom/{ho_name}")
@@ -378,7 +462,7 @@ public class MainController {
 	
 	// 객실 정보 입력
 	@PostMapping("insertRoom/{ho_name}")
-	public ModelAndView insertRoom(@PathVariable String ho_name, MultipartHttpServletRequest request) throws IllegalStateException, IOException {
+	public ModelAndView insertRoom(@PathVariable String ho_name, MultipartHttpServletRequest request) throws IllegalStateException, IOException, JSchException, SftpException {
 		ModelAndView mav = new ModelAndView("index");
 		MultipartFile file = request.getFile("ro_uploadfile");
 		String ro_pk = request.getParameter("ro_pk");
@@ -400,10 +484,45 @@ public class MainController {
 		dto.setRo_roomtype(ro_roomtype);
 		dto.setRo_uploadfile(file.getOriginalFilename());
 		
-		boolean flag = fs.uploadFile(file);							// 서비스에게 전달하고 결과를 저장
-		if(flag == false) {											// 업로드 실패라면
-			System.out.println("업로드 실패");
-		}
+	
+		Session sess = null;
+		Channel channel = null;
+		JSch jsch = new JSch();
+		
+		sess = jsch.getSession(serverUser, serverIp, serverPort);	// 기본 접속 설정
+		sess.setPassword(serverPass);								// 패스워드
+		sess.setConfig("StrictHostKeyChecking", "no");				// SSH는 키 교환 접속 가능(id/pw x )
+		
+		sess.connect();		// 22번 포트는 SSH, SCP, SFTP 등의 여러 기능이 있으므로
+		System.out.println("sftp > Connected !!");
+		
+		channel = sess.openChannel("sftp");		// SFTP를 사용하는 채널로 변경
+		channel.connect();
+		
+		chSftp = (ChannelSftp)channel;
+		
+		File tmp = new File(file.getOriginalFilename());		// 리눅스에 전송할 파일을 임시로 생성
+		file.transferTo(tmp);			// 업로드 파일을 File객체로 변환
+		
+		FileInputStream fis = new FileInputStream(tmp);		// tmp를 읽어서 리눅스에 보낼 스트림
+		chSftp.cd("/var/www/html"); 						// /var/www/html : apache의 기본 경로
+		chSftp.put(fis, file.getOriginalFilename());		// 스트림과 이름을 전송하는 업로드
+		
+		System.out.println("sftp > transfer complete !!");
+		
+		fis.close();	// 스티림 닫기
+		chSftp.exit();	// SFTP 접속 종료
+		tmp.delete();	// 임시파일 삭제
+		
+		System.out.println("sftp> exit !!");
+		String fileName = "" ;
+		fileName += "http://";		// 프로토콜, 대상 서버의 apache 서비스로 접근
+		fileName += serverIp;		// 서버의 IP 혹은 DNA Name
+		fileName += ":9000/";		// 대상 서버의 apache port, 기본값을 80
+		fileName += file.getOriginalFilename(); // 업로드된 파일의 이름
+		
+		mav.addObject("uploadFilePath", fileName);
+		System.out.println("fileName : " + fileName);
 		
 		int row = rs.insertRoom(dto);
 		System.out.println("row : " + row);
