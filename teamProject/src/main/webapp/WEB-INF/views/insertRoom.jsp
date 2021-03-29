@@ -79,22 +79,6 @@
 		            </td>
 		        </tr>
 		        <tr>
-		            <th>가격</th>
-		            <td><input type="number" name="ro_default_price" placeholder="가격을 입력하세요"></td>
-		        </tr>
-		        <tr>
-		            <th>갯수</th>
-		            <td>
-		                <select name="ro_default_count">
-		                    <option selected>수량을 선택하세요</option>
-		                    <option value="1">1</option>
-		                    <option value="2">2</option>
-		                    <option value="3">3</option>
-		                    <option value="4">4</option>
-		                </select>
-		            </td>
-		        </tr>
-		        <tr>
 		            <th>객실설명</th>
 		            <td><input type="text" name="ro_description" placeholder="객실 설명을 입력하세요"></td>
 		        </tr>
