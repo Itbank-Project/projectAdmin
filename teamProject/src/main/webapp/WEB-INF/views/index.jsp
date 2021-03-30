@@ -46,8 +46,8 @@
 								</c:if>
 							</div></td>
 							<td>취소<div id="cancle" style="height:25px; margin-top: 10px;">
-								<c:if test="${not empty cancleCount }">
-									${cancleCount }건
+								<c:if test="${not empty cancelCount }">
+									${cancelCount }건
 								</c:if>
 							</div></td>
 						</tr>
@@ -76,15 +76,16 @@
 					</tr>
 					<c:forEach var="dto" items="${list }">
 						<tr>
-							<td><fmt:formatDate value="${dto.re_payDate }" pattern="yyyy-MM-dd hh:mm"/> 
+							<td>
+							<fmt:formatDate value="${dto.re_paydate }" pattern="yyyy-MM-dd hh:mm"/> </td>
 							<td>${dto.cu_name }</td>
-							<td><fmt:formatDate value="${dto.re_inDate }" pattern="yyyy-MM-dd"/></td>
-							<td>${dto.re_dayCount }</td>
+							<td><fmt:formatDate value="${dto.re_indate }" pattern="yyyy-MM-dd"/></td>
+							<td>${dto.re_daycount }</td>
 							<td>${dto.ro_roomType }</td>
 							<td class="re_payment" id="re_payment">${dto.re_payment }</td>
 							<td>
-								<c:if test="${not empty dto.re_cancelDate }">
-									<fmt:formatDate value="${dto.re_cancelDate }" pattern="yyyy-MM-dd"/>
+								<c:if test="${not empty dto.re_canceldate }">
+									<fmt:formatDate value="${dto.re_canceldate }" pattern="yyyy-MM-dd"/>
 								</c:if>
 							</td>
 							<td></td>
