@@ -20,8 +20,11 @@ public class ReservationDTO {
 //	RE_RO_PK         NOT NULL VARCHAR2(20) 
 	
 	private int re_idx, re_daycount, re_payment;
-	private Date re_paydate, re_indate, re_outdate, re_calceldate;
+	private Date re_paydate, re_indate, re_outdate, re_canceldate;
 	private String re_cu_id, re_changeName, re_changePnum, re_cancelYesOrNo, re_calendar_fk, re_ro_pk;
+	
+	private String cu_name, ro_roomType;
+	
 	
 	public int getRe_idx() {
 		return re_idx;
@@ -59,12 +62,6 @@ public class ReservationDTO {
 	public void setRe_outdate(Date re_outdate) {
 		this.re_outdate = re_outdate;
 	}
-	public Date getRe_calceldate() {
-		return re_calceldate;
-	}
-	public void setRe_calceldate(Date re_calceldate) {
-		this.re_calceldate = re_calceldate;
-	}
 	public String getRe_cu_id() {
 		return re_cu_id;
 	}
@@ -100,5 +97,23 @@ public class ReservationDTO {
 	}
 	public void setRe_ro_pk(String re_ro_pk) {
 		this.re_ro_pk = re_ro_pk;
+	}
+	public String getCu_name() {
+		return cu_name;
+	}
+	public void setCu_name(String cu_name) {
+		this.cu_name = cu_name;
+	}
+	public String getRo_roomType() {
+		return ro_roomType;
+	}
+	public void setRo_roomType(String ro_roomType) {
+		this.ro_roomType = ro_roomType;
+	}
+	public Date getRe_canceldate() {
+		return re_canceldate;
+	}
+	public void setRe_canceldate(Date re_canceldate) {
+		this.re_canceldate = re_canceldate;
 	}
 }
