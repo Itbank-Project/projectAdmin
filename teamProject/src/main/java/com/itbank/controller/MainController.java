@@ -85,11 +85,11 @@ public class MainController {
 		
 		ModelAndView mav = new ModelAndView("index");
 		List<ReservationDTO> list = reservationService.getReservationList(map);
-		String cancleCount = reservationService.getCancleCount(map);
+		String cancelCount = reservationService.getCancelCount(map);
 		String reservationCount = reservationService.getReservationCount(map);
 		
 		mav.addObject("list", list);
-		mav.addObject("cancleCount",cancleCount);	// 예약취소한 갯수
+		mav.addObject("cancelCount",cancelCount);	// 예약취소한 갯수
 		mav.addObject("reservationCount", reservationCount);	// 예약완료된 갯수
 		return mav;
 	}
