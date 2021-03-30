@@ -19,7 +19,8 @@
 		       reservation.re_canceldate
 		from reservation
 			   left outer join customer on customer.cu_id = reservation.re_cu_id
-			   left outer join room on room.ro_pk = reservation.re_ro_pk
+			   left outer join calendar on calendar.calendar_pk = reservation.re_calendar_pk
+			   left outer join room on room.ro_pk = calendar.calendar_ro_pk
 			   left outer join hotel on room.ro_ho_name = hotel.ho_name
 			   left outer join admin on admin.ad_id = hotel.ho_ad_id
     	where admin.ad_id = #{ad_id}
@@ -34,7 +35,8 @@
 		select count(*)
 		from reservation
 			   left outer join customer on customer.cu_id = reservation.re_cu_id
-			   left outer join room on room.ro_pk = reservation.re_ro_pk
+			   left outer join calendar on calendar.calendar_pk = reservation.re_calendar_pk
+			   left outer join room on room.ro_pk = calendar.calendar_ro_pk
 			   left outer join hotel on room.ro_ho_name = hotel.ho_name
 			   left outer join admin on admin.ad_id = hotel.ho_ad_id
     	where admin.ad_id = #{ad_id}
@@ -49,7 +51,8 @@
 		select count(*)
 		from reservation
 			   left outer join customer on customer.cu_id = reservation.re_cu_id
-			   left outer join room on room.ro_pk = reservation.re_ro_pk
+			   left outer join calendar on calendar.calendar_pk = reservation.re_calendar_pk
+			   left outer join room on room.ro_pk = calendar.calendar_ro_pk
 			   left outer join hotel on room.ro_ho_name = hotel.ho_name
 			   left outer join admin on admin.ad_id = hotel.ho_ad_id
     	where admin.ad_id = #{ad_id}
