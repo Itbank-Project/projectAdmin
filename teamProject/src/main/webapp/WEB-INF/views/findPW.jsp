@@ -163,7 +163,7 @@
 		// 인증 번호 일치하는지 확인
 		const authForm = document.getElementById('authForm');
 		
-		const modal_findpw = document.querySelector('.modal_findpw');
+		const modal = document.querySelector('.modal');
 		const closeBtn = document.getElementById('close');
 		
 		const authCheckHandler = function(event){
