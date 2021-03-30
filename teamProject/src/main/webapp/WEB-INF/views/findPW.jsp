@@ -37,7 +37,7 @@
 			font-weight: bold;
 		}
 
-		.modal {
+		.modal_findpw {
             position: fixed;
             top: 0;
             left: 0;
@@ -53,7 +53,7 @@
             height: 100%;
             position: absolute;
         }
-        .modal_content {
+        .modal_findpw_content {
             background-color: white;
             padding: 20px 50px;
             text-align: center;
@@ -102,7 +102,7 @@
 <!-- 비밀번호 재 설정 폼 -->
     <div class="modal hidden">
         <div class="modal_overlay"></div>   <!--나머지 배경 어둡게 만드는 영역-->
-        <div class="modal_content">         <!--표시하고 싶은 내용-->
+        <div class="modal_findpw_content">         <!--표시하고 싶은 내용-->
             <h2>비밀번호 재설정</h2>
             <div>
                 <form id="modifyPwForm">
@@ -163,7 +163,7 @@
 		// 인증 번호 일치하는지 확인
 		const authForm = document.getElementById('authForm');
 		
-		const modal = document.querySelector('.modal');
+		const modal_findpw = document.querySelector('.modal_findpw');
 		const closeBtn = document.getElementById('close');
 		
 		const authCheckHandler = function(event){
