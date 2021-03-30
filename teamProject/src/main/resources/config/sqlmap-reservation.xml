@@ -30,7 +30,7 @@
 	]]>	
 	</select>
 	
-	<select id="selectCancleCount" resultType="string" parameterType="hashmap">
+	<select id="selectCancelCount" resultType="string" parameterType="hashmap">
 	<![CDATA[
 		select count(*)
 		from reservation
