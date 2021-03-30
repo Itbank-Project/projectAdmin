@@ -37,7 +37,7 @@
 			font-weight: bold;
 		}
 
-		.modal_findpw {
+		.modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -53,7 +53,7 @@
             height: 100%;
             position: absolute;
         }
-        .modal_findpw_content {
+        .modal_content {
             background-color: white;
             padding: 20px 50px;
             text-align: center;
@@ -102,7 +102,7 @@
 <!-- 비밀번호 재 설정 폼 -->
     <div class="modal hidden">
         <div class="modal_overlay"></div>   <!--나머지 배경 어둡게 만드는 영역-->
-        <div class="modal_findpw_content">         <!--표시하고 싶은 내용-->
+        <div class="modal_content">         <!--표시하고 싶은 내용-->
             <h2>비밀번호 재설정</h2>
             <div>
                 <form id="modifyPwForm">
