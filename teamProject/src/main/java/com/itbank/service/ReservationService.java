@@ -20,8 +20,8 @@ public class ReservationService {
 	}
 
 	// 예약취소갯수
-	public String getCancleCount(HashMap<String, Object> map) {
-		return dao.selectCancleCount(map);
+	public String getCancelCount(HashMap<String, Object> map) {
+		return dao.selectCancelCount(map);
 	}
 
 	// 예약완료된 갯수
