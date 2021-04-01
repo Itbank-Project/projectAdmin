@@ -137,7 +137,6 @@ main {
 	width: 100%; 
 	display: flex; 
 	background-color: #f3f3f4; 
-	height: 100vh; 
 }
 .main-inner { 
 	margin: 0 auto; 
