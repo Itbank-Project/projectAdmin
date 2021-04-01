@@ -74,14 +74,14 @@
 	                <div class="right">
 	                    <div class="dropdown-btn">
 	                    	${login.ad_name}</div>
-	                    <div id="content-menu" class="dropdown-content">
-	                        
+	                    <c:if test="${not empty login}">
+				<div id="content-menu" class="dropdown-content"> 
 				    <a href="" >비밀번호 변경</a>
 	                            <a href="${cpath }/modify" >회원정보 변경</a>
 				    <a href="${cpath }/enterHotelinformation/${login.ad_id}">호텔정보 입력</a>
 	                            <a href="${cpath }/logout">로그아웃</a>
-				
-	                    </div>
+	                        </div>
+			    </c:if>    
 	                </div><!-- end right -->
                     
                 </div> <!-- end nav-collapse-outer -->
