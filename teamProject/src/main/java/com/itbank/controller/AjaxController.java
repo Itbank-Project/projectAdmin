@@ -1,6 +1,8 @@
 package com.itbank.controller;
 
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.itbank.admin.Hash;
+import com.itbank.calculate.CalculateDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.itbank.admin.AdminDTO;
 import com.itbank.service.AdminService;
+import com.itbank.service.CalculateService;
 import com.itbank.service.MailService;
 
 @RestController
@@ -22,6 +27,7 @@ public class AjaxController {
 
 	@Autowired private AdminService as;
 	@Autowired private MailService mailService;
+	@Autowired private CalculateService cs;
 	
 	// 현재 비밀번호와 일치하는지 확인
 	@PostMapping(value = "checkPw", produces = "application/json;charset=utf8")
@@ -125,5 +131,25 @@ public class AjaxController {
 		session.removeAttribute("login");
 		session.setAttribute("login", login);
 		return row;
+		}
+		
+		// 정산 정보 검색
+		@PostMapping(value = "selectCalcList", produces = "application/json;charset=utf8")
+		public List<CalculateDTO> selectCalcList(@RequestBody CalculateDTO dto, HttpSession session) throws JsonProcessingException {
+			
+			AdminDTO login = (AdminDTO) session.getAttribute("login");
+			System.out.println(login.getAd_id());
+			System.out.println(dto.getYyyy());
+			System.out.println(dto.getMm());
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("ad_id", login.getAd_id());
+			map.put("yyyy", dto.getYyyy());
+			map.put("mm", dto.getMm());
+			
+			List<CalculateDTO> list = cs.selectCalcList(map);
+			map.put("list", list);
+			
+			
+			return list;
 	}
 }
