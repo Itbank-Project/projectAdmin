@@ -7,17 +7,18 @@
 <link rel="stylesheet" href="${cpath }/resources/css/enterHotelInformation.css">
 
 <body>
-	<c:if test="${empty dto}">
+<main>
 		<div class="main-container">
-			<div class="main-content" style="margin: auto;">
+			<div class="main-content" style="margin: 0 auto; width: 680px;">
 				<form id="hotelForm" method="POST" enctype="multipart/form-data">
 				<div hidden="hidden">
 					<input type="text" name="ho_ad_id" value="${login.ad_id }" class="ho_check">
 				</div>
+				<h3 style="text-align: center;">호텔정보 입력</h3>
 				<table class="inputHotelInfo">
 					<tr>
 						<th>호텔 이름</th>
-						<td><input type="text" name="ho_name" class="ho_check"></td>
+						<td><input style="all:unset; width: 500px;" type="text" name="ho_name" class="ho_check" autocomplete='off' autofocus="autofocus"></td>
 					</tr>
 					<tr>
 						<th>담당자</th>
@@ -25,20 +26,20 @@
 					</tr>
 					<tr>
 						<th>주소</th>
-						<td><input type="text" name="ho_address" class="ho_check"></td>
+						<td><input style="all:unset;  width: 500px;" type="text" name="ho_address" class="ho_check" autocomplete='off'></td>
 					</tr>
 					<tr>
 						<th>체크인</th>
-						<td><input type="text" name="ho_check_in" class="ho_check"></td>
+						<td><input style="all:unset;  width: 500px;" type="text" name="ho_check_in" class="ho_check" autocomplete='off'></td>
 
 					</tr>
 					<tr>
 						<th>체크아웃</th>
-						<td><input type="text" name="ho_check_out" class="ho_check"></td>
+						<td><input style="all:unset;  width: 500px;" type="text" name="ho_check_out" class="ho_check" autocomplete='off'></td>
 					</tr>
 					<tr>
 						<th>프론트</th>
-						<td><input type="text" name="ho_pnum" class="ho_check"></td>
+						<td><input style="all:unset;  width: 500px;" type="text" name="ho_pnum" class="ho_check" autocomplete='off'></td>
 					</tr>
 					<tr>
 						<th>휴대폰</th>
@@ -50,7 +51,7 @@
 					</tr>
 					<tr>
 						<th>호텔 설명</th>
-						<td><input type="text" name="ho_description" class="ho_check"></td>
+						<td><input style="all:unset;  width: 500px;" type="text" name="ho_description" class="ho_check" autocomplete='off'></td>
 					</tr>
 					<tr>
 						<th rowspan="1">업장 내 편의시설</th>
@@ -92,13 +93,6 @@
 				</form>
 			</div>
 		</div>
-	</c:if>
-	
-	<c:if test="${not empty dto }">
-		<script type="text/javascript">
-			alert('호텔정보를 이미 입력하였습니다.');
-			location.href = '${cpath}/hotelInformation';
-		</script>
-	</c:if>
+</main>
 </body>
 </html>
