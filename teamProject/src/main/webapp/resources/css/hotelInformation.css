@@ -79,7 +79,6 @@ main {
 	width: 100%; 
 	display: flex; 
 	background-color: #f3f3f4; 
-	height: 100vh; 
 }
 
 .main-container {
@@ -104,4 +103,98 @@ main {
 
 .info-btn {
 	margin-top: 10px;
+}
+
+.selectRoom_type_item {
+	min-height: 168px;
+    background-color: #fff;
+    display: flex;
+    position: relative;
+    width: 100%;
+    box-sizing: content-box;
+}
+
+.room_img {
+	width: 112px;
+    min-height: 168px;
+    position: relative;
+    overflow: hidden;
+    float: left;
+    background-color: #f8f8f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.room_info {
+	display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 24px 10px 13px;
+    position: relative;
+    width: calc(100% - 112px);
+}
+
+.room_badType {
+	display: flex;
+	align-items: center;
+	margin-top: 6px;
+	overflow: hidden;
+}
+
+.room_badType img {
+	width: 20px;
+    margin-right: 5.5px;
+}
+	
+.room_badType span {
+	font-size: 20px;
+    color: #888;
+    line-height: 1.08;
+    position: relative;
+   	white-space: nowrap;
+}
+
+.room_limitPerson {
+	display: flex;
+    align-items: center;
+    margin-top: 6px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.room_limitPerson img {
+	width: 20px;
+   	margin-right: 5.5px;
+   	margin-bottom: 10px;
+}
+
+.room_limitPerson span {
+	font-size: 20px;
+	color: #888;
+	line-height: 1.08;
+	position: relative;
+	white-space: nowrap;
+	margin-bottom: 10px;
+}
+
+.room_type {
+	color: #4d4d4d;
+	font-weight: 500;
+	font-size: 20px;
+	overflow: hidden;
+	margin-top: 10px;
+}
+
+#deleteBtn {
+	height: 168px;
+	font-weight: bold; 
+	background-color: #fab1a0; 
+	border: none; 
+	cursor: pointer;
+}
+
+#deleteBtn:hover {
+	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0
+		rgba(0, 0, 0, 0.19);
 }
