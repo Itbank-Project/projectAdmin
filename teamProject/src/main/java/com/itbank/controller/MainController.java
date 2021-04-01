@@ -209,8 +209,19 @@ public class MainController {
 		String ad_id = adminDTO.getAd_id();
 		System.out.println(ad_id);
 		ModelAndView mav = new ModelAndView("hotelInformation");
+		
 		HotelDTO dto = hs.selectHotel(ad_id);
 		mav.addObject("dto", dto);
+		
+		if(dto != null) {
+			String ho_name = dto.getHo_name();
+			System.out.println("호텔이름은 : " + ho_name);
+			
+			List<RoomDTO> roomList = rs.getList(ho_name);
+			
+			mav.addObject("roomList", roomList);
+		}
+		
 		return mav;
 	}
 	
