@@ -6,11 +6,10 @@ import java.util.List;
 public interface CalendarDAO {
 
 	// 객실타입에 따른 캘린더 
-//	CalendarDTO getList(String ro_pk);
 	List<CalendarDTO> getList(HashMap<String, Object> map);
 
 	// 캘린더추가
-	int insertCalendar(CalendarDTO dto);
+	int updateCalendar(CalendarDTO dto);
 
 	// 캘린더 값 다 뽀ㅃ아내기!!
 	List<CalendarDTO> selectCalList(String ho_name);
