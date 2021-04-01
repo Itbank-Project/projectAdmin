@@ -29,4 +29,10 @@ public class ReservationService {
 		return dao.selectReservationCount(map);
 	}
 
+	// 예약확인버튼 누르면 yes로 변경
+	public int updateState(int re_idx) {
+		System.out.println("서비스 : " + re_idx);
+		return dao.updateState(re_idx);
+	}
+
 }
