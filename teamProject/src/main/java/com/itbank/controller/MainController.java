@@ -143,60 +143,27 @@ public class MainController {
 		String ad_id = dto.getAd_id();
 		
 		HotelDTO hotelDTO = hs.selectHotel(ad_id);
-		String ho_name = hotelDTO.getHo_name();
+		System.out.println(hotelDTO);
 		
 		ModelAndView mav = new ModelAndView("roomStatus");
-
-		List<CalendarDTO> calendarList = cs.getCalendar(ho_name);
 		
-		// 오늘 날짜 가져와서 map에 넣기
-//		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
-//		Date time = new Date();
-//				
-//		String nowDate = format.format(time);
-//				
-//		HashMap<String, Object> map = new HashMap<String, Object>();
-//		map.put("ho_name", ho_name);
-//		map.put("nowDate", nowDate);
-//		
-//		List<CalendarDTO> calendar = cs.getList(map);
-		List<RoomDTO> roomList = rs.getList(ho_name);
-//		
-		int roomCount = roomList.size();
-//		
-		mav.addObject("calendarList", calendarList);
-//		mav.addObject("roomList", roomList);
-		mav.addObject("roomCount", roomCount);
+		if(hotelDTO != null) {
+			
+			String ho_name = hotelDTO.getHo_name();
+			List<CalendarDTO> calendarList = cs.getCalendar(ho_name);
+			List<RoomDTO> roomList = rs.getList(ho_name);
+			
+			int roomCount = roomList.size();
+			
+			mav.addObject("calendarList", calendarList);
+			mav.addObject("roomCount", roomCount);
+			
+		}
+			
 		
-				
-				
 				
 		return mav;
 	}
-	
-//	@PostMapping("roomStatus")
-//	public ModelAndView roomStatus(CalendarDTO dto) {
-//		ModelAndView mav = new ModelAndView("roomStatus");
-//		
-//		System.out.println(dto.getCalendar_count());
-//		System.out.println(dto.getCalendar_ro_pk());
-//		System.out.println(dto.getCalendar_pk());
-//		System.out.println(dto.getCalendar_price());
-//		System.out.println(dto.getCalendar_date());
-//		
-//		String ro_pk = dto.getCalendar_ro_pk();
-//		
-//		dto.setCalendar_pk(dto.getCalendar_date() + "(" + ro_pk + ")");
-//		System.out.println(dto.getCalendar_pk());
-//		int row = cs.insertCal(dto);
-//		if(row == 1 ) {
-////			CalendarDTO calDTO = cs.getList(ro_pk);
-////			mav.addObject("calDTO", calDTO);
-//		}
-//		return mav;
-//	}
-	
-	
 	
 	
 	// 리뷰
