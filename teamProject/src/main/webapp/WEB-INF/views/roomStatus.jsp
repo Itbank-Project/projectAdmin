@@ -96,29 +96,31 @@
 		        <th>금(Fri)</th>
 		        <th style="color: blue;">토(Sat)</th>
 		      </tr>
+		      
 		    </table>
     	</div>
     </div>
 </div>
 
-<div class="roomStatus_modal hidden">
-	<div class="roomStatus_modal_overlay"></div>	<!-- 모달 이외 나머지부분 어둡게 -->
 
-	<div class="roomStatus_modal_content">	<!-- 표시할 내용 -->
-		<c:forEach begin="1" end="${roomCount }"> <!-- 룸 타입 종류만큼 input 창 출력 -->
-		<form class="calendarForm" method="POST">
-			<span style="margin-bottom: 5px;"><input type="text" name="calendar_ro_pk"></span>
-			<span><input style="width: 30px;" type="number" name="calendar_count"></span>
-			<span><input style="width: 60px;" type="number" name="calendar_price"></span>
-			<span><input type="text" name="calendar_date"></span>
-			<span><input style="width: 300px;" type="hidden" name="calendar_pk"></span>
-			<span><input class="calendarBtn" type="submit" value="수정"></span>
-			<p></p>
-		</form>
-		</c:forEach>
-	</div>	
+<div class="roomStatus_modal hidden"> -->
+	<div class="roomStatus_modal_overlay"></div> <!-- 모달 이외 나머지부분 어둡게 -->
+
+	<div class="roomStatus_modal_content">	<!-- 표시할 내용  --> 
+	<c:forEach var="i" begin="1" end="${roomCount }"> <!-- 룸 타입 종류만큼 input 창 출력 -->
+	<form name="calForm" class="calendarForm${i }" method="POST"> 
+
+		<input style="margin-top: 10px; border: none; border-bottom: 1px solid grey; outline: none;" type="text" name="calendar_ro_pk" readonly>
+		<input style="width: 40px; border: none; border-bottom: 1px solid grey; outline: none;" type="number" name="calendar_count" min="0">
+		<input style="width: 60px; border: none; border-bottom: 1px solid grey; outline: none;" type="number" name="calendar_price">
+		<input style="border: none; border-bottom: 1px solid grey; outline: none;" type="text" name="calendar_date" readonly>
+		<input style="width: 300px;" type="hidden" name="calendar_pk">
+		<input class="calendarBtn" type="submit" value="수정"> 	
+		<p></p>
+	</form>
+	</c:forEach>
+ 	</div>
 </div>
-
 </main>
 
         
@@ -131,16 +133,11 @@
 		  today = new Date(today.getFullYear(), today.getMonth()-1,today.getDate());
 		  buildCalendar();
 		  
-		  // 이전 달력으로 가는 버튼 눌렀을때 ,모달창 띄우기
-		  modalOpen();
 		}
 		//다음 달력을 오늘을 저장하고 달력에 뿌려줌
 		function nextCalendar(){
 		  today = new Date(today.getFullYear(), today.getMonth()+1,today.getDate());
 		  buildCalendar();
-		  
-		// 다음 달력으로 가는 버튼 눌렀을때 ,모달창 띄우기
-		  modalOpen();
 		 
 		}
 		
@@ -176,99 +173,123 @@
 		}
 		  //달력 출력
 		  for(i=1; i<= lastDate.getDate(); i++){
+			
 		    cell =row.insertCell();
-		    
 		    var div = "<div class='calendar_day'><div id=day" + i +" "+ ">";
-			div += i + "</div>";
-
+		    div += i + "</div>";
+		    
 			var price = 0;
 			var count = 0;
 			var roomType = '';
+			var cal_ro_pk = '';
 			
 			cell.innerHTML = div;
 			
 			<c:forEach var='list' items='${calendarList}'>
-				
 			// 년월일이 calendar 날짜와 같으면 
 				if(i == '${list.dd}' && month == '${list.mm}' && year == '${list.yy}'){
-					roomType = "${list.calendar_ro_pk}";
+					cal_ro_pk = "${list.calendar_ro_pk}";
+					roomType = "${list.calendar_ro_pk.split('-')[1]}";
 					price = parseInt("${list.calendar_price}");
 					count = parseInt("${list.calendar_count}");
 					
-			 		cell.innerHTML += "<div style='font-size: 12px;'><span id=roomType" + i +" " + ">"
+			 		cell.innerHTML += "<div class=room" +  i  + " style='font-size: 12px;'><span id=roomType" + i +" " + ">"
 			        + roomType + "</span>"
 			        + "<span id=count" + i + ">[" +count + "]</span>"
 			        + "<span id=price" + i + "> : " + price + "</span>"
-			        + "</div>"
+			        + "<div class=hidden>" + cal_ro_pk + "</div>"
+			        + "</div></div>"
 				}
 	    	</c:forEach> 
+	    	
+
+	    	// td의 index값 주기
+	    	document.getElementById('calendar').querySelectorAll('td').forEach((Element,index) => Element.id = index);
 	    	
 		    cnt = cnt + 1;
 		    if (cnt% 7 == 0)    //1주=7일
 		      row = calendar.insertRow();
-		  }
+		  }// for밖
+		  
+		  
+		  for(i=1; i<= lastDate.getDate(); i++){
+			  var day1 = document.getElementById('day' + i);
+			  
+			  // 시작한다
+			    day1.onclick = function showCoords(e) {
+				  
+				 // 모달창열기
+				const roomStatus_modal = document.querySelector('.roomStatus_modal');
+				const roomStatus_modal_overlay = document.querySelector('.roomStatus_modal_overlay');
+				roomStatus_modal.classList.remove('hidden');
+				  
+				// 모달창닫기
+				roomStatus_modal_overlay.onclick = function(){
+					roomStatus_modal.classList.add('hidden'); 
+				}
+	
+				// 모달창안에 값 넣기
+				const count = '${roomCount }';
+			  	for(var i = 0 ; i<count ; i++){
+
+			  		var calendarForm = document.forms[i+1];
+					
+					var year = document.getElementById('calendarYM').innerText.substring(0,4);
+					var month = document.getElementById('calendarYM').innerText.substr(5,2);
+					
+				    var targ;
+	
+				    if (e.target) {
+				        targ=e.target.id;
+				        var parent = document.getElementById(targ).parentNode.parentNode;
+
+				        var pk = parent.children[i+1].children[3].innerText;
+				        calendarForm.children[4].value = pk;
+				        
+				        // 날짜 넣기
+				        var date = parent.children[0].children[0].innerText;
+				        
+	 					// 일자가 한자리수면 앞에 0 붙이기
+	 					if(date < 10){
+	 						date = '0' + date;
+	 					}
+						
+				    	calendarForm.children[3].value = year +'-'+month +'-' + date;
+				        
+				        // 방정보 넣기
+				        var ro_pk = parent.children[i+1].innerText.split('[')[0];
+			    		calendarForm.children[0].value = ro_pk;
+			    		
+			    		// 방 갯수 넣기
+			    		var ro_count = parent.children[i+1].innerText.split('[')[1].split(']')[0];
+			    		calendarForm.children[1].value = ro_count;
+			    		
+			    		// 가격넣기
+			    		var ro_price = parseInt(parent.children[i+1].innerText.split(':')[1]);
+			    		calendarForm.children[2].value = ro_price;
+			    		
+				    } // if문
+						
+				}// for 끝난다
+			  }
+		  }// for끝
+		  
 
 		  for (let i = 1; i < 7 - lastDate.getDay() ; i++) {
-		    cell =row.insertCell();
-		    cell.innerHTML = i;
-		    cnt = cnt + 0;
-		    if (cnt%7 == 0)    //1주=7일
-		      row = calendar.insertRow();
-		  }
+			    cell =row.insertCell();
+			    cell.innerHTML = i;
+			    cnt = cnt + 0;
+			    if (cnt%7 == 0)    //1주=7일
+			      row = calendar.insertRow();
+		  } // for문 끝
+		
 		}
 
 		buildCalendar();
 
-		// 모달창열기
-		function modalOpen(){
-			const calendar_day = document.querySelectorAll('.calendar_day');
-			
-			calendar_day.forEach(cal_day => {
-				cal_day.onclick = (event) => {
-					console.log(event.target);
-					var year = document.getElementById('calendarYM').innerText.substring(0,4);
-					var month = document.getElementById('calendarYM').innerText.substr(5,2);
-					var date = cal_day.innerText;
-					
-					// 일자가 한자리수면 앞에 0 붙이기
-					if(date < 10){
-						date = '0' + date;
-					}
-					
-					const calendar_pk = document.querySelectorAll('input[name="calendar_pk"]');
-			  		const calendar_count = document.querySelector('input[name="calendar_count"]');
-			  		const calendar_price = document.querySelector('input[name="calendar_price"]');
-			  		const calendar_date = document.querySelectorAll('input[name="calendar_date"]');
-			  		const calendar_ro_pk = document.querySelectorAll('input[name="calendar_ro_pk"]');
-			 		
-			  		
-			  		
-					const roomStatus_modal = document.querySelector('.roomStatus_modal');
-					const roomStatus_modal_overlay = document.querySelector('.roomStatus_modal_overlay');
-					roomStatus_modal.classList.remove('hidden');
-	
-					calendar_date.forEach(cal_date => {
-						cal_date.value = year +'-' + month +'-'+ date ;
-					})
-					
-					calendar_ro_pk.forEach(cal_ro_pk => {
-						
-						cal_ro_pk.value = '아직안함';
-					})
-					
-					roomStatus_modal_overlay.onclick = function(){
-						roomStatus_modal.classList.add('hidden'); 
-					}
-				}
-			})
-		}
-		// 모달창 실행
-		modalOpen();
-		
 		// ajax
-		const calendarForm = document.querySelectorAll('.calendarForm');
-		const updateBtn = document.querySelectorAll('.calendarBtn');
-	  	
+		const calendarForm = document.querySelectorAll('form[name="calForm"]');
+
 		calendarForm.forEach(form => {
 			form.onsubmit = function(event){
 				event.preventDefault();
@@ -281,12 +302,11 @@
 				
 				const url = '${cpath}/roomStatus';
 				const opt = {
-						method : 'POST',
+						method : 'PUT',
 						body : JSON.stringify(ob),
 						contentType: 'application/json',
 						headers : {
 							'Content-Type' : 'application/json'
-							
 						}
 				};
 				
@@ -294,7 +314,7 @@
 				.then(resp => resp.text())
 				.then(text => {
 					if(text == 1 ){
-						alert('캘린더테이블에 insert됨');
+						alert('객실정보가 변경되었습니다.');
 						location.href = '${cpath}/roomStatus'
 					}
 				})
