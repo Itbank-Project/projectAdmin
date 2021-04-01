@@ -11,5 +11,7 @@ public interface ReservationDAO {
 
 	String selectReservationCount(HashMap<String, Object> map);
 
+	int updateState(int re_idx);
+
 
 }
