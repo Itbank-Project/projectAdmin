@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+      "-//mybatis.org//DTD Mapper 3.0//EN" 
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+      
+<mapper namespace="com.itbank.calculate.CalculateDAO">
+
+   <select id="selectHotels" resultType="calculate">
+		select  ad_id, 
+        		ho_name 
+		from admin 
+		join hotel on hotel.ho_ad_id = admin.ad_id
+   </select>
+	
+	<select id="selectCalcList" resultType="hashmap" parameterType="hashmap">
+		select * from calculate
+		where ca_ad_id = #{ad_id } and to_char(ca_firstday,'yyyyMM') = #{yyyy}||#{mm}
+	</select>
+	
+   <insert id="insertCal" parameterType="calculate">
+      <![CDATA[
+         insert into calculate (ca_ad_id, ca_firstday, ca_lastday, ca_depositdate, ca_cancel_count, ca_re_count, ca_re_totalpayment)
+         values(#{ad_id }, (SELECT NEXT_DAY(SYSDATE, '월요일')-7 FROM DUAL), 
+                       (SELECT NEXT_DAY(SYSDATE, '일요일') FROM DUAL), 
+                       (SELECT NEXT_DAY(SYSDATE, '월요일') FROM DUAL), 
+    
+            (select count(re_cancelyesorno)from (
+                select  reservation.re_cancelyesorno
+            from reservation
+            left outer join calendar on calendar.calendar_pk = reservation.re_calendar_pk
+            left outer join room on room.ro_pk = calendar.calendar_ro_pk
+            left outer join hotel on hotel.ho_name = room.ro_ho_name
+            where re_cancelyesorno = 'Y' and hotel.ho_name = #{ho_name } and (re_outdate <= (SELECT NEXT_DAY(SYSDATE, '일요일') FROM DUAL)))),
+
+            (select count(re_cancelyesorno)from (
+                select  reservation.re_cancelyesorno
+            from reservation
+            left outer join calendar on calendar.calendar_pk = reservation.re_calendar_pk
+            left outer join room on room.ro_pk = calendar.calendar_ro_pk
+            left outer join hotel on hotel.ho_name = room.ro_ho_name
+            where re_cancelyesorno = 'N' and hotel.ho_name = #{ho_name } and (re_outdate <= (SELECT NEXT_DAY(SYSDATE, '일요일') FROM DUAL)))),
+
+            (select sum(re_payment) 
+        from reservation
+         	left outer join calendar on calendar.calendar_pk = reservation.re_calendar_pk
+            left outer join room on room.ro_pk = calendar.calendar_ro_pk
+            left outer join hotel on hotel.ho_name = room.ro_ho_name
+         where hotel.ho_name = #{ho_name } and re_cancelyesorno = 'N' and(re_outdate <= (SELECT NEXT_DAY(SYSDATE, '일요일') FROM dual)))
+            )
+      ]]>   
+   </insert>
+
+   
+</mapper>
+
