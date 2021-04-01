@@ -62,13 +62,14 @@
 	<div class="loginForm">
 		<img src="${cpath }/resources/img/hotelLogo_draw.png" style="width: 458px; height: 100px;">
 		<form id="loginForm" method="POST">
-		    <p><input class="login" id="ad_id" type="text" name="ad_id" value="${cookie.userid.value }" placeholder="ID를 입력하세요" autocomplete="off"></p>
-		    <p><input class="login" type="password" name="ad_pw" placeholder="PW를 입력하세요"></p>
+		    <p><input style="border: none; border-bottom: 1px solid black; outline: none;" class="login" id="ad_id" type="text" name="ad_id" value="${cookie.userid.value }" placeholder="ID를 입력하세요" autocomplete="off"></p>
+		    <p><input style="border: none; border-bottom: 1px solid black; outline: none;" class="login" type="password" name="ad_pw" placeholder="PW를 입력하세요"></p>
 		    <div id="result"></div>
 		    <p><input id="login_submit" class="login" type="submit" value="로그인"></p>
 		    <p><input type="checkbox" id="idSaveCheck" name="storeid" ${not empty cookie.userid ? 'checked' : '' }> 아이디 저장 </p>
 	    </form>
 	</div>
+	<div class="login_result"></div>
 		
 	<div class="find_info">
         <a href="${cpath }/findID">아이디 찾기</a>
