@@ -11,12 +11,7 @@
 		       room.ro_roomtype,
 		       customer.cu_id,
 		       customer.cu_name,
-		       reservation.re_paydate,
-		       reservation.re_indate,
-		       reservation.re_outdate,
-		       reservation.re_daycount,
-		       reservation.re_payment,
-		       reservation.re_canceldate
+		       reservation.*
 		from reservation
 			   left outer join customer on customer.cu_id = reservation.re_cu_id
 			   left outer join calendar on calendar.calendar_pk = reservation.re_calendar_pk
@@ -62,6 +57,9 @@
 	]]>	
 	</select>
 
+	<update id="updateState" parameterType="int">
+		update reservation set re_state='YES' where re_idx = #{re_idx}
+	</update>
 
 
 </mapper>
