@@ -47,19 +47,19 @@
 		    <table style="border: 1px solid black; width:450px;">
 		        <tr>
 		        	<th>룸 정보</th>
-		        	<td><input style="border: none;" type="text" name="ro_pk" readonly></td>
+		        	<td><input style="border: none; border-bottom: 1px solid black; outline: none;" type="text" name="ro_pk" readonly></td>
 		        </tr>
 		        
 		        <tr>
 		            <th>객실타입</th>
 		            <td>
-		                <input type="text" name="ro_roomtype">
+		                <input style="border: none; border-bottom: 1px solid black; outline: none;" type="text" name="ro_roomtype">
 		            </td>
 		        </tr>
 		        <tr>
 		            <th>침대타입</th>
 		            <td>
-		                <select name="ro_badtype">
+		                <select style="border: none; outline: none;" name="ro_badtype">
 		                    <option selected>침대 타입을 선택하세요</option>
 		                    <option value="싱글">싱글</option>
 		                    <option value="더블">더블</option>
@@ -70,7 +70,7 @@
 		        <tr>
 		            <th>인원제한</th>
 		            <td>
-		                <select name="ro_limitperson">
+		                <select style="border: none; outline: none;" name="ro_limitperson">
 		                    <option selected>최대인원을 선택하세요</option>
 		                    <option value="2">2</option>
 		                    <option value="4">4</option>
@@ -80,11 +80,11 @@
 		        </tr>
 		        <tr>
 		            <th>객실설명</th>
-		            <td><input type="text" name="ro_description" placeholder="객실 설명을 입력하세요"></td>
+		            <td><input style="border: none; border-bottom: 1px solid black; outline: none;" type="text" name="ro_description" placeholder="객실 설명을 입력하세요"></td>
 		        </tr>
 		        <tr>
 		            <th>객실사진</th>
-		            <td><input type="file" name="ro_uploadfile"></td>
+		            <td><input style="border: none; outline: none;" type="file" name="ro_uploadfile"></td>
 		        </tr>
 		    </table>
 		    <input id="save" type="submit" value="입력완료" style="width: 319;">
@@ -98,16 +98,12 @@
 	
 	roomtype.onchange = printType;
 	
-	
 	function printType()  {
 		 const name = roomtype.value;
 		 console.log(ho_name);
 		 console.log(name);
-		 ro_pk.value = ho_name +'-'+name;
+		 ro_pk.value = ho_name + '-' + name;
 		}
-	
-	
-	
 	
 	</script>
 	
