@@ -3,6 +3,7 @@ package com.itbank.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -100,15 +101,17 @@ public class MainController {
 
 	// 로그인(쿠키)
 	@PostMapping("login")
-	public String login(AdminDTO dto, HttpServletRequest request, HttpServletResponse response, HttpSession session, String uri) {
+	public String login(AdminDTO dto, HttpServletRequest request, HttpServletResponse response, HttpSession session, String uri) throws IOException {
 		String userid = dto.getAd_id();
 		String storeid = request.getParameter("storeid");
 		AdminDTO login = as.getUser(dto);
+		System.out.println(login);
 		if(login == null) {
 			response.setContentType("text/html; charset=UTF-8");
             		PrintWriter out = response.getWriter();
-            		out.println("<script>alert('로그인 정보를 확인해주세요.'); history.go(-1); </script>");
+            		out.println("<script> alert('로그인 정보를 확인해주세요.');  </script>");
             		out.flush();
+            		return "login"; 
 		}
 		Cookie c = new Cookie("userid", userid);
 		session.setAttribute("login", login);
