@@ -21,8 +21,8 @@ public class CalendarService {
 		return dao.getList(map);
 	}
 
-	public int insertCal(CalendarDTO dto) {
-		return dao.insertCalendar(dto);
+	public int updateCal(CalendarDTO dto) {
+		return dao.updateCalendar(dto);
 	}
 
 	// 캘린더 값
