@@ -285,13 +285,7 @@ div table th {
 
 #updateSubmit {
 	background-color: #fd79a8;
-	margin-left: 10px;
-	margin-right: 30px;
-	color: white;
-	height: 30px;
-	border: 0;
-	outline: 0;
-	width: 508px;
+	margin: 15px;
 }
 
 #cancelUpdate {
