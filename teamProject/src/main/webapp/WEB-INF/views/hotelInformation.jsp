@@ -7,6 +7,8 @@
 <main>
 <div class="main-inner">
 	<div class="main-container">
+		
+		<c:if test="${not empty dto }">
 		<div class="main-content-head">
 			<h3><span style="color:#fd79a8 ">${dto.ho_name }</span> Hotel</h3>
 			<input type="hidden" id="userid" name="ho_ad_id" value="${login.ad_id }">
@@ -91,17 +93,58 @@
 					<td>${dto.ho_uploadfile }</td>
 				</tr>
 			</table>
-			<!-- 호텔 정보가 있을 경우에 객실정보 입력 가능 -->
+			<p><a class="info-btn" href="${cpath }/hotelInformationModification"><button id="save">수정</button></a></p>
+		</div>
+	</c:if>
+
+
+<c:if test="${empty dto }">
+		<script type="text/javascript">
+			alert('호텔정보를 입력하지않았습니다.');
+			location.href = '${cpath}/enterHotelinformation/' + '${login.ad_id}';
+		</script>
+</c:if>
+		
+	<!-- 객실 타입 -->
+		<div class="main-content" style="border-top: 4px solid #f3f3f4;">
+			
+			<c:if test="${empty roomList }">
+				<div>
+					<p style="text-align: center;"> 객실입력이 완료되지 않았습니다. </p>
+				</div>
+			</c:if>
+			
+			<c:if test="${not empty roomList }">
+			<c:forEach var="room" items="${roomList }">
+			<div id="testDiv" class="selectRoom_type_item" style="border: 1px solid #f3f3f4; margin-bottom: 10px;">
+				<input class="ro_pk" type="hidden" value="${room.ro_pk }">
+				<div class="room_img">${room.ro_uploadfile }</div>
+				<div class="room_info">
+					<div class="room_type" id="room_type${room.ro_pk }">${room.ro_roomtype }</div>
+					<div class="room_badType">
+						<img src="https://cdn.dailyhotel.com/ux/icon-detail-bed.svg">
+						<span id="room_badType${room.ro_pk }">${room.ro_badtype }</span>
+					</div>
+					<div class="room_limitPerson">
+						<img src="https://cdn.dailyhotel.com/ux/icon-detail-people.svg">
+						<span id="room_limitPerson${room.ro_pk }">${room.ro_limitperson }인 기준</span>
+					</div>
+				</div>
+				<button id="deleteBtn" class="deleteBtn">삭제</button>
+			</div>
+			</c:forEach>
+			</c:if>
+			
 			<div class="info-btn">
+				<!-- 호텔 정보가 있을 경우에 객실정보 입력 가능 -->
 				<c:if test="${not empty dto }">
-					<a href="${cpath }/insertRoom/${dto.ho_name}"><button id="saveRoom">객실정보입력</button></a>
+					<a href="${cpath }/insertRoom/${dto.ho_name}"><button id="saveRoom">객실정보 입력</button></a>
 				</c:if>
-				<a href="${cpath }/hotelInformationModification"><button id="save">수정</button></a>
 			</div>
 		</div>
 	</div>
 </div>
-</main>
+
 
 <script>
 	const checkBox = document.querySelectorAll('input[type="checkbox"]');
@@ -116,6 +159,15 @@
 	
 </script>
 
-
+<script>
+	const deleteBtn = document.querySelectorAll('.deleteBtn');
+	
+	deleteBtn.forEach(ele => {
+		ele.onclick = (event)=> {
+			alert('🔥관리자(010-3909-3952)에게 문의바랍니다.🔥');
+		}
+	})
+</script>
+</main>
 </body>
 </html>
