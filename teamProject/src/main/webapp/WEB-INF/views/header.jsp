@@ -9,6 +9,42 @@
     <link rel="stylesheet" href="${cpath }/resources/css/style.css">
     <link rel="stylesheet" href="${cpath }/resources/css/guide.css">
     <title>INDEX PAGE</title>
+	
+<style>
+    	.nav { list-style:none; cursor:pointer }
+		.nav li { 
+		  float:left; 
+		  margin-right:50px;
+		  transition:all .5s ease 
+		}
+		.nav li:hover { color:#CD1F48; transition:all .3s ease }
+		.nav li a { position:relative }
+		
+		/*밑줄넣기 부분*/
+		.nav li a::after {
+		  content: '';
+		  width: 0%;
+		  left: 50%;
+		  height: 1px;
+		  display: block;
+		  position: absolute;
+		  margin-top: 3px;
+		  border-bottom: 2px solid #fd79a8;
+		  transition:all .5s ease;
+		}
+		.nav li:hover > a::after {
+		  content: '';
+		  width: 100%;
+		  left: 0px;
+		  height: 1px;
+		  display: block;
+		  position: absolute;
+		  margin-top: 3px;
+		  border-bottom: 2px solid #fd79a8;
+		  transition:all .3s ease;
+		}
+    </style>
+	
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <header>
@@ -17,21 +53,21 @@
 		<div class="modal_overlay"></div>
 	
 		<div class="modal_content">
-			<h3 style="margin-left: 15px;">비밀번호 변경</h3>
+			<h3 style="margin-left: 15px; text-align: center;">비밀번호 변경</h3>
 			<hr>
 			<form id="updateForm" method="POST">
 				<input type="hidden" name="ad_id" value="${login.ad_id }">
 				<div class="update_content">
 					<div>
-						<input class="inputPW" id="userpw" type="password" name="ad_pw"
+						<input style="border: none; border-bottom: 1px solid black; outline: none;" class="inputPW" id="userpw" type="password" name="ad_pw"
 							placeholder="기존 비밀번호를 입력하세요" required>
 					</div>
-					<div id="result" style="font-size: 13px; text-align: center;"></div>
+					<div id="result" style="font-size: 13px;"></div>
 				</div>
 	
 				<div class="update_content">
 					<div>
-						<input class="inputPW" id="newPw1" type="password" name="ad_newPw1"
+						<input style="border: none; border-bottom: 1px solid black; outline: none;" class="inputPW" id="newPw1" type="password" name="ad_newPw1"
 							placeholder="새 비밀번호를 입력하세요" required>
 						<br><span style="font-size: 13px; color:#e17055;">비밀번호는 8글자 이상 문자, 숫자, 특수문자 각 1개씩 포함하여야 합니다.</span>
 					</div>
@@ -39,13 +75,14 @@
 	
 				<div class="update_content">
 					<div>
-						<input class="inputPW" id="newPw2" type="password" name="ad_newPw2"
+						<input style="border: none; border-bottom: 1px solid black; outline: none;" class="inputPW" id="newPw2" type="password" name="ad_newPw2"
 							placeholder="새 비밀번호를 확인하세요" required>
 						<br><span style="font-size: 13px; color:#e17055;">비밀번호는 8글자 이상 문자, 숫자, 특수문자 각 1개씩 포함하여야 합니다.</span>
 					</div>
 				</div>
 				<div>
-					<input id="updateSubmit" type="submit" value="변경">
+					<input id="updateSubmit" type="submit" value="변경"
+						style="margin-left: 10px;border: none; color: white; font-size:15px;width: 508px;height: 30px; line-height: 0px; text-align: center;">
 				</div>
 			</form>
 			<div>
