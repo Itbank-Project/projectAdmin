@@ -104,6 +104,12 @@ public class MainController {
 		String userid = dto.getAd_id();
 		String storeid = request.getParameter("storeid");
 		AdminDTO login = as.getUser(dto);
+		if(login == null) {
+			response.setContentType("text/html; charset=UTF-8");
+            		PrintWriter out = response.getWriter();
+            		out.println("<script>alert('로그인 정보를 확인해주세요.'); history.go(-1); </script>");
+            		out.flush();
+		}
 		Cookie c = new Cookie("userid", userid);
 		session.setAttribute("login", login);
 		boolean flag = (storeid != null) && (session.getAttribute("login") != null);
