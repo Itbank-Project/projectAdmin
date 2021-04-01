@@ -16,7 +16,7 @@
 			<table style="width: 100%;">
 				<tr>
 					<th>호텔 이름</th>
-					<td><input style="border: none;" type="text" name="ho_name" class="ho_check" value="${dto.ho_name }" readonly ></td>
+					<td><input style="border: none; border-bottom: 1px solid black; outline: none; text-align: center;" type="text" name="ho_name" class="ho_check" value="${dto.ho_name }" readonly ></td>
 				</tr>
 				<tr>
 					<th>담당자</th>
@@ -25,19 +25,19 @@
 				
 				<tr>
 					<th>주소</th>
-					<td><input type="text" name="ho_address" class="ho_check" value="${dto.ho_address }"></td>
+					<td><input style="border: none; border-bottom: 1px solid black; outline: none; text-align: center; width: 300px;" type="text" name="ho_address" class="ho_check" value="${dto.ho_address }"></td>
 				</tr>
 				<tr>
 					<th>체크인</th>
-					<td><input type="text" name="ho_check_in" class="ho_check" value="${dto.ho_check_in }"></td>
+					<td><input style="border: none; border-bottom: 1px solid black; outline: none; text-align: center;" type="text" name="ho_check_in" class="ho_check" value="${dto.ho_check_in }"></td>
 				</tr>
 				<tr>
 					<th>체크아웃</th>
-					<td><input type="text" name="ho_check_out" class="ho_check" value="${dto.ho_check_out }"></td>
+					<td><input style="border: none; border-bottom: 1px solid black; outline: none; text-align: center;" type="text" name="ho_check_out" class="ho_check" value="${dto.ho_check_out }"></td>
 				</tr>
 				<tr>
 					<th>프론트</th>
-					<td><input type="text" name="ho_pnum" class="ho_check" value="${dto.ho_pnum }"></td>
+					<td><input style="border: none; border-bottom: 1px solid black; outline: none; text-align: center;" type="text" name="ho_pnum" class="ho_check" value="${dto.ho_pnum }"></td>
 				</tr>
 				<tr>
 					<th>휴대폰</th>
@@ -49,7 +49,7 @@
 				</tr>
 				<tr>
 					<th>호텔 설명</th>
-					<td><input type="text" name="ho_description" class="ho_check" value="${dto.ho_description }"></td>
+					<td><input style="border: none; border-bottom: 1px solid black; outline: none; text-align: center; width: 300px;" type="text" name="ho_description" class="ho_check" value="${dto.ho_description }"></td>
 				</tr>
 				<tr>
 					<th rowspan="1">업장 내 편의시설</th>
