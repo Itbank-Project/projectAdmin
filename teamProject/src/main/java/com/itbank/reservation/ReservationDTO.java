@@ -21,7 +21,7 @@ public class ReservationDTO {
 	
 	private int re_idx, re_daycount, re_payment;
 	private Date re_paydate, re_indate, re_outdate, re_canceldate;
-	private String re_cu_id, re_changeName, re_changePnum, re_cancelYesOrNo, re_calendar_fk, re_ro_pk;
+	private String re_cu_id, re_changeName, re_changePnum, re_cancelYesOrNo, re_calendar_fk, re_ro_pk,re_state;
 	
 	private String cu_name, ro_roomType;
 	
@@ -115,5 +115,11 @@ public class ReservationDTO {
 	}
 	public void setRe_canceldate(Date re_canceldate) {
 		this.re_canceldate = re_canceldate;
+	}
+	public String getRe_state() {
+		return re_state;
+	}
+	public void setRe_state(String re_state) {
+		this.re_state = re_state;
 	}
 }
