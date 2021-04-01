@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="header.jsp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <style>
@@ -12,6 +14,13 @@
 	th {
 		background-color: #F2F2F2;
 	}
+	td{
+		text-align: center;
+	}
+	.hidden{
+		display: none;
+	}
+
 </style>
 
 <main>
@@ -70,8 +79,8 @@
 						<th>객실명</th>
 						<th>판매가</th>
 						<th>취소일시</th>
-						<th>예약확인상태</th>
-						<th>예약확인</th>
+						<th>확인상태</th>
+						<th>확인</th>
 						<th>상세</th>
 					</tr>
 					<c:forEach var="dto" items="${list }">
@@ -88,6 +97,8 @@
 									<fmt:formatDate value="${dto.re_canceldate }" pattern="yyyy-MM-dd"/>
 								</c:if>
 							</td>
+							<td><div>${dto.re_state =='YES' ? "확인완료" : ""} </div></td>
+							<td><button class="checkBtn" ${dto.re_state == 'YES' ? "disabled" : "" } onclick="chageBtn('${dto.re_idx}',event)">확인</button></td>
 							<td></td>
 							<td></td>
 						</tr>
@@ -107,7 +118,6 @@
 	const length = re_payment.length;
 	let result = 0;
 	const sell = document.getElementById('sell');
-	const deposit = document.getElementById('deposit');
 	
 	// dto.re_payment의 값들을 더해서 innerText로 넣기
 	re_payment.forEach(num => {
@@ -116,22 +126,36 @@
 		
 		// 천단위로 콤마찍는 정규식
 		const r1 = result.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-		
 		sell.innerText = r1 + '원';
-		deposit.innerText = r1 + '원';
 	})
-	
 	
 	// re_payment가 0 이면 한 줄을 빨간줄표시
 	re_payment.forEach(num => {
 		if(num.innerText == 0){
-			console.log('g');
-			num.parentNode.style.backgoundcolor ='red';
-			num.style.color = 'red';
+			num.parentNode.style.color = 'red';
 		}
 	})
 	
-	
+	// 예약확인 버튼을 눌렀을 때,
+	function chageBtn(re_idx,event){
+		
+		const url = cpath + '/status/' + re_idx;
+		const opt = {
+				method : 'PUT',
+				headers : {
+					'Content-Type' : 'application/json;charset-utf8'
+				}
+		};
+		fetch(url,opt)
+		.then(resp => resp.text())
+		.then(text => {
+			if(text == 1){
+				alert('확인이 완료되었습니다.');
+				location.reload();
+			}
+		})
+		
+	}
 	
 	</script>
 </main>
