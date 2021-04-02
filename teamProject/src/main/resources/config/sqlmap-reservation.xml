@@ -11,6 +11,7 @@
 		       room.ro_roomtype,
 		       customer.cu_id,
 		       customer.cu_name,
+		       customer.cu_pnum,
 		       reservation.*
 		from reservation
 			   left outer join customer on customer.cu_id = reservation.re_cu_id
@@ -80,5 +81,17 @@
         and calendar.calendar_date < (select re_outdate from reservation where re_idx=#{re_idx})) and room.ro_pk = #{cal_pk})
         ]]>	
 	</update>
+	
+	<!-- 예약확인 문자 사용자에게 보내기  -->
+	<select id="selectReservation" resultType="reservation" parameterType="string">
+		select 
+		       customer.cu_id,
+		       customer.cu_name,
+		       customer.cu_pnum,
+		       reservation.*
+		from reservation
+			   left outer join customer on customer.cu_id = reservation.re_cu_id
+    	where  reservation.re_idx = #{re_idx}
+	</select>
 
 </mapper>
