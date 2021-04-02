@@ -149,7 +149,7 @@ const convertJsonToTable = function(json, cpath) {
 	theadTh3.innerText = '예약';
 	theadTh4.innerText = '취소';
 	theadTh5.innerText = '정산금액';
-	theadTh6.innerText = '입금실패';
+	theadTh6.innerText = '입금일자';
 	
 	theadTr.appendChild(theadTh1);
 	theadTr.appendChild(theadTh2);
@@ -180,10 +180,8 @@ const convertJsonToTable = function(json, cpath) {
 
 
 for(let i = 0; i < json.length; i++) {
-		console.log(json[i]['CA_IDX']);
 		const td1 = document.createElement('td');
 		td1.innerText = json[i]['CA_WEEK'];
-		//console.log(json);
 		const td2 = document.createElement('td');
 		   let firstday = new Date(json[i]['CA_FIRSTDAY']);
 		   let month = '' + (firstday.getMonth() + 1); 
@@ -214,6 +212,10 @@ for(let i = 0; i < json.length; i++) {
 		
 		const td5 = document.createElement('td');
 		td5.innerText = json[i]['CA_RE_TOTALPAYMENT'];
+		
+		if(td5.innerText == "undefined"){
+			td5.innerText = "0";
+		}
 		
 		const td6 = document.createElement('td');
 		   let depositdate = new Date(json[i]['CA_DEPOSITDATE']);
@@ -255,8 +257,6 @@ for(let i = 0; i < json.length; i++) {
     	const yyyy = document.getElementById('year');
     	const mm = document.getElementById('month');
 
-    	console.log(formData);
-   
 		const ob = {};
 		
 		for(const [key,value] of formData.entries()){
@@ -274,10 +274,8 @@ for(let i = 0; i < json.length; i++) {
 		fetch(url,opt)
 		.then(resp => resp.json())
 		.then(json => {
-			console.log(json);
 			
 			const calculatelist = document.getElementById('calculate-list');
-			console.log(calculatelist);
 			calculatelist.innerHTML = '';
 			calculatelist.appendChild(convertJsonToTable(json, '${cpath}'));
 		});	
