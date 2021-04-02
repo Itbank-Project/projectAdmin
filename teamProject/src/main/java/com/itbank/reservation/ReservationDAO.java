@@ -13,9 +13,9 @@ public interface ReservationDAO {
 
 	int updateState(String re_idx);
 
-	String selectEmail(int re_idx);
-
 	int updateCount(HashMap<String, String> map);
+
+	ReservationDTO selectReservation(String re_idx);
 
 
 }
