@@ -34,14 +34,14 @@ public class ReservationService {
 		return dao.updateState(re_idx);
 	}
 
-	// 예약한 사람의 이메일 가져오기
-	public String getEmail(int re_idx) {
-		return dao.selectEmail(re_idx);
-	}
-
 	// 해당 객실 수량 -1 
 	public int updateCount(HashMap<String, String> map) {
 		return dao.updateCount(map);
+	}
+
+	// 예약확인 문자보내기 위해 필요한 정보
+	public ReservationDTO getResevation(String re_idx) {
+		return dao.selectReservation(re_idx);
 	}
 
 }
