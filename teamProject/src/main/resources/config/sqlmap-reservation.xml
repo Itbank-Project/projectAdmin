@@ -62,12 +62,6 @@
 	<update id="updateState" parameterType="string">
 		update reservation set re_state='YES' where re_idx = #{re_idx}
 	</update>
-	
-	<select id="selectEmail" resultType="string" parameterType="int">
-		select customer.cu_email from reservation 
-		join customer on reservation.re_cu_id=customer.cu_id
-		where re_idx = #{re_idx}
-	</select>
 
 	<!-- 확인 버튼 클릭 시, 해당 날짜 객실 수량 -1 -->
 	<update id="updateCount" parameterType="hashmap">
