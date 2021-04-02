@@ -23,7 +23,7 @@ public class ReservationDTO {
 	private Date re_paydate, re_indate, re_outdate, re_canceldate;
 	private String re_cu_id, re_changeName, re_changePnum, re_cancelYesOrNo, re_calendar_pk, re_ro_pk,re_state;
 	
-	private String cu_name, ro_roomType;
+	private String cu_name, ro_roomType, cu_pnum;
 	
 	
 	public int getRe_idx() {
@@ -121,5 +121,11 @@ public class ReservationDTO {
 	}
 	public void setRe_state(String re_state) {
 		this.re_state = re_state;
+	}
+	public String getCu_pnum() {
+		return cu_pnum;
+	}
+	public void setCu_pnum(String cu_pnum) {
+		this.cu_pnum = cu_pnum;
 	}
 }
