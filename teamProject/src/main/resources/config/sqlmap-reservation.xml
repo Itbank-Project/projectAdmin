@@ -57,9 +57,28 @@
 	]]>	
 	</select>
 
-	<update id="updateState" parameterType="int">
+	<!-- 예약 확인상태로 바꾸기 -->
+	<update id="updateState" parameterType="string">
 		update reservation set re_state='YES' where re_idx = #{re_idx}
 	</update>
+	
+	<select id="selectEmail" resultType="string" parameterType="int">
+		select customer.cu_email from reservation 
+		join customer on reservation.re_cu_id=customer.cu_id
+		where re_idx = #{re_idx}
+	</select>
 
+	<!-- 확인 버튼 클릭 시, 해당 날짜 객실 수량 -1 -->
+	<update id="updateCount" parameterType="hashmap">
+	<![CDATA[
+		update calendar set calendar_count = calendar_count-1
+			where calendar_pk in 
+				(select calendar_pk
+				from calendar
+				join room on room.ro_pk = calendar.calendar_ro_pk
+				where (calendar.calendar_date >= (select re_indate from reservation where re_idx=#{re_idx}) 
+        and calendar.calendar_date < (select re_outdate from reservation where re_idx=#{re_idx})) and room.ro_pk = #{cal_pk})
+        ]]>	
+	</update>
 
 </mapper>
