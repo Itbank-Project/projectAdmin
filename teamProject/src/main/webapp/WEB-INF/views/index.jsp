@@ -54,7 +54,7 @@
 									${reservationCount }건
 								</c:if>
 							</div></td>
-							<td>취소<div id="cancle" style="height:25px; margin-top: 10px;">
+							<td style="color: red;">취소<div id="cancle" style="height:25px; margin-top: 10px; color: red;">
 								<c:if test="${not empty cancelCount }">
 									${cancelCount }건
 								</c:if>
@@ -98,8 +98,7 @@
 								</c:if>
 							</td>
 							<td><div>${dto.re_state =='YES' ? "확인완료" : ""} </div></td>
-							<td><button class="checkBtn" ${dto.re_state == 'YES' ? "disabled" : "" } onclick="chageBtn('${dto.re_idx}',event)">확인</button></td>
-							<td></td>
+							<td><button class="checkBtn" ${dto.re_state == 'YES' ? "disabled" : "" } onclick="chageBtn('${dto.re_idx}','${dto.re_calendar_pk }',event)">확인</button></td>
 							<td></td>
 						</tr>
 					</c:forEach>
@@ -137,9 +136,13 @@
 	})
 	
 	// 예약확인 버튼을 눌렀을 때,
-	function chageBtn(re_idx,event){
+	function chageBtn(re_idx,re_calendar_pk,event){
+		const ho_name = re_calendar_pk.split('-')[1];
+		const room = re_calendar_pk.split('-')[2];
+
+		const cal_pk = ho_name +'-'+ room;
 		
-		const url = cpath + '/status/' + re_idx;
+		const url = cpath + '/status/'+re_idx +'/'+cal_pk +'/';
 		const opt = {
 				method : 'PUT',
 				headers : {
@@ -149,7 +152,7 @@
 		fetch(url,opt)
 		.then(resp => resp.text())
 		.then(text => {
-			if(text == 1){
+			if(text != 0){
 				alert('확인이 완료되었습니다.');
 				location.reload();
 			}
