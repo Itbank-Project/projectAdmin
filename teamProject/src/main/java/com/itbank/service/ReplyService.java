@@ -15,4 +15,7 @@ public class ReplyService {
 		return dao.insertReply(dto);
 	}
 
+	public List<ReplyDTO> getReplyList(int review_idx) {
+		return dao.selectReplyList(review_idx);
+	}
 }
