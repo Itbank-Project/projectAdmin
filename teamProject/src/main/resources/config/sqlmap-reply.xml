@@ -10,6 +10,14 @@
 			values (#{reply_opinion}, #{reply_ho_name}, #{reply_review_idx})
 	</insert>
 	
+	<select id="selectReplyList" parameterType="reply" resultType="reply">
+		
+		select reply.* from reply
+    		join review on review.review_idx = reply_review_idx
+		where review.review_idx = #{review_idx}
+		
+	</select>
+	
 </mapper>
 
 
