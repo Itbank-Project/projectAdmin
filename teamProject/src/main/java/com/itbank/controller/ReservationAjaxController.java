@@ -66,15 +66,15 @@ public class ReservationAjaxController {
 		
 		System.out.println(body);
 		
-		
 		// 예약확인상태 변경
 		int row = reservationService.updateState(re_idx);
 		if(row == 1) {	// 변경 성공하면
-			int update = reservationService.updateCount(map);	// 해당 객실 수량 -1
+			if(reservationDTO.getRe_cancelYesOrNo().equals("N")) {	// 예약취소안했을 경우
+				int update = reservationService.updateCount(map);	// 해당 객실 수량 -1
+			}
 
 			// 예약확인 문자보내기
 //			messageService.sendMessage(ad_pnum,cu_pnum,body);
-			return update;
 		}
 		return row;
 	}
