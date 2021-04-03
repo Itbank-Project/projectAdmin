@@ -1,15 +1,19 @@
 package com.itbank.reply;
 
+import java.util.Date;
+
 public class ReplyDTO {
 
 //	TABLE			 REPLY
 //	REPLY_IDX        NOT NULL NUMBER        
 //	REPLY_OPINION    NOT NULL VARCHAR2(500) 
 //	REPLY_HO_NAME    NOT NULL VARCHAR2(50)  
-//	REPLY_REVIEW_IDX NOT NULL NUMBER 
-
+//	REPLY_REVIEW_IDX NOT NULL NUMBER        
+//	REPLY_CREDATE    NOT NULL DATE  
+	
 	private int reply_idx, reply_review_idx;
 	private String reply_opinion, reply_ho_name;
+	private Date reply_credate;
 	
 	public int getReply_idx() {
 		return reply_idx;
@@ -35,7 +39,11 @@ public class ReplyDTO {
 	public void setReply_ho_name(String reply_ho_name) {
 		this.reply_ho_name = reply_ho_name;
 	}
-	
-	
+	public Date getReply_credate() {
+		return reply_credate;
+	}
+	public void setReply_credate(Date reply_credate) {
+		this.reply_credate = reply_credate;
+	}
 	
 }
