@@ -31,15 +31,14 @@
 		background-color: white;
 		text-align: center;
 		position: relative;
-		min-width: 300px;
-		width: 50%;
-		max-width: 400px;
 		z-index: 1;
-		border-radius: 40px;
+		height: 300px;
 	}
+
 	.hidden {
 		display: none;
 	}
+
 	#replyOK{
 		background-color: #fab1a0;
 		border: none;
@@ -51,10 +50,12 @@
 		width: 100px;
 		height: 40px;
 	}
+	
 	#replyOK:hover {
 		box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0
 			rgba(0, 0, 0, 0.19);
 	}
+	
 	.GP1 {
  		width: 0; 
 		text-align: right;
@@ -63,6 +64,7 @@
 		color: black;
 		background-color: #fd79a8;
 	}
+	
 	.GP2 {
  		width: <fmt:parseNumber value="${goodPer }" integerOnly="true"></fmt:parseNumber>%; 
 		text-align: right;
@@ -124,34 +126,45 @@
 					<h4>■ 리뷰 목록</h4>
 					<table border="1">
 						<tr>
-							<th style="width: 100px;">작성일</th>
+							<th style="width: 100px; height: 30px;">작성일</th>
 							<th style="width: 100px;">작성자</th>
 							<th style="width: 100px;">만족여부</th>
 							<th style="width: 100px;">평가</th>
-							<th style="width: 700px;">의견/답글</th>
+							<th style="width: 700px;">리뷰 내용</th>
 							<th style="width: 100px;">관리</th>
 						</tr>
 						<c:forEach var="review" items="${list }">
-						<input type="hidden" value="${review.review_idx }">
+						<input id="review_idx" type="hidden" value="${review.review_idx }">
 							<tr>
-								<td style="width: 180px; "><fmt:formatDate value="${review.review_credate }" pattern="yyyy년 MM월 dd일"/></td>
+								<td id="review_credate${review.review_idx }" style="width: 180px; height: 30px;"><fmt:formatDate value="${review.review_credate }" pattern="yyyy년 MM월 dd일"/></td>
 								<td id="id${review.review_idx }">${review.review_cu_id }</td>
-								<td>${review.review_goodORbad }</td>
+								<td id="YorN${review.review_idx }">${review.review_goodORbad }</td>
 								<td style="width: 180px;">
 									<c:forEach var="i" begin="1" end="${review.review_score }" step="1">
 										<img style="width: 20px; height: 20px;" src="${cpath }/resources/img/i_star_on.png">
 									</c:forEach>
 								</td>
-								<td id="opinion${review.review_idx }">${review.review_opinion }</td>
-								<td><button id="replyOK" class="replyBtn">답글 달기</button></td>
+								<td id="opinion${review.review_idx }">
+									${review.review_opinion }
+									<c:if test="${not empty review.reply_opinion }">
+										<div style="color: #f368e0">️🖊${review.reply_opinion }</div>
+									</c:if>
+								</td>
+								<c:if test="${empty review.reply_opinion }">
+									<td><button id="replyOK" class="replyBtn">답글 작성</button></td>
+								</c:if>
+								<c:if test="${not empty review.reply_opinion }">
+								<td><button id="replyOK" style="background-color: #8395a7" class="replyBtn" disabled>답글 작성</button></td>
+								</c:if>
 							</tr>
 						</c:forEach>
 					</table>
 				</div>
+				
 			</div>
 			<!-- end main-content -->
 		</div>
-		<!-- end main-container -->
+<!-- 		end main-container -->
 	</div>
 	<!-- end main-inner -->
 	
@@ -160,35 +173,70 @@
 	<div class="reply_modal_overlay"></div>	<!-- 모달 이외 나머지부분 어둡게 -->
 	<div class="reply_modal_content">	<!-- 표시할 내용 -->
 	
-		<form id="replyForm" method="POST">
-			<p style="font-weight: bold;">답글달기</p>
-			<input type="hidden" name="reply_review_idx" class="review_idx">
-			<input type="hidden" name="reply_ho_name" value="${dto.ho_name }">
-			<p><textarea class="review_opinion" rows="4" cols="35" style="resize: none; font-weight: bold;" readonly></textarea></p>
-			<p><textarea name="reply_opinion" rows="4" cols="35" style="resize: none;"></textarea></p>
-			<p><input type="submit" value="작성완료"></p>
-		</form>
-		
+		<div style="margin: 10px;">
+			<table border="1">
+				<tr>
+					<th style="width: 100px; max-height: 53px;">작성일</th>
+					<th style="width: 100px; max-height: 53px;">작성자</th>
+					<th style="width: 100px; max-height: 53px;">만족여부</th>
+					<th style="width: 400px; max-height: 53px; max-width: 500px">리뷰 내용</th>
+				</tr>
+				<tr>
+					<td class="modal_credate" style="width: 150px; max-height: 53px; "></td>
+					<td class="modal_writer"></td>
+					<td class="modal_YorN"></td>
+					<td class="modal_context" style="width: 400px; max-height: 53px; max-width: 500px"></td>
+				</tr>
+			</table>
+			
+		</div>
+			<div style="display: flex; justify-content: space-between; margin: 10px;">				
+				<div style="margin-top: 10px; width: 100%; height: 133px;">
+					<form id="replyForm" style="height: 160px;">
+						<input type="hidden" name="reply_review_idx" class="review_idx">
+						<input type="hidden" name="reply_ho_name" value="${dto.ho_name }">
+						<textarea id="reply_opinion" name="reply_opinion" placeholder="답글작성" rows="5" cols="55" style="resize:none; font-size: 20px;"></textarea>
+						<p style="margin-top: 5px;"><input style="background-color: #ff9ff3; border: none; width: 682px; height: 40px;" type="submit" value="답글 등록"></p>
+					</form>
+				</div>
+			</div>
 	</div>	
 </div>
 </main>
 
 <script type="text/javascript">
+	var now = new Date();
+	var year = now.getFullYear();
+	var mon = (now.getMonth()+1)>9 ? '' + (now.getMonth() + 1) : '0' + (now.getMonth() + 1); 
+	var day = now.getDate()>9 ? '' + now.getDate() : '0' + now.getDate();
 	
 	const replyBtn = document.querySelectorAll('.replyBtn');
 	const reply_modal = document.querySelector('.reply_modal');
 	const reply_modal_overlay = document.querySelector('.reply_modal_overlay');
 	const replyForm = document.getElementById('replyForm');
-	const review_opinion = document.querySelector('.review_opinion');
 	const review_idx = document.querySelector('.review_idx');
+	
+	const modal_credate = document.querySelector('.modal_credate');
+	const modal_writer = document.querySelector('.modal_writer');
+	const modal_YorN = document.querySelector('.modal_YorN');
+	const modal_context = document.querySelector('.modal_context');
+	
+	const modal_result = document.querySelector('.modal_result');
 	
 	replyBtn.forEach(ele => {
 		ele.onclick = (event) => {
 			reply_modal.classList.remove('hidden');
 			const idx = event.target.parentNode.parentNode.previousElementSibling.value;
-			const opinion = document.getElementById('opinion' + idx).innerText;
+			const credate = document.getElementById('review_credate' + idx).innerText;
+			const writer = document.getElementById('id' + idx).innerText;
+			const YorN = document.getElementById('YorN' + idx).innerText;
+			const context = document.getElementById('opinion' + idx).innerText;
+			console.log(idx);
 			review_idx.value = idx;
-			review_opinion.innerText = opinion;
+			modal_credate.innerText = credate;
+			modal_writer.innerText = writer;
+			modal_YorN.innerText = YorN;
+			modal_context.innerText = context;
 		}
 	})
 	
@@ -215,10 +263,9 @@
 		.then(text => {
 			if(text == 1){
 				alert('답글이 등록되었습니다');
-				location.href = '${cpath}/trueReview';
+				location.href = 'trueReview';
 			}
 		})
-		
 	}
 	
 	reply_modal_overlay.onclick = function(){
