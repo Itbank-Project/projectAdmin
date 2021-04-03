@@ -188,6 +188,23 @@ public class MainController {
 		
 		// 리뷰전체목록
 		List<ReviewDTO> list = reviewService.getReviewList(ad_id);
+		
+		for(int i = 0; i< list.size();i++) {
+			int review_idx = list.get(i).getReview_idx();
+			
+			System.out.println("for : " + review_idx);
+			List<ReplyDTO> replyList = replyService.getReplyList(review_idx);
+			for(ReplyDTO vo : replyList) {
+				System.out.println("fo안 : " + vo.getReply_review_idx());
+				if(review_idx == vo.getReply_review_idx()) {
+					System.out.println(vo.getReply_opinion());
+					System.out.println("aaaa");
+					list.get(i).setReply_opinion(vo.getReply_opinion());
+					break;
+				}
+			}
+
+		}
 		mav.addObject("list", list);
 		
 		// 리뷰전체갯수
