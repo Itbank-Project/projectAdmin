@@ -56,6 +56,7 @@ public class MainController {
 	@Autowired private ReviewService reviewService;
 	@Autowired private ReservationService reservationService;
 	@Autowired private CalendarService cs;
+	@Autowired private ReplyService replyService;
 	
 	private final String serverIp = "182.212.181.172";	// 업로드 서버의 IP 혹은 DNS Name
 	private final int serverPort = 22;					// SSH Protocol	Port
