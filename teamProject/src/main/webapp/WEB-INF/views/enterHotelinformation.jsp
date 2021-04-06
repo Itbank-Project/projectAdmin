@@ -93,6 +93,14 @@
 				</form>
 			</div>
 		</div>
+				<c:if test="${not empty dto }">
+				<script type="text/javascript">
+					alert('호텔정보를 이미 입력하였습니다.');
+					location.href = '${cpath}/hotelInformation';
+				</script>
+			</c:if>
+	
+	
 </main>
 </body>
 </html>
