@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%
+	Date nowTime = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("MM월 dd일");
+%>
 <link rel="stylesheet" href="${cpath }/resources/css/calendar.css">
 <style>
 	.roomStatus_modal {
@@ -75,7 +81,7 @@
 		      </div>
 		      <nav>
 			      <ul id="context">
-				      <li><p>※ 세달(1월27일 ~ 4월 27일)뒤까지 앱 상에 노출됩니다. 사전 예약률이 폭발적으로 증가하고 있는 여름! 사전 객실 업로드하셔서 예약 픽업 증가를 경험하세요♥♥</p></li>
+				      <li><p>※ 세달(<%=sf.format(nowTime) %> ~ <span id="threeMonth">4월 27일</span>)뒤까지 앱 상에 노출됩니다. 사전 예약률이 폭발적으로 증가하고 있는 여름! 사전 객실 업로드하셔서 예약 픽업 증가를 경험하세요♥♥</p></li>
 				      <li><p>※ 전체 객실 수정 기능 등을 사용하시면 편리하게 이용이 가능합니다.</p></li>
 				      <li><p>※ 엑스트라넷 이용시, <span style="color: royalblue;">크롬(Chrome)</span>사용을 권장합니다.</p></li>
 				      <li><p>※ <span style="color: brown;">마감임박 당일할인가</span>를 미리 입력할 수 있습니다. 해당 기능을 이용하여 매출에 날개를 달아보세요!</p></li>
@@ -126,9 +132,27 @@
         
         
 <script type="text/javascript">
-	
-		var today = new Date();//오늘 날짜
-	 
+		const threeMonth = document.getElementById('threeMonth');
+		
+		
+		var now = new Date();//오늘 날짜
+		now.setMonth(now.getMonth()+3);
+		now = getFormatMonth(now);
+		
+		function getFormatMonth(now){
+		    var month = (1 + now.getMonth());          	//M
+		    month = month >= 10 ? month : '0' + month;  		//month 두자리로 저장
+		    var day = now.getDate();                   	//d
+		    day = day >= 10 ? day : '0' + day;          		//day 두자리로 저장
+		    return month + '월 ' + day +'일';       		//'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+		}
+		
+		threeMonth.innerText = now;
+		
+		
+		
+		
+		var today = new Date();
 		function prevClaendar(){//이전 달력
 		  today = new Date(today.getFullYear(), today.getMonth()-1,today.getDate());
 		  buildCalendar();
