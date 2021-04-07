@@ -19,6 +19,9 @@
             height: 45px;
         }
         #findId_btn{
+            background-color: #e74c3c;
+	    	color: white;
+            font-weight: bold;
             margin-top: 20px;
             width: 300px;
             height: 45px;
