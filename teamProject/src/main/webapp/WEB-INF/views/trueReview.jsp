@@ -147,7 +147,7 @@
 								<td id="opinion${review.review_idx }">
 									${review.review_opinion }
 									<c:if test="${not empty review.reply_opinion }">
-										<div style="color: #f368e0">️🖊${review.reply_opinion }</div>
+										<div style="color: #f368e0">️✔️ ${review.reply_opinion }</div>
 									</c:if>
 								</td>
 								<c:if test="${empty review.reply_opinion }">
