@@ -26,11 +26,18 @@
             font-size: 20px;
         }
         fieldset{
-			width: 500px;
+/* 			width: 500px; */
+/* 			display: flex; */
+/* 			flex-flow: column; */
+/* 			justify-content: center; */
+/* 			align-items: center; */
+			width: 300px;
 			display: flex;
 			flex-flow: column;
 			justify-content: center;
 			align-items: center;
+			margin-top: 10px;
+			margin-left: 220px;
 		}
 		legend{
 			font-size: 16pt;
