@@ -287,7 +287,7 @@ public class MainController {
 		dto.setHo_pnum(ho_pnum);
 		dto.setHo_pool(ho_pool);
 		dto.setHo_smoke(ho_smoke);
-		dto.setHo_uploadfile(file.getOriginalFilename());
+		dto.setHo_uploadfile(file.getOriginalFilename().replace(" ", "_"));
 		dto.setHo_wifi(ho_wifi);
 
 		if(dto.getHo_parking() == null) {dto.setHo_parking("");	}
@@ -314,12 +314,12 @@ public class MainController {
 		
 		chSftp = (ChannelSftp)channel;
 		
-		File tmp = new File(file.getOriginalFilename());		// 리눅스에 전송할 파일을 임시로 생성
+		File tmp = new File(file.getOriginalFilename().replace(" ", "_"));		// 리눅스에 전송할 파일을 임시로 생성
 		file.transferTo(tmp);			// 업로드 파일을 File객체로 변환
 		
 		FileInputStream fis = new FileInputStream(tmp);		// tmp를 읽어서 리눅스에 보낼 스트림
 		chSftp.cd("/var/www/html"); 						// /var/www/html : apache의 기본 경로
-		chSftp.put(fis, file.getOriginalFilename());		// 스트림과 이름을 전송하는 업로드
+		chSftp.put(fis, file.getOriginalFilename().replace(" ", "_"));		// 스트림과 이름을 전송하는 업로드
 		
 		System.out.println("sftp > transfer complete !!");
 		
@@ -332,7 +332,7 @@ public class MainController {
 		fileName += "http://";		// 프로토콜, 대상 서버의 apache 서비스로 접근
 		fileName += serverIp;		// 서버의 IP 혹은 DNA Name
 		fileName += ":9000/";		// 대상 서버의 apache port, 기본값을 80
-		fileName += file.getOriginalFilename(); // 업로드된 파일의 이름
+		fileName += file.getOriginalFilename().replace(" ", "_"); // 업로드된 파일의 이름
 		
 		mav.addObject("uploadFilePath", fileName);
 		System.out.println("fileName : " + fileName);
@@ -364,7 +364,7 @@ public class MainController {
 		return mav;
 	}
 	
-	// 호텔정보 수정
+		// 호텔정보 수정
 		@PostMapping("hotelInformationModification")
 		public ModelAndView hotelModifi(MultipartHttpServletRequest request) throws  IllegalStateException,IOException, JSchException, SftpException {
 			ModelAndView mav = new ModelAndView("index");
@@ -404,7 +404,7 @@ public class MainController {
 			dto.setHo_pnum(ho_pnum);
 			dto.setHo_pool(ho_pool);
 			dto.setHo_smoke(ho_smoke);
-			dto.setHo_uploadfile(file.getOriginalFilename());
+			dto.setHo_uploadfile(file.getOriginalFilename().replace(" ", "_"));
 			dto.setHo_wifi(ho_wifi);
 			
 			if(dto.getHo_parking() == null) {dto.setHo_parking("");	}
@@ -431,12 +431,12 @@ public class MainController {
 			
 			chSftp = (ChannelSftp)channel;
 			
-			File tmp = new File(file.getOriginalFilename());		// 리눅스에 전송할 파일을 임시로 생성
+			File tmp = new File(file.getOriginalFilename().replace(" ", "_"));		// 리눅스에 전송할 파일을 임시로 생성
 			file.transferTo(tmp);			// 업로드 파일을 File객체로 변환
 			
 			FileInputStream fis = new FileInputStream(tmp);		// tmp를 읽어서 리눅스에 보낼 스트림
 			chSftp.cd("/var/www/html"); 						// /var/www/html : apache의 기본 경로
-			chSftp.put(fis, file.getOriginalFilename());		// 스트림과 이름을 전송하는 업로드
+			chSftp.put(fis, file.getOriginalFilename().replace(" ", "_"));		// 스트림과 이름을 전송하는 업로드
 			
 			System.out.println("sftp > transfer complete !!");
 			
@@ -449,7 +449,7 @@ public class MainController {
 			fileName += "http://";		// 프로토콜, 대상 서버의 apache 서비스로 접근
 			fileName += serverIp;		// 서버의 IP 혹은 DNA Name
 			fileName += ":9000/";		// 대상 서버의 apache port, 기본값을 80
-			fileName += file.getOriginalFilename(); // 업로드된 파일의 이름
+			fileName += file.getOriginalFilename().replace(" ", "_"); // 업로드된 파일의 이름
 			
 			mav.addObject("uploadFilePath", fileName);
 			System.out.println("fileName : " + fileName);
@@ -489,7 +489,7 @@ public class MainController {
 		dto.setRo_ho_name(ro_ho_name);
 		dto.setRo_limitperson(ro_limitperson2);
 		dto.setRo_roomtype(ro_roomtype);
-		dto.setRo_uploadfile(file.getOriginalFilename());
+		dto.setRo_uploadfile(file.getOriginalFilename().replace(" ", "_"));
 		
 	
 		Session sess = null;
@@ -508,12 +508,12 @@ public class MainController {
 		
 		chSftp = (ChannelSftp)channel;
 		
-		File tmp = new File(file.getOriginalFilename());		// 리눅스에 전송할 파일을 임시로 생성
+		File tmp = new File(file.getOriginalFilename().replace(" ", "_"));		// 리눅스에 전송할 파일을 임시로 생성
 		file.transferTo(tmp);			// 업로드 파일을 File객체로 변환
 		
 		FileInputStream fis = new FileInputStream(tmp);		// tmp를 읽어서 리눅스에 보낼 스트림
 		chSftp.cd("/var/www/html"); 						// /var/www/html : apache의 기본 경로
-		chSftp.put(fis, file.getOriginalFilename());		// 스트림과 이름을 전송하는 업로드
+		chSftp.put(fis, file.getOriginalFilename().replace(" ", "_"));		// 스트림과 이름을 전송하는 업로드
 		
 		System.out.println("sftp > transfer complete !!");
 		
@@ -526,7 +526,7 @@ public class MainController {
 		fileName += "http://";		// 프로토콜, 대상 서버의 apache 서비스로 접근
 		fileName += serverIp;		// 서버의 IP 혹은 DNA Name
 		fileName += ":9000/";		// 대상 서버의 apache port, 기본값을 80
-		fileName += file.getOriginalFilename(); // 업로드된 파일의 이름
+		fileName += file.getOriginalFilename().replace(" ", "_"); // 업로드된 파일의 이름
 		
 		mav.addObject("uploadFilePath", fileName);
 		System.out.println("fileName : " + fileName);
