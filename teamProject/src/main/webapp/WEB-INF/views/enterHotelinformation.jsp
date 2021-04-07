@@ -8,6 +8,7 @@
 
 <body>
 <main>
+	<c:if test="${empty dto }">
 		<div class="main-container">
 			<div class="main-content" style="margin: 0 auto; width: 680px;">
 				<form id="hotelForm" method="POST" enctype="multipart/form-data">
@@ -93,6 +94,7 @@
 				</form>
 			</div>
 		</div>
+		</c:if>
 				<c:if test="${not empty dto }">
 				<script type="text/javascript">
 					alert('호텔정보를 이미 입력하였습니다.');
