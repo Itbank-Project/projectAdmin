@@ -20,6 +20,7 @@
             height: 45px;
         }
         .submit{
+	    background-color: #e74c3c;
             margin-top: 20px;
             width: 300px;
             height: 45px;
