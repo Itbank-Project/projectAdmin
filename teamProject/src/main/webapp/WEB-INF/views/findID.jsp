@@ -18,7 +18,7 @@
             width: 300px;
             height: 45px;
         }
-        .findId_btn{
+        #findId_btn{
             margin-top: 20px;
             width: 300px;
             height: 45px;
@@ -79,35 +79,14 @@
 	        </form>
     </div>
     
-     <!-- <div class="modal_findId hidden">
-        <div class="modal_overlay_findId"></div>   나머지 배경 어둡게 만드는 영역 
-        <div class="modal_content_findId">         표시하고 싶은 내용 
-            <h2>아이디 찾기</h2>
-            <div id="modal_result">
-				입력한 정보와 일치하는 아이디 나오게 하기
-            </div>
-            <button id="close">확인</button>
-        </div>
-    </div>  -->
-    
     <script type="text/javascript">
     const cpath = '${pageContext.request.contextPath }';
-    const result = document.getElementById('result');
     
     // 모달창 띄우기
     const findId_btn = document.getElementById('findId_btn');
-    const close_btn = document.getElementById('close');
-    const modal_findId = document.querySelector('.modal_findId');
-    const modal_result = document.getElementById('modal_result');
-  	
-    // 아이디 확인하는 모달 창 띄우고 확인 누르면 로그인창으로 이동
-    close_btn.onclick = function(){
-    	location.href = cpath +'/login';
-    }  
 
     // 아이디 찾기 버튼 눌렀을 때
     findId_btn.onclick = function(){
-    	
     	const findIdForm = document.getElementById('findIdForm');
     	const formData = new FormData(findIdForm);
 		const ob = {};
@@ -133,20 +112,9 @@
 			else{
 				alert('아이디 찾기 : ' + text);
 				location.href = cpath +'/login';
-				/*modal_findId.classList.remo ve('hidden');	
-				modal_result.style.color = 'blue';
-				modal_result.style.fontWeight = 'bold';
-				modal_result.style.fontSize = '16pt';
-				modal_result.innerText = text;*/ 
 			}
 		});	
     }
-    
-    
-    
-    
-    
-    
     
     	
     </script>
