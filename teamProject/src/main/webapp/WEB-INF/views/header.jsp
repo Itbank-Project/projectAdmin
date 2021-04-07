@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="${cpath }/resources/css/style.css">
     <link rel="stylesheet" href="${cpath }/resources/css/guide.css">
-    <title>INDEX PAGE</title>
+    <title>HOTEL JAVA</title>
 	
 <style>
     	.nav { list-style:none; cursor:pointer }
