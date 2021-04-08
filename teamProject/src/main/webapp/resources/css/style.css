@@ -100,12 +100,16 @@ header {
 	font-size: 14px;
 	font-weight: bold;
 	margin-left: 25px;
+	font-weight : bold;
 }
 
 .dropdown-content {
 	display: none;
 	position: absolute;
 	width: 130px;
+	background-color: white;
+	z-index: 10;
+	box-shadow: 2px 2px #b2bec3;
 }
 
 .dropdown-content a {
@@ -116,6 +120,15 @@ header {
 	min-width: auto;
 	margin-top: 30px;
 	width: 110px;
+}
+
+.dropdown-content button {
+	box-shadow: 2px 2px #b2bec3;
+	border: 0; 
+	background-color: #e74c3c;
+	color: white;
+	width: 120px;
+	height: 33px;
 }
 
 .dropdown-content a:hover {
