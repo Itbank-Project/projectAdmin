@@ -1,6 +1,7 @@
 package com.itbank.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -29,7 +30,6 @@ public class ReservationAjaxController {
 
 		// 예약문자 보내기 위한 정보들
 		AdminDTO dto = (AdminDTO) session.getAttribute("login");
-		String ad_pnum = dto.getAd_pnum();
 		String re_idx = map.get("re_idx");
 
 		ReservationDTO reservationDTO = reservationService.getResevation(re_idx);
@@ -74,8 +74,51 @@ public class ReservationAjaxController {
 			}
 
 			// 예약확인 문자보내기
-//			messageService.sendMessage(ad_pnum,cu_pnum,body);
+//			messageService.sendMessage(cu_pnum,body);
 		}
 		return row;
 	}
+
+	
+	@PutMapping(value = "status/{re_idx}/", consumes="application/json;charset=utf8")
+	public int updateCancel(@PathVariable String re_idx, HttpSession session) {
+		Date nowDate = new Date();
+		
+		SimpleDateFormat simpl = new SimpleDateFormat("yyyy-MM-dd"); 
+		String cancelDate = simpl.format(nowDate); 
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("re_idx", re_idx);
+		map.put("cancelDate", cancelDate);
+		
+		int row = reservationService.updateCancelCheck(map);
+		if(row == 1) {
+			
+			// 예약문자 보내기 위한 정보들
+			
+			ReservationDTO reservationDTO = reservationService.getResevation(re_idx);
+			String ho_name = reservationDTO.getRe_calendar_pk().split("-")[1];
+			String cu_pnum = reservationDTO.getCu_pnum();
+			
+			String body = "[%s]\n예약하신 해당 객실에 빈방이 없는 관계로 부득이하게 예약이 취소되었습니다. "
+						+ "다음에 이용부탁드립니다. "
+						+ "감사합니다.";
+
+			body = String.format(body, ho_name);
+			
+			// 취소확인 문자보내기
+			//messageService.sendMessage(cu_pnum, body);
+		}
+		
+		return row; 
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+			
 }
