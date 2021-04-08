@@ -88,4 +88,8 @@
     	where  reservation.re_idx = #{re_idx}
 	</select>
 
+	<!-- 취소 버튼 누르기 -->
+	<update id="updateCancel" parameterType="hashmap">
+		update reservation set re_payment = 0 ,re_cancelYesOrNo = 'Y' , re_cancelDate = #{cancelDate} where re_idx = #{re_idx}
+	</update>
 </mapper>
