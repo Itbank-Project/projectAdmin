@@ -36,16 +36,16 @@
 	color: white;
 }	
 #joinBtn {
-border: none;
-border-radius: 10px;
-outline: none;
-width: 406px;
-font-weight: bold;
-cursor: pointer;
-background-color: #cd1f48;
-color: white;
-height: 30px;
-margin-top: 10px;
+	border: none;
+	border-radius: 10px;
+	outline: none;
+	width: 406px;
+	font-weight: bold;
+	cursor: pointer;
+	background-color: #cd1f48;
+	color: white;
+	height: 30px;
+	margin-top: 10px;
 }
 .join-admin {
 	text-align: center;
@@ -90,7 +90,7 @@ margin-top: 10px;
 				<input class="join-input" id="name" name="ad_name" type="text"
 					placeholder="이름" required>
 			</div>
-
+			<p id="name_check"></p>
 
 
 			<div>
@@ -221,6 +221,29 @@ $('#userpw2').blur(function() {
 		$('#userpw2').select();	
 	}
 });
+
+// 이름 정규식(한글 또는 대 소문자 영문만 가능)
+$('#name').blur( function () {
+	var name = document.getElementById('name').value;
+	var name_check = document.getElementById('name_check');
+
+	var reg = /^[가-힣|a-z|A-Z]+$/;
+
+	if($('#name').val() == ''){
+		$('#name_check').text('필수 정보 입니다');
+		$('#name_check').css('color', 'red');
+		$('#name').focus();
+		return;
+	}else if(true === reg.test(name))  {
+		name_check.innerText = '';
+	}else {
+		name_check.innerText = '한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)';
+		$('#name_check').css('color', 'red');
+		$('#name').select();	
+	 }
+});
+
+
 	
 //휴대폰 정규식
 $('#ad_pnum').blur(function() {
