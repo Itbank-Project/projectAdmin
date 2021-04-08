@@ -17,5 +17,7 @@ public interface ReservationDAO {
 
 	ReservationDTO selectReservation(String re_idx);
 
+	int updateCancel(HashMap<String, Object> map);
+
 
 }
