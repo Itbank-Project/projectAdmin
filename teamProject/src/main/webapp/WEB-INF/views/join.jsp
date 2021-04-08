@@ -19,7 +19,7 @@
  	width: 402px;
  	margin-top: 35px;					
 }	
-.join-input::placeholder {
+.join-input::placeholder, .phoneNumber::placeholder {
 	text-align: center;
 	font-weight: bold;
 }	
