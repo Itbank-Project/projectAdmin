@@ -81,7 +81,7 @@
 						<th>취소일시</th>
 						<th>확인상태</th>
 						<th>확인</th>
-						<th>상세</th>
+						<th>취소</th>
 					</tr>
 					<c:forEach var="dto" items="${list }">
 						<tr>
@@ -97,9 +97,13 @@
 									<fmt:formatDate value="${dto.re_canceldate }" pattern="yyyy-MM-dd"/>
 								</c:if>
 							</td>
-							<td><div>${dto.re_state =='YES' ? "확인완료" : ""} </div></td>
-							<td><button class="checkBtn" ${dto.re_state == 'YES' ? "disabled" : "" } onclick="chageBtn('${dto.re_idx}','${dto.re_calendar_pk }',event)">확인</button></td>
-							<td></td>
+							<td>
+								<c:if test="${dto.re_state == 'YES' }" ><div>${dto.re_state == 'YES' ? "예약확인" : "" }</div></c:if>
+								<c:if test="${dto.re_cancelYesOrNo == 'Y' }" ><div>${dto.re_cancelYesOrNo == 'Y' ? "취소완료" : "" }</div></c:if>
+							
+							</td>
+							<td><button class="checkBtn" ${dto.re_state == 'YES' || dto.re_cancelYesOrNo == 'Y' ? "disabled" : "" } onclick="chageBtn('${dto.re_idx}','${dto.re_calendar_pk }',event)">확인</button></td>
+							<td><button class="cancelBtn" ${dto.re_state == 'YES' || dto.re_cancelYesOrNo == 'Y' ? "disabled" : "" } onclick="cancelBtn('${dto.re_idx}')">취소</button></td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -112,6 +116,7 @@
 	
 	
 	<script>
+	
 	const re_payment = document.querySelectorAll('.re_payment');
 	
 	const length = re_payment.length;
@@ -159,6 +164,32 @@
 		})
 		
 	}
+	
+	
+	// 취소버튼 눌렀을 때
+	function cancelBtn(re_idx){
+		
+		const url = cpath + '/status/' + re_idx+'/';
+		const opt = {
+				method : 'PUT',
+				headers : {
+					'Content-Type' : 'application/json;charset-utf8'
+				}
+		};
+		fetch(url,opt)
+		.then(resp => resp.text())
+		.then(text => {
+			if(text == 1 ){
+				alert('취소가 완료되었습니다');
+				location.reload();
+			}
+		})
+	}
+	
+	
+	
+	
+	
 	
 	</script>
 </main>
