@@ -113,11 +113,10 @@
 	                    	${login.ad_name}</div>
 	                    <c:if test="${not empty login}">
 				<div id="content-menu" class="dropdown-content"> 
-				    <a href="" >비밀번호 변경</a>
-	                            <a href="${cpath }/modify" >회원정보 변경</a>
-				    <a href="${cpath }/enterHotelinformation/${login.ad_id}">호텔정보 입력</a>
-	                            <a href="${cpath }/logout">로그아웃</a>
-	                        </div>
+				<div><a href="" ><button>비밀번호 변경</button></a></div>
+				<div><a href="${cpath }/modify" ><button>회원정보 변경</button></a>
+	               		<div><a href="${cpath }/enterHotelinformation/${login.ad_id}"><button>호텔정보 입력</button></a></div>
+	               		<div><a href="${cpath }/logout"><button>로그아웃</button></a></div>
 			    </c:if>    
 	                </div><!-- end right -->
                     
