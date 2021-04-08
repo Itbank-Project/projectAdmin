@@ -44,4 +44,9 @@ public class ReservationService {
 		return dao.selectReservation(re_idx);
 	}
 
+	// 예약 취소버튼
+	public int updateCancelCheck(HashMap<String, Object> map) {
+		return dao.updateCancel(map);
+	}
+
 }
