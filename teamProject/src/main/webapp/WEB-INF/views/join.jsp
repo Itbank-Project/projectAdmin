@@ -11,7 +11,7 @@
 .hidden {
 	display: none;
 }
-.join-input
+.join-input, .phoneNumber
 {
  	border: none;
  	border-bottom: 1px solid gray;
@@ -33,6 +33,7 @@
 	cursor: pointer;
 	height: 30px;
 	margin-top: 10px;
+	color: white;
 }	
 #joinBtn {
 border: none;
@@ -41,15 +42,21 @@ outline: none;
 width: 406px;
 font-weight: bold;
 cursor: pointer;
-background-color: #81ecec;
+background-color: #cd1f48;
+color: white;
 height: 30px;
 margin-top: 10px;
 }
+.join-admin {
+	text-align: center;
+	padding-top: 20px;
+	color: #fd79a8;
+}
 </style>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
+	<div class="join-admin"><h2>회원가입</h2></div>
 	<div id="joinBackground"
 		style="width: 768px; margin: auto; justify-content: center; align-items: center; text-align: center; margin-top: 100px;">
 
@@ -87,7 +94,7 @@ margin-top: 10px;
 
 
 			<div>
-				<input class="join-input" id="ad_pnum" name="ad_pnum" type="text"
+				<input class="phoneNumber" id="ad_pnum" onkeyup="" name="ad_pnum" type="text"
 					placeholder="전화번호 입력" required>
 			</div>
 			<p id="pnum_check"></p>
@@ -133,7 +140,7 @@ margin-top: 10px;
 		</form>
 	</div>
 
-	<script>
+<script>
 const cpath = '${cpath}';
 console.log(cpath);
 // 아이디 중복 체크
@@ -214,6 +221,37 @@ $('#userpw2').blur(function() {
 		$('#userpw2').select();	
 	}
 });
+	
+//휴대폰 정규식
+$('#ad_pnum').blur(function() {
+	var pnum = document.getElementById('ad_pnum').value;
+	var pnum_check = document.getElementById('pnum_check');
+	console.log(pnum);
+	var reg = /^\d{3}-\d{4}-\d{4}$/;
+	
+	if($('#ad_pnum').val() == ''){
+		$('#pnum_check').text('휴대폰 번호를 입력하세요');
+		$('#pnum_check').css('color', 'red');
+		$('#ad_pnum').focus();
+		return;
+	} else if(true === reg.test(pnum))  {
+		pnum_check.innerText = '';
+	} else {
+		pnum_check.innerText = '휴대폰 번호를 제대로 입력해주세요';
+		$('#pnum_check').css('color', 'red');
+		$('#ad_pnum').select();
+	}
+	
+	
+});
+$(document).on("keyup", ".phoneNumber", function() {
+	$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
+	
+});
+
+
+
+	
 	
 
 // 이메일 인증	
