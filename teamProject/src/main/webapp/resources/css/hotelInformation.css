@@ -115,7 +115,7 @@ main {
 }
 
 .room_img {
-	width: 112px;
+	width: 98px;
     min-height: 168px;
     position: relative;
     overflow: hidden;
@@ -124,6 +124,8 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+	background-size: cover;
+	background-position: center;
 }
 
 .room_info {
