@@ -7,6 +7,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <style>
+	.dateForm{
+		margin-top: 40px;
+		margin-bottom: 40px;
+	}
+
 	table, th, td {
 		border: 1px solid #e7eaec;
 		border-spacing: 0px 0px;
@@ -27,48 +32,47 @@
 	<div class="main-inner">
 		<div class="main-container">
 			<div class="main-content-head">
-				<h3>조회 조건</h3>
+				<h3>■ 예약 목록</h3>
 			</div>
-			<div class="main-content">
-				<div>
-					<h3>■ 정산/입금 확인법</h3>
-					<ul>
-						<li><p>• 주별입금 : 월요일부터 일요일까지 체크아웃건</p></li>
-						<li><p>• 입금 방식에 따라 날짜 및 구분방식 선택 후 조회하시면 해당 입금내역을 확인/다운로드 하실 수 있습니다.</p></li>
-					</ul>
-					<form method="POST">
-						<span><input type="date" name="startDate"></span>
-						<span>to</span>
-						<span><input type="date" name="endDate"></span>
-						<input type="submit" value="조회" >
-					</form>
-					<br><br>
-					<table class="table-content">
-						<tr>
-							<th colspan="4">숙박</th>
-						</tr>
-						<tr>
-							<td>판매가<div id="sell" style="height:25px; margin-top: 10px;"></div></td>
-							<td>예약<div id="reservation" style="height:25px; margin-top: 10px;">
-								<c:if test="${not empty reservationCount }">
-									${reservationCount }건
-								</c:if>
-							</div></td>
-							<td style="color: red;">취소<div id="cancle" style="height:25px; margin-top: 10px; color: red;">
-								<c:if test="${not empty cancelCount }">
-									${cancelCount }건
-								</c:if>
-							</div></td>
-						</tr>
-					</table>
-				</div>
-			</div>
-			<!-- end main-content -->
-			<br> <br>
 			<div class="main-content">
 			<div class="main-reservation">
-				<h3>■ 예약 목록</h3>
+				<h3>조회 조건</h3>
 				<hr>
+				<div>
+					<div class="dateForm">
+						<form method="POST">
+							<span><input type="date" name="startDate"></span>
+							<span>to</span>
+							<span><input type="date" name="endDate"></span>
+							<input type="submit" value="조회" >
+						</form>
+					</div>
+					
+					<div>
+						<table class="table-content">
+							<tr>
+								<th colspan="3">숙박</th>
+							</tr>
+							<tr>
+								<td>판매가<div id="sell" style="height:25px; margin-top: 10px;"></div></td>
+								<td>예약<div id="reservation" style="height:25px; margin-top: 10px;">
+									<c:if test="${not empty reservationCount }">
+										${reservationCount }건
+									</c:if>
+								</div></td>
+								<td style="color: red;">취소<div id="cancle" style="height:25px; margin-top: 10px; color: red;">
+									<c:if test="${not empty cancelCount }">
+										${cancelCount }건
+									</c:if>
+								</div></td>
+							</tr>
+						</table>
+					</div>
+				
+				</div>
+				
+				
+				
 				<br>
 				<table class="table-reservation">
 					<tr>
