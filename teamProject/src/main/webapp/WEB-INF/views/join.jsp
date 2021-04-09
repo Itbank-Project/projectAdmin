@@ -184,6 +184,13 @@ $('#ad_id').blur(function(){
 //비밀번호 체크
 
 $('#ad_pw').blur( function () {
+	
+	if(document.querySelector('#id_check').style.color == 'red') {
+		console.log('pw to id')
+		document.getElementById('ad_id').select();
+		return;
+	}
+	
 	var pw = document.getElementById('ad_pw').value;
 	var pw_check = document.getElementById('pw_check');
 	console.log(pw);
