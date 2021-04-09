@@ -37,11 +37,13 @@
 	}
 	#searchBtn {
 	  appearance: none;
-	  background: #0d6efd;
+	  background: #fd79a8;
 	  color: #ffffff;
 	  height: 30px;
 	  border-radius: 10px;
+	
 	}
+
 </style>
 
 <main>
@@ -50,7 +52,15 @@
 			<div class="main-content-head">
 				<h3>정산</h3>
 			</div>
-			<div class="main-content">
+			<div class="main-content">	
+				<div>
+					<h3>■ 정산/입금 확인법</h3>
+					<ul>
+						<li><p>• 주별입금 : 월요일부터 일요일까지 체크아웃건</p></li>
+						<li><p>• 입금 방식에 따라 날짜 및 구분방식 선택 후 조회하시면 해당 입금내역을 확인/다운로드 하실 수 있습니다.</p></li>
+					</ul>
+				</div>
+			
 				<div>
 					<h4>■ 정산 기본 정보</h4>
 					<table class="infoTable">
@@ -70,7 +80,7 @@
 				</div>
 				
 				<div>
-					<div style="width: 1000px; display: flex; justify-content: space-between;">
+					<div style="width: 1000px; display: flex; justify-content: space-between; margin-bottom: 20px;">
 					<form method="POST" id="calculateForm">
 						<div><h4>■ 정산 내역</h4></div>
 						<div style="margin-top: 20px;">
@@ -104,19 +114,8 @@
 						</form>
 					</div>
 					
-<!-- 					<table class="calTable" style="width: 1000px"> -->
-<!-- 						<tr> -->
-<!-- 							<th>정산방식</th> -->
-<!-- 							<th>정산기간</th> -->
-<!-- 							<th>예약</th> -->
-<!-- 							<th>취소</th> -->
-<!-- 							<th>정산금액</th> -->
-<!-- 							<th>입금일자</th> -->
-<!-- 						</tr> -->
-					
-<!-- 					</table> -->
-					
-					
+
+							
 					<div id="calculate-list"></div>
 					
 					
