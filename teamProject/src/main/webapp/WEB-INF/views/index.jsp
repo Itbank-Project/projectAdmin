@@ -36,8 +36,6 @@
 			</div>
 			<div class="main-content">
 			<div class="main-reservation">
-				<h3>조회 조건</h3>
-				<hr>
 				<div>
 					<div class="dateForm">
 						<form method="POST">
