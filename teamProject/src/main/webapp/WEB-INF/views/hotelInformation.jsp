@@ -118,7 +118,7 @@
 			<c:forEach var="room" items="${roomList }">
 			<div id="testDiv" class="selectRoom_type_item" style="border: 1px solid #f3f3f4; margin-bottom: 10px;">
 				<input class="ro_pk" type="hidden" value="${room.ro_pk }">
-				<div class="room_img">${room.ro_uploadfile }</div>
+				<div class="room_img" style="background-image: url(http://182.212.181.172:9000/${room.ro_uploadfile });"></div>
 				<div class="room_info">
 					<div class="room_type" id="room_type${room.ro_pk }">${room.ro_roomtype }</div>
 					<div class="room_badType">
