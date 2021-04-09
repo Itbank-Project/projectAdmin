@@ -31,7 +31,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-color: white;">
 
 	<div id="root">
         <div style="display: block; justify-content: center; align-items: center; text-align: center; font-size: 20px; margin: 30px; line-height: 30px;">
