@@ -95,7 +95,7 @@
     <div class="navbar">
         <div class="navbar-inner">
             <div class="container">
-                <h1><a class="brand" href="${cpath }/">HOTELJAVA</a></h1>
+                <h1><a class="brand" href="${cpath }/">JAVA</a></h1>
                 <div class="nav-collapse-outer">
 	                <div class="nav-collapse">
 	                    <ul class="nav">
