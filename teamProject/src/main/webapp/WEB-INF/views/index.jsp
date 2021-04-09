@@ -171,21 +171,25 @@
 	// 취소버튼 눌렀을 때
 	function cancelBtn(re_idx){
 		
-		const url = cpath + '/status/' + re_idx+'/';
-		const opt = {
-				method : 'PUT',
-				headers : {
-					'Content-Type' : 'application/json;charset-utf8'
+		let check = confirm('정말 취소하시겠습니까?');
+		if(check == true){
+			const url = cpath + '/status/' + re_idx+'/';
+			const opt = {
+					method : 'PUT',
+					headers : {
+						'Content-Type' : 'application/json;charset-utf8'
+					}
+			};
+			fetch(url,opt)
+			.then(resp => resp.text())
+			.then(text => {
+				if(text == 1 ){
+					alert('취소가 완료되었습니다');
+					location.reload();
 				}
-		};
-		fetch(url,opt)
-		.then(resp => resp.text())
-		.then(text => {
-			if(text == 1 ){
-				alert('취소가 완료되었습니다');
-				location.reload();
-			}
-		})
+			})
+		}
+		
 	}
 	
 	
