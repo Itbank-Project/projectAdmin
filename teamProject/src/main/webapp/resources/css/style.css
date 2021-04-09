@@ -7,6 +7,9 @@ header, nav, main, div, ul, li, body {
 ul, li {
 	list-style: none;
 }
+body {
+	background-color: #f3f3f4;
+}
 
 
 header {
