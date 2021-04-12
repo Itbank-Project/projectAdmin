@@ -56,7 +56,7 @@
 	</interceptors>
 	
 	<task:scheduled-tasks>
-		<task:scheduled ref="calculateService" method="autoCalculate" cron="30 0 0 ? * MON"/>
+		<task:scheduled ref="calculateService" method="autoCalculate" cron="30 0 0 ? * 1"/>
 	</task:scheduled-tasks>
 	
 </beans:beans>
