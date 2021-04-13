@@ -101,18 +101,6 @@
 	</div>
 </div>
 
-<script>
-	const checkBox = document.querySelectorAll('input[type="checkbox"]');
-	
-	checkBox.forEach(check => {
-		check.onclick = (event) => {
-			return false;
-		}
-	})
-	
-	
-	
-</script>
 
 <script>
 	const deleteBtn = document.querySelectorAll('.deleteBtn');
