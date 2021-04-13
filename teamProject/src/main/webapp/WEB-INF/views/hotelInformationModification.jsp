@@ -52,7 +52,7 @@
 					<td><input style="border: none; border-bottom: 1px solid black; outline: none; text-align: center; width: 300px;" type="text" name="ho_description" class="ho_check" value="${dto.ho_description }"></td>
 				</tr>
 				<tr>
-					<th rowspan="1">업장 내 편의시설</th>
+					<th rowspan="1">업장 내 <br>편의시설</th>
 					<td id="img-scroll" colspan="3">
 						<div id="img-bundle">
 							<div>
@@ -90,7 +90,7 @@
 				</tr>
 				<tr>
 					<th>호텔 사진</th>
-					<td><input type="file" name="ho_uploadfile" ></td>
+					<td><input type="file" name="ho_uploadfile" required></td>
 				</tr>
 			</table>
 			<div class="submit-btn">
