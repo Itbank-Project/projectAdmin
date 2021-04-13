@@ -20,9 +20,9 @@
    <insert id="insertCal" parameterType="calculate">
       <![CDATA[
          insert into calculate (ca_ad_id, ca_firstday, ca_lastday, ca_depositdate, ca_cancel_count, ca_re_count, ca_re_totalpayment)
-         values(#{ad_id }, (SELECT NEXT_DAY(SYSDATE, '월요일')-7 FROM DUAL), 
-                       (SELECT NEXT_DAY(SYSDATE, '일요일') FROM DUAL), 
-                       (SELECT NEXT_DAY(SYSDATE, '월요일') FROM DUAL), 
+         values(#{ad_id }, (SELECT NEXT_DAY(SYSDATE, '월요일')-14 FROM DUAL), 
+                       (SELECT NEXT_DAY(SYSDATE, '일요일')-7 FROM DUAL), 
+                       (SELECT NEXT_DAY(SYSDATE, '월요일')-7 FROM DUAL), 
     
             (select count(re_cancelyesorno)from (
                 select  reservation.re_cancelyesorno
