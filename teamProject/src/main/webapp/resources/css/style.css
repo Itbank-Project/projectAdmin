@@ -132,6 +132,7 @@ header {
 	color: white;
 	width: 120px;
 	height: 33px;
+	cursor: pointer;
 }
 
 .dropdown-content a:hover {
