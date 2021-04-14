@@ -20,8 +20,8 @@
 			   left outer join hotel on room.ro_ho_name = hotel.ho_name
 			   left outer join admin on admin.ad_id = hotel.ho_ad_id
     	where admin.ad_id = #{ad_id}
-    	and reservation.re_paydate >= (#{startDate}) 
-    	and reservation.re_paydate <= (#{endDate})
+    	and reservation.re_paydate >= (to_date(#{startDate},'YYYY-MM-DD')) 
+    	and reservation.re_paydate <= (to_date(#{endDate},'YYYY-MM-DD'))
     	order by reservation.re_paydate desc
 	]]>	
 	</select>
@@ -36,8 +36,8 @@
 			   left outer join hotel on room.ro_ho_name = hotel.ho_name
 			   left outer join admin on admin.ad_id = hotel.ho_ad_id
     	where admin.ad_id = #{ad_id}
-    	and reservation.re_paydate >= (#{startDate}) 
-    	and reservation.re_paydate <= (#{endDate})
+    	and reservation.re_paydate >= (to_date(#{startDate},'YYYY-MM-DD')) 
+    	and reservation.re_paydate <= (to_date(#{endDate},'YYYY-MM-DD'))
     	and reservation.re_cancelyesorno = 'Y'
 	]]>	
 	</select>
@@ -52,8 +52,8 @@
 			   left outer join hotel on room.ro_ho_name = hotel.ho_name
 			   left outer join admin on admin.ad_id = hotel.ho_ad_id
     	where admin.ad_id = #{ad_id}
-    	and reservation.re_paydate >= (#{startDate}) 
-    	and reservation.re_paydate <= (#{endDate})
+    	and reservation.re_paydate >= (to_date(#{startDate},'YYYY-MM-DD')) 
+    	and reservation.re_paydate <= (to_date(#{endDate},'YYYY-MM-DD'))
     	and reservation.re_cancelyesorno = 'N'
 	]]>	
 	</select>
@@ -90,6 +90,6 @@
 
 	<!-- 취소 버튼 누르기 -->
 	<update id="updateCancel" parameterType="hashmap">
-		update reservation set re_payment = 0 ,re_cancelYesOrNo = 'Y' , re_cancelDate = #{cancelDate} where re_idx = #{re_idx}
+		update reservation set re_payment = 0 ,re_cancelYesOrNo = 'Y' , re_cancelDate = to_date(#{cancelDate},'YYYY-MM-DD') where re_idx = #{re_idx}
 	</update>
 </mapper>
